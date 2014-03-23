@@ -1,11 +1,11 @@
 CXX = g++
 CXXFLAGS = -Wall -MMD
 EXEC = cc3k
-OBJECTS = cc3k.o game.o world.o floor.o chamber.o passage.o cell.o item.o gold.o fileparser.o 
+OBJECTS = cc3k.o game.o world.o floor.o chamber.o passage.o cell.o item.o gold.o itemfactory.o fileparser.o 
 DEPENDS = ${OBJECTS:.o=.d}
 
 ${EXEC}: ${OBJECTS}
-	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${EXEC} -g
+	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${EXEC}
 
 -include ${DEPENDS}
 
