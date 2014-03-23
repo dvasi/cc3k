@@ -33,42 +33,13 @@ void Floor::initializePassages(){
 
 void Floor::initializeCells(vector<vector<char> > floorLayout){ 
 
-
-	//REFACTOR THIS FUNCTION LATER, SO SPAGHETTI LIKE AND LONG AND UGLY
-	FileParser parser = FileParser();
 	char current;
 	for (int i = 0; i < BOARD_HEIGHT; ++i){
 		vector<Cell*> row;
 		for (int j = 0; j < BOARD_WIDTH; ++j){
 			
 			current = floorLayout.at(i).at(j);
-			int cellType = parser.charToCellType(current);
-			Cell *parsedCell;
-			if (cellType == Cell::Floor){
-			
-				bool hasItem = false;
-				bool hasEnemy = false;
-				bool hasPlayer = false;
-				int id = -1;
-
-				//Item case - char is a digit
-				if (isdigit(current)){
-					ItemFactory itFactory = ItemFactory();
-					Item* newItem = itFactory.getItem(current);
-					hasItem = true;
-					id = newItem->getId();
-					floorItems[id] = newItem;
-				}
-				
-				//Enemy case
-				
-				//Player case possibly
-				
-				parsedCell = new Cell(i,j,cellType,hasItem,hasEnemy,hasPlayer,id);
-			}
-			else{
-				parsedCell = new Cell(i,j,cellType);
-			}
+			Cell *parsedCell = generateCell(i,j,current);
 			row.push_back(parsedCell);
 		}
 		allCells.push_back(row);		
@@ -84,4 +55,41 @@ void Floor::initializeCells(vector<vector<char> > floorLayout){
 		}
 		cout << endl;
 	}
+}
+
+Cell* Floor::generateCell(int xPos, int yPos, char symbol){
+
+	FileParser parser = FileParser();
+	int cellType = parser.charToCellType(symbol);
+	Cell *parsedCell;
+	
+	//Could have an object occupying it possibly
+	if (cellType == Cell::Floor){
+	
+		bool hasItem = false;
+		bool hasEnemy = false;
+		bool hasPlayer = false;
+		int id = -1;
+
+		//Item case
+		if (isdigit(symbol)){
+			ItemFactory itFactory = ItemFactory();
+			Item* newItem = itFactory.getItem(symbol);
+			hasItem = true;
+			id = newItem->getId();
+			floorItems[id] = newItem;
+		}
+		
+		//Enemy case
+		
+		//Player case
+		
+		parsedCell = new Cell(xPos,yPos,cellType,hasItem,hasEnemy,hasPlayer,id);
+	}
+	
+	else{
+		parsedCell = new Cell(xPos,yPos,cellType);
+	}
+	
+	return parsedCell;
 }

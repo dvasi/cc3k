@@ -25,6 +25,7 @@ public:
 	void initializeChambers();
 	void initializePassages();
 	void initializeCells(std::vector<std::vector<char> > floorLayout);
+	Cell* generateCell(int xPos, int yPos, char symbol);
 	Floor();
 	~Floor();
 	
