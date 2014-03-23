@@ -2,7 +2,9 @@
 #define __FLOOR_H__
 #include <iostream>
 #include <vector>
+#include <map>
 #include "cell.h"
+#include "item.h"
 
 const int BOARD_WIDTH = 79;
 const int BOARD_HEIGHT = 25;
@@ -17,7 +19,7 @@ class Floor{
 	std::vector<std::vector<Cell*> > allCells;
 	
 	//Game object management
-	
+	std::map<int,Item*> floorItems;
 	
 public:
 	void initializeChambers();

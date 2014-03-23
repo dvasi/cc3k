@@ -30,7 +30,7 @@ void Game::cleanup(){
 void Game::initializeWorld(string layoutFileName){
 
 	FileParser parser = FileParser();
-	vector<vector<char> > layout = parser.parseFloorLayout(DEFAULT_LAYOUT_CONFIG_FILE);
+	vector<vector<char> > layout = parser.parseFloorLayout("testLayout.txt");
 	worldInstance->initializeFloors(layout);
 	worldInstance->layoutGiven = (layoutFileName == DEFAULT_LAYOUT_CONFIG_FILE) ?
 								 false :
