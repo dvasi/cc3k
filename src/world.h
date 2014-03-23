@@ -14,8 +14,10 @@ class World{
 	std::vector <Floor*> floors;
 	static World* worldInstance;
 	static void cleanup();
+	int currentFloor;
 	
 	void initializeFloors(std::vector<std::vector<char> > floorLayout);
+	void displayFloors();
 	World();
 	~World();
 	

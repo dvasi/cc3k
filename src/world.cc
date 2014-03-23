@@ -4,7 +4,7 @@
 #include "floor.h"
 using namespace std;
 
-World::World(): layoutGiven(false) {}
+World::World(): layoutGiven(false), currentFloor(0) {}
 
 World::~World(){
 
@@ -34,7 +34,11 @@ void World::initializeFloors(vector<vector<char> > floorLayout){
 	//IN PROGRESS, TODO
 	Floor *floor = new Floor();
 	floor->initializeCells(floorLayout);
-	delete floor;
+	floors.push_back(floor);
+}
+
+void World::displayFloors(){
+	(floors.at(currentFloor))->display();
 }
 
 World* World::worldInstance = NULL;

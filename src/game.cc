@@ -41,6 +41,7 @@ void Game::initializeWorld(string layoutFileName){
 void Game::displayWorld(){
 
 	//OVERLOAD THE PRINT FOR WORLD OR SOMETHING
+	worldInstance->displayFloors();
 
 }
 

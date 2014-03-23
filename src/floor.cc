@@ -43,21 +43,14 @@ void Floor::initializeCells(vector<vector<char> > floorLayout){
 			
 			current = floorLayout.at(i).at(j);
 			Cell *parsedCell = generateCell(i,j,current);
+			parsedCell->notifyDisplay(*td);
 			row.push_back(parsedCell);
 		}
 		allCells.push_back(row);		
 	}
-	
+
 	initializeChambers();
 	initializePassages();
-	
-	//For debugging
-	for(int i = 0; i < BOARD_HEIGHT; ++i){	
-		for(int j = 0; j < BOARD_WIDTH; ++j){
-			cout << floorLayout.at(i).at(j);
-		}
-		cout << endl;
-	}
 }
 
 Cell* Floor::generateCell(int xPos, int yPos, char symbol){
@@ -87,12 +80,16 @@ Cell* Floor::generateCell(int xPos, int yPos, char symbol){
 		
 		//Player case
 		
-		parsedCell = new Cell(xPos,yPos,cellType,hasItem,hasEnemy,hasPlayer,id);
+		parsedCell = new Cell(xPos,yPos,cellType,symbol,hasItem,hasEnemy,hasPlayer,id);
 	}
 	
 	else{
-		parsedCell = new Cell(xPos,yPos,cellType);
+		parsedCell = new Cell(xPos,yPos,cellType,symbol);
 	}
 	
 	return parsedCell;
+}
+
+void Floor::display(){
+	cout << *td;
 }
