@@ -10,17 +10,3 @@ Cell::~Cell(){}
 void Cell::setCellType(int type) { cellType = type; }
 
 int Cell::getCellType() { return cellType; }
-
-int Cell::charToCellType(char c){
-
-	if (c == ' ') return Cell::Empty;
-	
-	if ((c == '|')||(c == '-')) return Cell::Wall;
-	
-	if (c == '+') return Cell::Doorway;
-	
-	if (c == '#') return Cell::Passage;
-	
-	else return Cell::Floor;
-
-}

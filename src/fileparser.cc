@@ -3,13 +3,14 @@
 #include <iostream>
 #include <vector>
 #include "fileparser.h"
+#include "cell.h"
 #include "floor.h"
 
 using namespace std;
 
-FileParser::FileParser(string fName): fileName(fName) {}
+FileParser::FileParser() {}
 
-vector<vector<char> > FileParser::parseFloorLayout(){
+vector<vector<char> > FileParser::parseFloorLayout(string fileName){
 
 	vector<vector<char> > cells;
 	
@@ -31,4 +32,17 @@ vector<vector<char> > FileParser::parseFloorLayout(){
 	}
 	file.close();
 	return cells;
+}
+
+int FileParser::charToCellType(char c){
+
+	if (c == ' ') return Cell::Empty;
+	
+	if ((c == '|')||(c == '-')) return Cell::Wall;
+	
+	if (c == '+') return Cell::Doorway;
+	
+	if (c == '#') return Cell::Passage;
+	
+	else return Cell::Floor;
 }

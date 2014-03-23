@@ -3,6 +3,7 @@
 #include "floor.h"
 #include "world.h"
 #include "cell.h"
+#include "fileparser.h"
 
 using namespace std;
 
@@ -29,10 +30,12 @@ void Floor::initializePassages(){
 
 void Floor::initializeCells(vector<vector<char> > floorLayout){ 
 
+	FileParser parser = FileParser();
+
 	for (int i = 0; i < BOARD_HEIGHT; ++i){
 		vector<Cell*> row;
 		for (int j = 0; j < BOARD_WIDTH; ++j){
-			int cellType = Cell::charToCellType((floorLayout.at(i)).at(j));
+			int cellType = parser.charToCellType((floorLayout.at(i)).at(j));
 			row.push_back(new Cell(i,j,cellType));
 		}
 		allCells.push_back(row);		

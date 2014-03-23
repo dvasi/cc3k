@@ -20,7 +20,6 @@ public:
 	};
 	void setCellType(int type);
 	int getCellType();
-	static int charToCellType(char c);
 	Cell(int xPos, int yPos, int type);
 	~Cell();
 	

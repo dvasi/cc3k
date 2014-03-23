@@ -5,13 +5,11 @@
 #include "floor.h"
 
 class FileParser{
-
-	std::string fileName;
-	FileParser();
 	
 public:
-	std::vector<std::vector<char> > parseFloorLayout();	
-	FileParser(std::string fName);
+	std::vector<std::vector<char> > parseFloorLayout(std::string fileName);	
+	FileParser();
+	int charToCellType(char c);
     
 };
 #endif
