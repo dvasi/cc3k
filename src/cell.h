@@ -2,6 +2,7 @@
 #define __TILE_H__
 #include <iostream>
 #include <vector>
+#include "textdisplay.h"
 
 class Cell{
 
@@ -20,12 +21,16 @@ public:
 	};
 	void setCellType(int type);
 	int getCellType();
+	
 	void setOccupiedId(int id);
 	int getOccupiedId();
+	
 	bool hasEnemy();
 	bool hasItem();
 	bool hasPlayer();
 	void setOccupation(bool hasEnemy, bool hasItem, bool hasPlayer, int id=-1);
+	
+	void notifyDisplay(TextDisplay &td);
 	
 	Cell(int xPos, int yPos, int type);
 	Cell(int xPos, int yPos, int type, bool hasEnemy, bool hasItem, bool hasPlayer, int id);

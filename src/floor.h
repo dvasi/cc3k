@@ -5,6 +5,7 @@
 #include <map>
 #include "cell.h"
 #include "item.h"
+#include "textdisplay.h"
 
 const int BOARD_WIDTH = 79;
 const int BOARD_HEIGHT = 25;
@@ -12,6 +13,7 @@ const int BOARD_HEIGHT = 25;
 class Floor{
 
 	friend class World;
+	TextDisplay *td;
 	
 	//Layout management
 	std::vector<int> chambers;

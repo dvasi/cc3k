@@ -10,7 +10,9 @@
 
 using namespace std;
 
-Floor::Floor(){}
+Floor::Floor(){
+	td = new TextDisplay(BOARD_WIDTH, BOARD_HEIGHT);
+}
 
 Floor::~Floor(){
 
@@ -20,6 +22,7 @@ Floor::~Floor(){
 			allCells.at(i).pop_back();
 		}
 	}
+	delete td;
 
 }
 
