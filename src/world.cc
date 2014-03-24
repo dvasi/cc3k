@@ -31,10 +31,12 @@ void World::cleanup(){
 
 void World::initializeFloors(vector<vector<char> > floorLayout){
 
-	//IN PROGRESS, TODO
-	Floor *floor = new Floor();
-	floor->initializeCells(floorLayout);
-	floors.push_back(floor);
+	for (int i = 0; i < NUM_FLOORS; ++i){
+		Floor *floor = new Floor();
+		floor->initializeCells(floorLayout);
+		floor->initializeChambers(floorLayout);
+		floors.push_back(floor);
+	}
 }
 
 void World::displayFloors(){

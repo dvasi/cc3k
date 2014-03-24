@@ -5,6 +5,7 @@
 #include <map>
 #include "cell.h"
 #include "item.h"
+#include "chamber.h"
 #include "textdisplay.h"
 
 const int BOARD_WIDTH = 79;
@@ -16,16 +17,16 @@ class Floor{
 	TextDisplay *td;
 	
 	//Layout management
-	std::vector<int> chambers;
-	std::vector<int> passages;
+	std::vector<Chamber*> chambers;
 	std::vector<std::vector<Cell*> > allCells;
 	
 	//Game object management
 	std::map<int,Item*> floorItems;
 	
 public:
-	void initializeChambers();
-	void initializePassages();
+	void floodFillChamber(int xStartPos, int yStartPos, char floodChar, std::vector<std::vector<char> > &floorLayout);
+	void createChamber(std::vector<std::vector<char> > floorLayout);
+	void initializeChambers(std::vector<std::vector<char> > floorLayout);
 	void initializeCells(std::vector<std::vector<char> > floorLayout);
 	void display();
 	Cell* generateCell(int xPos, int yPos, char symbol);

@@ -5,6 +5,7 @@
 #include "floor.h"
 #include "world.h"
 #include "cell.h"
+#include "chamber.h"
 #include "fileparser.h"
 #include "itemfactory.h"
 
@@ -26,12 +27,58 @@ Floor::~Floor(){
 
 }
 
-void Floor::initializeChambers(){
-	//TODO
+void Floor::floodFillChamber(int xStartPos, int yStartPos, char floodChar, vector<vector<char> > &floorLayout){
+	char current = floorLayout.at(yStartPos).at(xStartPos);
+	if ((current == floodChar)||
+		(current == '-')||
+		(current == '|')||
+		(current == '+')||
+		(current == '#')) return;
+	floorLayout.at(yStartPos).at(xStartPos) = floodChar;
+	floodFillChamber(xStartPos-1,yStartPos, floodChar, floorLayout);
+	floodFillChamber(xStartPos+1,yStartPos, floodChar, floorLayout);
+	floodFillChamber(xStartPos,yStartPos-1, floodChar, floorLayout);
+	floodFillChamber(xStartPos,yStartPos+1, floodChar, floorLayout);
 }
 
-void Floor::initializePassages(){
-	//TODO
+void Floor::createChamber(vector<vector<char> > floorLayout){
+
+	vector<Cell*> chamberCells;
+	char current;
+	for (unsigned int i = 0; i < floorLayout.size(); ++i){
+		for (unsigned int j = 0; j < floorLayout.at(i).size(); ++j){
+			current = floorLayout.at(i).at(j);
+			if (current == 'X'){
+				chamberCells.push_back(allCells.at(i).at(j));
+			}
+		}
+	}
+	Chamber *newChamber = new Chamber(chamberCells);
+	chambers.push_back(newChamber);	
+}
+
+//Loops through original layout until it finds a floor cell,
+//then uses "Flood Fill" to mark all tiles in that chamber.
+//Now that the chamber is identified, we can initialize it
+//with the appropriate cells from our layout. After
+//a chamber is found we unmark it and proceed to find a new one.
+//We do this until our layout is exhausted, and hence all chambers are found.
+void Floor::initializeChambers(vector<vector<char> > floorLayout){
+	
+	char current;
+	vector<vector<char> > floorLayoutCopy = floorLayout;
+	vector<vector<char> > floodFillAcc = floorLayout;
+	for (unsigned int i = 0; i < floorLayoutCopy.size(); ++i){
+		for (unsigned int j = 0; j < floorLayoutCopy.at(i).size(); ++j){
+			current = floorLayoutCopy.at(i).at(j);
+			if (current == '.'){
+				floodFillChamber(j,i,'X',floorLayoutCopy);
+				floodFillChamber(j,i,'X',floodFillAcc);
+				createChamber(floodFillAcc);
+				floodFillChamber(j,i,'.',floodFillAcc);				
+			}			
+		}
+	}
 }
 
 void Floor::initializeCells(vector<vector<char> > floorLayout){ 
@@ -48,9 +95,6 @@ void Floor::initializeCells(vector<vector<char> > floorLayout){
 		}
 		allCells.push_back(row);		
 	}
-
-	initializeChambers();
-	initializePassages();
 }
 
 Cell* Floor::generateCell(int xPos, int yPos, char symbol){

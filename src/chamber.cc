@@ -4,10 +4,6 @@
 #include "cell.h"
 using namespace std; 
 
-Chamber::Chamber(){}
+Chamber::Chamber(vector<Cell*> cells): cells(cells){}
 
 Chamber::~Chamber(){}
-
-void Chamber::setCells(){
-	//TODO
-}
