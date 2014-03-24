@@ -10,7 +10,7 @@
 
 const int BOARD_WIDTH = 79;
 const int BOARD_HEIGHT = 25;
-
+// hello
 class Floor{
 
 	friend class World;
