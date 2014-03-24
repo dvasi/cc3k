@@ -1,1 +1,1 @@
-Just testing things out...sorry in advance if I break something!
+Should change the arrays of chars for enemy and gold piles to array of pointers to enemies/gold piles...after those are implemented.
