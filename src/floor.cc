@@ -24,6 +24,17 @@ Floor::~Floor(){
 		}
 	}
 	delete td;
+	
+	while(!chambers.empty()){
+		delete chambers.back();
+		chambers.pop_back();
+	}
+	
+	for (map<int,Item*>::iterator i = floorItems.begin(); i != floorItems.end(); ++i){
+		delete i->second;
+		floorItems.erase(i);
+	}
+	
 
 }
 
