@@ -9,14 +9,15 @@ protected:
     int gold;
     char race;
 public:
-	Character();
-	Character(char);
-	int getHp();
-	int getAtk();
-	int getDef();
-	void doubleGold(); //for dwarf class
-	//void negBadPotion(); //elf class
-	void halveGold(); //orc class
+    Character();
+    Character(char);
+    void displayInfo();
+    int getHp();
+    int getAtk();
+    int getDef();
+    void doubleGold(); //for dwarf class
+    //void negBadPotion(); //elf class
+    void halveGold(); //orc class
 };
 
 

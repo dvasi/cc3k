@@ -1,4 +1,5 @@
 #include "character.h"
+#include <iostream>
 using namespace std;
 
 Character::Character(): hp(140), atk(20), def(20), gold(0)
@@ -17,6 +18,19 @@ Character::Character(char selectedRace): gold(0)
     currentAtk = atk;
     currentDef = def;
 }
+
+
+void Character::displayInfo()  //maybe overload this function later with displayWorld
+{
+    string theRace;
+    if (race == 'h') theRace = "human";
+    if (race == 'd') theRace = "dwarf";
+    if (race == 'e') theRace = "elf";
+    if (race == 'o') theRace = "orc";
+    cout << "Race: " << theRace << "   Gold: " << gold << endl;
+    cout << "Hp: " << hp << endl << "Atk: " << atk << endl << "Def: " << def << endl;
+}
+
 
 int Character::getHp()
 {
@@ -84,10 +98,10 @@ void Character::doubleGold()
 
 //void Character::negBadPotion()
 //{
- //   if (race == "elf")
-   // {
+//   if (race == "elf")
+// {
 //potion
-    //}
+//}
 //}
 
 void Character::halveGold()

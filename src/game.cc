@@ -78,7 +78,7 @@ void Game::chooseRace()
         player = new Character();
         cout << "Begining game as human." << endl;
     }
-
+    player->displayInfo();
 }
 
 Game *Game::gameInstance = NULL;
