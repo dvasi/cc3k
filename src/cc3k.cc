@@ -11,5 +11,4 @@ int main(int argc, char *argv[])
     cc3k->chooseRace();
     cc3k->displayWorld();
     return 0;
-
 }

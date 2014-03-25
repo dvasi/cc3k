@@ -7,47 +7,42 @@
 #include "character.h"
 using namespace std;
 
-Game::Game()
-{
-    worldInstance = World::getInstance();
+Game::Game(){
+	worldInstance = World::getInstance();
 }
 
-Game::~Game() {}
+Game::~Game(){}
 
-Game *Game::getInstance()
-{
+Game* Game::getInstance(){
 
-    if (!gameInstance)
-    {
-        gameInstance = new Game();
-        atexit(cleanup);
-    }
-    return gameInstance;
+	if (!gameInstance){
+		gameInstance = new Game();
+		atexit(cleanup);
+	}
+	return gameInstance;
 }
 
-void Game::cleanup()
-{
+void Game::cleanup(){
 
-    delete gameInstance;
-    gameInstance = NULL;
+	delete gameInstance;
+	gameInstance = NULL;
 }
 
-void Game::initializeWorld(string layoutFileName)
-{
+void Game::initializeWorld(string layoutFileName){
 
-    FileParser parser = FileParser();
-    vector<vector<char> > layout = parser.parseFloorLayout(DEFAULT_LAYOUT_CONFIG_FILE);
-    worldInstance->initializeFloors(layout);
-    worldInstance->layoutGiven = (layoutFileName == DEFAULT_LAYOUT_CONFIG_FILE) ?
-                                 false :
-                                 true;
+	FileParser parser = FileParser();
+	vector<vector<char> > layout = parser.parseFloorLayout("testLayout.txt");
+	worldInstance->initializeFloors(layout);
+	worldInstance->layoutGiven = (layoutFileName == DEFAULT_LAYOUT_CONFIG_FILE) ?
+								 false :
+								 true;
 
 }
 
-void Game::displayWorld()
-{
+void Game::displayWorld(){
 
-    //OVERLOAD THE PRINT FOR WORLD OR SOMETHING
+	//OVERLOAD THE PRINT FOR WORLD OR SOMETHING
+	worldInstance->displayFloors();
 
 }
 
@@ -81,4 +76,4 @@ void Game::chooseRace()
     player->displayInfo();
 }
 
-Game *Game::gameInstance = NULL;
+Game* Game::gameInstance = NULL;

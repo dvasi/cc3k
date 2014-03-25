@@ -1,1 +1,1 @@
-Should change the arrays of chars for enemy and gold piles to array of pointers to enemies/gold piles...after those are implemented.
+CS246 Desin Project - Chamber Crawler 3000

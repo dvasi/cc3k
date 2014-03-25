@@ -5,11 +5,13 @@
 #include "cell.h"
 class Chamber{
 
-	std::vector<std::vector<Cell*> > cells;
+
+	//Only need a 1d vector for chamber cells
+	//Mainly used for random object generation
+	std::vector<Cell*> cells;
 	
 public:
-	void setCells();
-	Chamber();
+	Chamber(std::vector<Cell*> cells);
 	~Chamber();
 	
 };

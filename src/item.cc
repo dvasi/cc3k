@@ -14,4 +14,7 @@ int Item::generateId(){
 	return idCount;
 }
 
+
+int Item::getId(){ return id; }
+
 int Item::idCount = 0;
