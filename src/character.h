@@ -1,24 +1,25 @@
 #ifndef __CHARACTER_H__
 #define __CHARACTER_H__
-
 class Character
 {
+
+	static int idCount;
+	
 protected:
     int hp, atk, def;
-    int currentAtk, currentDef; //for potion boosts that only last the floor
-    int gold;
-    char race;
+    int x, y;
+    int id;
+    int currentAtk, currentDef; //For debuffs
 public:
-    Character();
-    Character(char);
-    void displayInfo();
+    Character(int hp, int atk, int def, int x, int y, int id);
+    virtual ~Character() = 0;
+    static int generateId();
+	int getId();
     int getHp();
     int getAtk();
     int getDef();
-    void doubleGold(); //for dwarf class
-    //void negBadPotion(); //elf class
-    void halveGold(); //orc class
+    int getBaseAtk();
+    int getBaseDef();
+    void setPos(int xPos, int yPos);
 };
-
-
 #endif

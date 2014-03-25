@@ -23,11 +23,15 @@ int main(int argc, char *argv[]){
 	init_pair(6, COLOR_MAGENTA, COLOR_BLACK);
 
 	Game *cc3k = Game::getInstance();
-	PlayerInterpreter interpreter = PlayerInterpreter();
-	cc3k->initializeWorld();	
+	
+	
+	PlayerInterpreter interpreter = PlayerInterpreter(cc3k);
+	cout << "INTERPRETER MADE" << endl;
 	cc3k->displayWelcomeScreen();
 	cc3k->displayRaceSelectionScreen();
 	interpreter.interpretCommand();
+	cc3k->initializeWorld();	
+	cout << "WORLD INITIALIZED" << endl;
 	cc3k->displayWorld();
 	getch();
 	endwin();

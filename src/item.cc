@@ -9,7 +9,6 @@ Item::~Item() {}
 void Item::use(){ cout << "Using item " << endl; } 
 
 int Item::generateId(){
-
 	idCount++;
 	return idCount;
 }
