@@ -21,6 +21,7 @@ public:
 	void initializeWorld(std::string layoutFileName=DEFAULT_LAYOUT_CONFIG_FILE);
 	void displayWorld();
 	void displayWelcomeScreen();
+	void displayRaceSelectionScreen();
 
 };
 #endif

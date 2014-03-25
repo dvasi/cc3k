@@ -2,6 +2,7 @@
 #include <map>
 #include <string>
 #include "playerinterpreter.h"
+#include "character.h"
 using namespace std;
 
 map<string,char> buildCommandMap(){
@@ -30,9 +31,16 @@ map<string,char> buildCommandMap(){
 PlayerInterpreter::~PlayerInterpreter(){}
 
 PlayerInterpreter::PlayerInterpreter():
-	CommandInterpreter(buildCommandMap()){}
+	CommandInterpreter(buildCommandMap()), raceSelected(false){}
 
 void PlayerInterpreter::interpretCommand(){
-	getch();
+
+	char cmd;
+	cmd = getch();
+	if (!raceSelected){
+		while ((cmd != 'h')&&(cmd != 'd')&&(cmd != 'e')&&(cmd != 'o'))
+			cmd = getch();
+		clear();
+	}
 }	
 
