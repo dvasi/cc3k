@@ -11,7 +11,7 @@
 
 using namespace std;
 
-Floor::Floor(){
+Floor::Floor(): dragons(0){
 	td = new TextDisplay(BOARD_WIDTH, BOARD_HEIGHT);
 }
 
@@ -147,4 +147,68 @@ Cell* Floor::generateCell(int xPos, int yPos, char symbol){
 
 void Floor::display(){
 	cout << *td;
+}
+
+void Floor::generateEnemies()
+{
+    int random;
+    for (int i = 0; i < dragons; ++i) //set number of dragons first, determined by number of dragon hoards
+    {
+        enemy[i] = dragons;
+    }
+
+    random = rand() % 18 + 1; //random number between 1 and 18
+
+    for (int i = dragons; i < numEnemies; ++i)
+    {
+        if (random >= 1 && random <= 4) // 2/9 chance of being werewolf
+        {
+            enemy[i] = 'w';
+        }
+        else if (random >= 5 && random <= 7) // 3/18 chance of being vampire
+        {
+            enemy[i] = 'v';
+        }
+        else if (random >= 8 && random <= 12) // 5/18 of being goblin
+        {
+            enemy[i] = 'g';
+        }
+        else if (random >= 13 && random <= 14) // 1/18 troll
+        {
+            enemy[i] = 't';
+        }
+        else if (random >= 15 && random <= 16) // 1/18 phoenix
+        {
+            enemy[i] = 'p';
+        }
+        else // 1/18 merchant
+        {
+            enemy[i] = 'm';
+        }
+
+    }
+}
+
+
+void Floor::generateGoldPiles() //randomly generate the 10 gold piles
+{
+    int random;
+    for (int i = 0; i < numGoldPiles; ++i)
+    {
+        random = rand() % 8 + 1; //random number between 1 and 8
+        if (random == 1) // 1/8 chance of dragon hoard
+        {
+            goldPiles[i] = 'd';
+            dragons++;
+        }
+        else if (random > 1 && random <= 6) // 5/8 chance of normal hoard
+        {
+            goldPiles[i] = 'n';
+        }
+        else // 2/8 chance of small hoard
+        {
+            goldPiles[i] = 's';
+        }
+    }
+
 }

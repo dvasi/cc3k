@@ -10,6 +10,8 @@
 
 const int BOARD_WIDTH = 79;
 const int BOARD_HEIGHT = 25;
+const int numEnemies = 20;
+const int numGoldPiles = 10;
 
 class Floor{
 
@@ -22,8 +24,15 @@ class Floor{
 	
 	//Game object management
 	std::map<int,Item*> floorItems;
+	char enemy[numEnemies]; //20 enemies per floor
+	char goldPiles[numGoldPiles]; //10 piles of gold per floor
+protected:
+	int dragons; //number of dragons on the floor
+
 	
 public:
+	void generateEnemies(); 
+	void generateGoldPiles();
 	void floodFillChamber(int xStartPos, int yStartPos, char floodChar, std::vector<std::vector<char> > &floorLayout);
 	void createChamber(std::vector<std::vector<char> > floorLayout);
 	void initializeChambers(std::vector<std::vector<char> > floorLayout);

@@ -4,6 +4,7 @@
 #include "game.h"
 #include "world.h"
 #include "fileparser.h"
+#include "character.h"
 using namespace std;
 
 Game::Game(){
@@ -43,6 +44,36 @@ void Game::displayWorld(){
 	//OVERLOAD THE PRINT FOR WORLD OR SOMETHING
 	worldInstance->displayFloors();
 
+}
+
+void Game::chooseRace()
+{
+    cout << "Please choose a race, or any key to begin as a human." << endl;
+    cout << "(d)warf" << endl << "(e)lf" << endl << "(o)rc" << endl;
+    char c;
+    cin >> c;
+    Character *player;
+    if (c == 'd')
+    {
+        player = new Character('d');
+        cout << "Beginning game as dwarf." << endl;
+    }
+    else if (c == 'e')
+    {
+        player = new Character('e');
+        cout << "Beginning game as elf." << endl;
+    }
+    else if (c == 'o')
+    {
+        player = new Character('o');
+        cout << "Beginning game as orc." << endl;
+    }
+    else
+    {
+        player = new Character();
+        cout << "Begining game as human." << endl;
+    }
+    player->displayInfo();
 }
 
 Game* Game::gameInstance = NULL;

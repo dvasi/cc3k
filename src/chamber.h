@@ -5,6 +5,7 @@
 #include "cell.h"
 class Chamber{
 
+
 	//Only need a 1d vector for chamber cells
 	//Mainly used for random object generation
 	std::vector<Cell*> cells;

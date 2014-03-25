@@ -15,6 +15,8 @@ class Game{
 
 public:
 	static Game* getInstance();
+	void chooseRace();
+
 	void initializeWorld(std::string layoutFileName=DEFAULT_LAYOUT_CONFIG_FILE);
 	void displayWorld();
 
