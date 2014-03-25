@@ -1,5 +1,6 @@
 #include <vector>
 #include <iostream>
+#include <ncurses.h>
 #include "textdisplay.h"
 using namespace std;
 
@@ -21,9 +22,8 @@ ostream &operator<<(ostream &out, const TextDisplay &td){
 
 	for (unsigned int i = 0; i < td.gameDisplay.size(); ++i){
 		for (unsigned int j = 0; j < td.gameDisplay.at(i).size(); ++j){
-			out << td.gameDisplay.at(i).at(j);
+			mvaddch(i,j,td.gameDisplay.at(i).at(j));
 		}
-		out << endl;
 	}
 	return out;
 }
