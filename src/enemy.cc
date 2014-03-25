@@ -1,5 +1,6 @@
 #include "enemy.h"
 #include <math.h>
+#include <iostream>
 using namespace std;
 
 
@@ -7,37 +8,37 @@ Enemy::Enemy(char type)
 {
     switch (type)
     {
-case 'v':
+    case 'v':
         hp = 50;
         atk = 25;
         def = 25;
         break;
-case 'w':
+    case 'w':
         hp = 120;
         atk = 30;
         def = 5;
         break;
-case 't':
+    case 't':
         hp = 120;
         atk = 25;
         def = 15;
         break;
-case 'g':
+    case 'g':
         hp = 70;
         atk = 5;
         def = 10;
         break;
-case 'm':
+    case 'm':
         hp = 30;
         atk = 70;
         def = 5;
         break;
-case 'd':
+    case 'd':
         hp = 150;
         atk = 20;
         def = 20;
         break;
-case 'p':
+    case 'p':
         hp = 50;
         atk = 35;
         def = 20;
@@ -47,23 +48,25 @@ case 'p':
 }
 
 
-int Enemy::takeDamage(int playerAtk)
+double Enemy::takeDamage(int playerAtk)
 {
-    return ceil((100 / (100 + def)) * playerAtk);
+    double damage = ceil((100.00 / (100.00 + def)) * playerAtk);
+    hp -= damage;
+    return damage;
 }
 
 
 int Enemy::getHp()
 {
-	return hp;
+    return hp;
 }
 
 int Enemy::getAtk()
 {
-	return atk;
+    return atk;
 }
 
 int Enemy::getDef()
 {
-	return def;
+    return def;
 }
