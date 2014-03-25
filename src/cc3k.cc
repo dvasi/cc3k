@@ -34,10 +34,6 @@ int main(int argc, char *argv[])
     cc3k->initializeWorld();
     cout << "WORLD INITIALIZED" << endl;
     cc3k->displayWorld();
-    Enemy *werewolf = new Enemy('w');
-    cout << "Werewolf HP is: " << werewolf->getHp() << endl;
-    cout << "Werewolf took " << werewolf->takeDamage(30) << " damage." << endl;
-    cout << "Werewolf HP is: " << werewolf->getHp() << endl;
     getch();
     endwin();
 
