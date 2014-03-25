@@ -7,6 +7,7 @@
 #include "item.h"
 #include "chamber.h"
 #include "textdisplay.h"
+#include "player.h"
 
 const int BOARD_WIDTH = 79;
 const int BOARD_HEIGHT = 25;
@@ -24,6 +25,7 @@ class Floor{
 	
 	//Game object management
 	std::map<int,Item*> floorItems;
+	std::map<int,Character*> floorCharacters;
 	char enemy[numEnemies]; //20 enemies per floor
 	char goldPiles[numGoldPiles]; //10 piles of gold per floor
 protected:

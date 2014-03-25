@@ -2,7 +2,8 @@
 #include <map>
 #include <string>
 #include "playerinterpreter.h"
-#include "character.h"
+#include "human.h"
+#include "game.h"
 using namespace std;
 
 map<string,char> buildCommandMap(){
@@ -30,17 +31,25 @@ map<string,char> buildCommandMap(){
 
 PlayerInterpreter::~PlayerInterpreter(){}
 
-PlayerInterpreter::PlayerInterpreter():
-	CommandInterpreter(buildCommandMap()), raceSelected(false){}
+PlayerInterpreter::PlayerInterpreter(Game* game):
+	CommandInterpreter(buildCommandMap()), raceSelected(false), game(game){}
 
 void PlayerInterpreter::interpretCommand(){
-
+	
 	char cmd;
 	cmd = getch();
 	if (!raceSelected){
-		while ((cmd != 'h')&&(cmd != 'd')&&(cmd != 'e')&&(cmd != 'o'))
+		while ((cmd != 'h')&&(cmd != 'd')&&(cmd != 'e')&&(cmd != 'o')){
 			cmd = getch();
-		clear();
+		}
+		raceSelected = true;
+		setPlayer(new Human(0,0,Character::generateId()));	
+		game->setPlayer(player);
+		clear();	
 	}
 }	
+
+void PlayerInterpreter::setPlayer(Player* player) { this->player = player; }
+
+Player* PlayerInterpreter::getPlayer() { return player; }
 

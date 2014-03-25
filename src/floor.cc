@@ -3,12 +3,12 @@
 #include <map>
 #include <cstdlib>
 #include "floor.h"
-#include "world.h"
 #include "cell.h"
 #include "chamber.h"
 #include "fileparser.h"
 #include "itemfactory.h"
-
+#include "player.h"
+#include "game.h" 
 using namespace std;
 
 Floor::Floor(): dragons(0){
@@ -134,6 +134,13 @@ Cell* Floor::generateCell(int xPos, int yPos, char symbol){
 		//Enemy case
 		
 		//Player case
+		if (symbol == '@'){
+			hasPlayer = true;
+			Player *player = Player::getInstance();
+			player->setPos(xPos,yPos);
+			id = player->getId();		
+			floorCharacters[id] = player;
+		}
 		
 		parsedCell = new Cell(xPos,yPos,cellType,symbol,hasItem,hasEnemy,hasPlayer,id);
 	}

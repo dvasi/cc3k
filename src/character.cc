@@ -2,112 +2,46 @@
 #include <iostream>
 using namespace std;
 
-Character::Character(): hp(140), atk(20), def(20), gold(0)
-{
-    currentAtk = atk;
-    currentDef = def;
-    race = 'h';
-}
+Character::Character(int hp, int atk, int def, int x, int y,int id): hp(hp), atk(atk), def(def), x(x), y(y), id(id), currentAtk(atk), currentDef(def){}
 
-Character::Character(char selectedRace): gold(0)
-{
-    race = selectedRace;
-    hp = getHp();
-    atk = getAtk();
-    def = getDef();
-    currentAtk = atk;
-    currentDef = def;
-}
-
-
-void Character::displayInfo()  //maybe overload this function later with displayWorld
-{
-    string theRace;
-    if (race == 'h') theRace = "human";
-    if (race == 'd') theRace = "dwarf";
-    if (race == 'e') theRace = "elf";
-    if (race == 'o') theRace = "orc";
-    cout << "Race: " << theRace << "   Gold: " << gold << endl;
-    cout << "Hp: " << hp << endl << "Atk: " << atk << endl << "Def: " << def << endl;
-}
-
+Character::~Character(){}
 
 int Character::getHp()
 {
-    if (race == 'd')
-    {
-        return 100;
-    }
-    else if (race == 'e')
-    {
-        return 140;
-    }
-    else if (race == 'o')
-    {
-        return 180;
-    }
-    else
-    {
-        return 140; //if human for some reason
-    }
+    return hp;
 }
 
 int Character::getAtk()
 {
-    if (race == 'd')
-    {
-        return 20;
-    }
-    else if (race == 'e' || race == 'o')
-    {
-        return 30;
-    }
-    else
-    {
-        return 20; //if human for some reason
-    }
+	return currentAtk;
 }
 
 int Character::getDef()
 {
-    if (race == 'd')
-    {
-        return 30;
-    }
-    else if (race == 'e')
-    {
-        return 10;
-    }
-    else if (race == 'o')
-    {
-        return 25;
-    }
-    else
-    {
-        return 20; //if human for some reason
-    }
+	return currentDef;
 }
 
-void Character::doubleGold()
-{
-    if (race == 'd') //double-check the race
-    {
-        gold *= 2;
-    }
+int Character::getBaseAtk(){
+	return atk;
 }
 
-//void Character::negBadPotion()
-//{
-//   if (race == "elf")
-// {
-//potion
-//}
-//}
-
-void Character::halveGold()
-{
-    if (race == 'o')
-    {
-        gold *= .5;
-    }
+int Character::getBaseDef(){
+	return def;
 }
+
+void Character::setPos(int xPos, int yPos){ 
+	
+	x = xPos;
+	y = yPos;
+}
+
+int Character::generateId(){
+	idCount++;
+	return idCount;
+}
+
+int Character::getId(){
+	return id;
+}
+
+int Character::idCount = 0;
