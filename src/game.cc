@@ -4,6 +4,7 @@
 #include "game.h"
 #include "world.h"
 #include "fileparser.h"
+<<<<<<< HEAD
 #include "character.h"
 using namespace std;
 
@@ -82,3 +83,47 @@ void Game::chooseRace()
 }
 
 Game *Game::gameInstance = NULL;
+=======
+using namespace std;
+
+Game::Game(){
+	worldInstance = World::getInstance();
+}
+
+Game::~Game(){}
+
+Game* Game::getInstance(){
+
+	if (!gameInstance){
+		gameInstance = new Game();
+		atexit(cleanup);
+	}
+	return gameInstance;
+}
+
+void Game::cleanup(){
+
+	delete gameInstance;
+	gameInstance = NULL;
+}
+
+void Game::initializeWorld(string layoutFileName){
+
+	FileParser parser = FileParser();
+	vector<vector<char> > layout = parser.parseFloorLayout("testLayout.txt");
+	worldInstance->initializeFloors(layout);
+	worldInstance->layoutGiven = (layoutFileName == DEFAULT_LAYOUT_CONFIG_FILE) ?
+								 false :
+								 true;
+
+}
+
+void Game::displayWorld(){
+
+	//OVERLOAD THE PRINT FOR WORLD OR SOMETHING
+	worldInstance->displayFloors();
+
+}
+
+Game* Game::gameInstance = NULL;
+>>>>>>> 1aeeadf45f3190acfa69d09b6fc53abe9f699bdb

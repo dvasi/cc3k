@@ -10,6 +10,10 @@ class Item{
 	public:
 		Item(int id);
 		static int generateId();
+<<<<<<< HEAD
+=======
+		int getId();
+>>>>>>> 1aeeadf45f3190acfa69d09b6fc53abe9f699bdb
 		virtual ~Item() = 0;
 		virtual void use();
 };
