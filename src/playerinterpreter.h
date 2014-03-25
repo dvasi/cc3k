@@ -6,6 +6,7 @@
 #include "commandinterpreter.h"
 class PlayerInterpreter: public CommandInterpreter{
 
+	bool raceSelected;
 	public:
 		//Assumes cmdName is already in the Command Map
 		PlayerInterpreter();

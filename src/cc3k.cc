@@ -26,6 +26,7 @@ int main(int argc, char *argv[]){
 	PlayerInterpreter interpreter = PlayerInterpreter();
 	cc3k->initializeWorld();	
 	cc3k->displayWelcomeScreen();
+	cc3k->displayRaceSelectionScreen();
 	interpreter.interpretCommand();
 	cc3k->displayWorld();
 	getch();
