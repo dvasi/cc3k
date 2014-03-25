@@ -1,10 +1,12 @@
 #ifndef __GAME_H__
 #define __GAME_H__
 #include <cstdlib>
+#include <vector>
+#include <string>
 #include "world.h"
 
 const std::string DEFAULT_LAYOUT_CONFIG_FILE = "defaultLayout.txt";
-
+              
 class Game{
 
     World* worldInstance;
@@ -16,9 +18,9 @@ class Game{
 public:
 	static Game* getInstance();
 	void chooseRace();
-
 	void initializeWorld(std::string layoutFileName=DEFAULT_LAYOUT_CONFIG_FILE);
 	void displayWorld();
+	void displayWelcomeScreen();
 
 };
 #endif
