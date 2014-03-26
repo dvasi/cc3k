@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
         f->generateEnemies();
           for (int i = 0; i < 10; ++i)
      {
-         cout << f->enemy[i] << endl;
+         cout << f->spawnedEnemies[i]->getHp() << endl;
      }
     return 0;
 }

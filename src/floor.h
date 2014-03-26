@@ -28,7 +28,7 @@ class Floor
     //Game object management
     std::map<int, Item *> floorItems;
     std::map<int, Character *> floorCharacters;
-   // std::vector<char> enemy;
+    // std::vector<char> enemy;
     //char enemy[numEnemies]; //20 enemies per floor
     char goldPiles[numGoldPiles]; //10 piles of gold per floor
 protected:
@@ -36,9 +36,9 @@ protected:
 
 
 public:
-	    char enemy[numEnemies]; //20 enemies per floor
-
-	    //std::vector<char> enemy;
+    char enemy[numEnemies]; //20 enemies per floor
+    Enemy *spawnedEnemies[numEnemies];
+    //std::vector<char> enemy;
     //std::vector<Enemy *> spawnedEnemies;
     void generateEnemies();
     void generateGoldPiles();

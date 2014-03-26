@@ -9,7 +9,6 @@
 #include "itemfactory.h"
 #include "player.h"
 #include "game.h"
-//#include "enemy.h"
 using namespace std;
 
 Floor::Floor(): dragons(0)
@@ -228,11 +227,11 @@ void Floor::generateEnemies()
 
     }
 
-    // for (int i = 0; i < numEnemies; ++i)
-    // {
+    for (int i = 0; i < numEnemies; ++i)
+    {
 
-    //     spawnedEnemies.assign(1, new Enemy(enemy[i]));
-    // }
+         spawnedEnemies[i]=new Enemy(enemy[i]);
+     }
 
 }
 
