@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include "commandinterpreter.h"
+#include "movecommand.h"
 #include "player.h"
 #include "game.h"
 class PlayerInterpreter: public CommandInterpreter{
@@ -17,6 +18,8 @@ class PlayerInterpreter: public CommandInterpreter{
 		~PlayerInterpreter();
 		void interpretCommand();
 		void setPlayer(Player* player);
+		bool isMoveValid(MoveCommand* cmd);
+		void movePlayer(MoveCommand* cmd);
 		Player* getPlayer();		
 };
 #endif

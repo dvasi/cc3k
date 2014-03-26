@@ -29,6 +29,8 @@ public:
 	void displayWelcomeScreen();
 	void displayRaceSelectionScreen();
 	void setPlayer(Player* player);
+	int getCurrentFloor();
+	std::vector <Floor*> getFloors();
 	Player* getPlayer();
 
 };

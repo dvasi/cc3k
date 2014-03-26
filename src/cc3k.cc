@@ -34,7 +34,10 @@ int main(int argc, char *argv[])
     cc3k->initializeWorld();
     cout << "WORLD INITIALIZED" << endl;
     cc3k->displayWorld();
-    getch();
+    while (true){
+		interpreter.interpretCommand();
+		cc3k->displayWorld();
+	}
     endwin();
 
 

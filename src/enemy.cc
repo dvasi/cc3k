@@ -3,8 +3,8 @@
 #include <iostream>
 using namespace std;
 
-
-Enemy::Enemy(char type)
+Enemy::Enemy(int hp, int atk, int def, int x, int y, char type, int id): Character(hp,atk,def,x,y,id), isHostile(true), type(type){}
+/*Enemy::Enemy(char type)
 {
     switch (type)
     {
@@ -45,28 +45,11 @@ Enemy::Enemy(char type)
         break;
     }
 
-}
-
+}*/
 
 double Enemy::takeDamage(int playerAtk)
 {
     double damage = ceil((100.00 / (100.00 + def)) * playerAtk);
     hp -= damage;
     return damage;
-}
-
-
-int Enemy::getHp()
-{
-    return hp;
-}
-
-int Enemy::getAtk()
-{
-    return atk;
-}
-
-int Enemy::getDef()
-{
-    return def;
 }

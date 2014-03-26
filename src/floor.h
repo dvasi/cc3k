@@ -16,7 +16,7 @@ const int numGoldPiles = 10;
 
 class Floor{
 
-	friend class World;
+	friend class Game;
 	TextDisplay *td;
 	
 	//Layout management
@@ -40,7 +40,10 @@ public:
 	void initializeChambers(std::vector<std::vector<char> > floorLayout);
 	void initializeCells(std::vector<std::vector<char> > floorLayout);
 	void display();
+	void removeItem(int id);
 	Cell* generateCell(int xPos, int yPos, char symbol);
+	Cell* getCellAt(int xPos, int yPos);
+	TextDisplay* getTextDisplay();
 	Floor();
 	~Floor();
 	

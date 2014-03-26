@@ -214,6 +214,10 @@ void Game::displayFloors(){
 	(floors.at(currentFloor))->display();
 }
 
+vector <Floor*> Game::getFloors() { return floors; }
+
+int Game::getCurrentFloor() { return currentFloor; }
+
 Player* Game::getPlayer(){ return player; }
 
 Game* Game::gameInstance = NULL;

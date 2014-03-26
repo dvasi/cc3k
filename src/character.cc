@@ -35,6 +35,10 @@ void Character::setPos(int xPos, int yPos){
 	y = yPos;
 }
 
+int Character::getXPos(){ return x; }
+
+int Character::getYPos(){ return y; }
+
 int Character::generateId(){
 	idCount++;
 	return idCount;

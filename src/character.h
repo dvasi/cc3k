@@ -20,6 +20,8 @@ public:
     int getDef();
     int getBaseAtk();
     int getBaseDef();
+    int getXPos();
+    int getYPos();
     void setPos(int xPos, int yPos);
 };
 #endif

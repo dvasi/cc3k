@@ -7,6 +7,7 @@
 #include "chamber.h"
 #include "fileparser.h"
 #include "itemfactory.h"
+#include "enemyfactory.h"
 #include "player.h"
 #include "game.h" 
 using namespace std;
@@ -117,8 +118,8 @@ Cell* Floor::generateCell(int xPos, int yPos, char symbol){
 	//Could have an object occupying it possibly
 	if (cellType == Cell::Floor){
 	
-		bool hasItem = false;
 		bool hasEnemy = false;
+		bool hasItem = false;
 		bool hasPlayer = false;
 		int id = -1;
 
@@ -132,6 +133,20 @@ Cell* Floor::generateCell(int xPos, int yPos, char symbol){
 		}
 		
 		//Enemy case
+		if  ((symbol == 'V')||
+			(symbol == 'W')||
+			(symbol == 'N')||
+			(symbol == 'M')||
+			(symbol == 'X')||
+			(symbol == 'T')||
+			(symbol == 'M')){
+			EnemyFactory enFactory = EnemyFactory();			
+			Enemy *newEnemy = enFactory.getEnemy(symbol);
+			newEnemy->setPos(xPos,yPos);
+			hasEnemy = true;
+			id = newEnemy->getId();
+			floorCharacters[id] = newEnemy;
+		}
 		
 		//Player case
 		if (symbol == '@'){
@@ -142,7 +157,7 @@ Cell* Floor::generateCell(int xPos, int yPos, char symbol){
 			floorCharacters[id] = player;
 		}
 		
-		parsedCell = new Cell(xPos,yPos,cellType,symbol,hasItem,hasEnemy,hasPlayer,id);
+		parsedCell = new Cell(xPos,yPos,cellType,symbol,hasEnemy,hasItem,hasPlayer,id);
 	}
 	
 	else{
@@ -219,3 +234,13 @@ void Floor::generateGoldPiles() //randomly generate the 10 gold piles
     }
 
 }
+
+void Floor::removeItem(int id){
+	
+	delete floorItems[id];
+	floorItems.erase(id);
+}
+
+TextDisplay* Floor::getTextDisplay(){ return td; }
+
+Cell* Floor::getCellAt(int xPos, int yPos) { return allCells.at(xPos).at(yPos); }

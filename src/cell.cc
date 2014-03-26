@@ -50,6 +50,14 @@ char Cell::symbolToDisplayChar(char cellSymbol){
 	else return ' ';
 }
 
+char Cell::typeToDisplayChar(int cellType){
+
+	if (cellType == Cell::Doorway) return '+';
+	if (cellType == Cell::Passage) return '#';
+	if (cellType == Cell::Floor) return '.';
+	return ' ';
+}
+
 void Cell::notifyDisplay(TextDisplay &td){
 	td.notify(x,y,symbolToDisplayChar(cellSymbol));
 }

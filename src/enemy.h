@@ -1,16 +1,13 @@
 #ifndef __ENEMY_H__
 #define __ENEMY_H__
-
-class Enemy{
+#include "character.h"
+class Enemy : public Character{
 protected:
-int hp, atk, def;
 bool isHostile; //for merchants and dragons
+char type;
 public:
-	Enemy(char);
+	Enemy(int hp, int atk, int def, int x, int y, char type, int id);
 	double takeDamage(int);
-	int getHp();
-	int getAtk();
-	int getDef();
 };
 
 #endif

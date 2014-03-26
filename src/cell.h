@@ -35,6 +35,7 @@ public:
 	void setOccupation(bool hasEnemy, bool hasItem, bool hasPlayer, int id=-1);
 	
 	char symbolToDisplayChar(char cellSymbol);
+	char typeToDisplayChar(int cellType);
 	void notifyDisplay(TextDisplay &td);
 	
 	Cell(int xPos, int yPos, int type, char symbol);
