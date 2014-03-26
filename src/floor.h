@@ -8,6 +8,7 @@
 #include "chamber.h"
 #include "textdisplay.h"
 #include "player.h"
+#include "enemy.h"
 
 const int BOARD_WIDTH = 79;
 const int BOARD_HEIGHT = 25;
@@ -28,10 +29,10 @@ class Floor{
 	std::map<int,Character*> floorCharacters;
 	char enemy[numEnemies]; //20 enemies per floor
 	char goldPiles[numGoldPiles]; //10 piles of gold per floor
-protected:
-	int dragons; //number of dragons on the floor
 
-	
+protected:
+    int dragons; //number of dragons on the floor
+
 public:
 	void generateEnemies(); 
 	void generateGoldPiles();
@@ -46,6 +47,5 @@ public:
 	TextDisplay* getTextDisplay();
 	Floor();
 	~Floor();
-	
 };
 #endif

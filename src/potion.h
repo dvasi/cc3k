@@ -1,13 +1,14 @@
 #ifndef __POTION_H__
 #define __POTION_H__
 
-class Potion(){
-	
-bool revealed; //whether or not the player knows the potion's effect
+class Potion: public Item
+{
+protected:
+    int magnitude;
+    bool revealed; //whether or not the player knows the potion's effect
+    bool beneficial; //good potion or bad potion
 public:
-	Potion();
-	~Potion();
-
+    int getMagnitude();
 };
 
 #endif
