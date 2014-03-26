@@ -136,7 +136,7 @@ bool PlayerInterpreter::isMoveValid(MoveCommand* cmd){
 	Cell* newCell = currentFloor->getCellAt(newX,newY);
 	
 	if ((abs(currentX-newX) <=1)&&(abs(currentY-newY) <=1)){	
-		if (newCell->getCellType() != Cell::Wall){		
+		if ((newCell->getCellType() != Cell::Wall)&&(newCell->getCellType() != Cell::Empty)){		
 			if (!newCell->hasEnemy()){										
 				if (newCell->hasItem()){					
 					if (newCell->symbolToDisplayChar(newCell->getCellSymbol()) == 'G'){
