@@ -142,6 +142,9 @@ bool PlayerInterpreter::isMoveValid(MoveCommand* cmd){
 					if (newCell->symbolToDisplayChar(newCell->getCellSymbol()) == 'G'){
 						return true;
 					}
+					else{
+						return false;
+					}
 				}
 				return true;
 			}
