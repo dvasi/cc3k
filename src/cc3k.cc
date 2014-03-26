@@ -38,12 +38,20 @@ int main(int argc, char *argv[])
     getch();
     endwin();
 
-    printf("The following block is a test of spawning enemies (in the amount of 20, per floor)");
+    //FROM HERE TO RETURN CAN BE COMMENTED OUT, ALL TESTING
+    printf("The following block is a test of spawning enemies/gold (in the amount of 20/10, per floor)");
     Floor *f = new Floor();
+    f->generateGoldPiles(); //gold piles must be generated before enemies to determine number of dragons
     f->generateEnemies();
     for (int i = 0; i < 20; ++i)
     {
-        printf("The hp of this enemy is: %d \n", f->spawnedEnemies[i]->getHp());
+        printf("The following monster is: %c \n", f->enemy[i]);
+        printf("It has hp: %d \n", f->spawnedEnemies[i]->getHp());
+    }
+    for (int i = 0; i < 10; ++i)
+    {
+        //cout << f->goldPiles[i] << endl;
+        printf("The following gold pile is of size: %c \n", f->goldPiles[i]);
     }
     return 0;
 }

@@ -230,8 +230,8 @@ void Floor::generateEnemies()
     for (int i = 0; i < numEnemies; ++i)
     {
 
-         spawnedEnemies[i]=new Enemy(enemy[i]);
-     }
+        spawnedEnemies[i] = new Enemy(enemy[i]);
+    }
 
 }
 
@@ -239,6 +239,7 @@ void Floor::generateEnemies()
 void Floor::generateGoldPiles() //randomly generate the 10 gold piles
 {
     int random;
+    srand(time(0));
     for (int i = 0; i < numGoldPiles; ++i)
     {
         random = rand() % 8 + 1; //random number between 1 and 8
