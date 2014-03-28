@@ -96,6 +96,10 @@ void PlayerInterpreter::movePlayer(MoveCommand &cmd){
 	
 	ch->setPos(newX,newY);
 	
+	if (newCell->getCellType() == Cell::Stairs){
+		game->setCurrentFloor(game->getCurrentFloor() + 1);
+	}
+	
 	//Set up our new cell
 	if ((newCell->hasItem())&&(newCell->symbolToDisplayChar(newCell->getCellSymbol()) == 'G')){
 		//Add gold to player TODO

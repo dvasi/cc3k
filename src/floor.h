@@ -24,6 +24,7 @@ class Floor{
 	//Layout management
 	std::vector<Chamber*> chambers;
 	std::vector<std::vector<Cell*> > allCells;
+	int startXPos, startYPos;
 	
 	//Game object management
 	std::map<int,Item*> floorItems;
@@ -47,6 +48,8 @@ public:
 	void removeItem(int id);
 	Cell* generateCell(int xPos, int yPos, char symbol);
 	Cell* getCellAt(int xPos, int yPos);
+	int getStartXPos();
+	int getStartYPos();
 	TextDisplay* getTextDisplay();
 	Floor();
 	~Floor();

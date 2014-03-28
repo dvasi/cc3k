@@ -18,6 +18,7 @@ public:
 		Floor,
 		Doorway,
 		Passage,
+		Stairs,
 		Empty
 	};
 	void setCellType(int type);

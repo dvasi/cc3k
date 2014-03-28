@@ -19,7 +19,7 @@ using namespace std;
 int DEBUG_ROW = BOARD_HEIGHT + 1;
 int DEBUG_COL = 0;
 
-Floor::Floor(): dragons(0)
+Floor::Floor(): startXPos(3), startYPos(3), dragons(0)
 {
     td = new TextDisplay(BOARD_WIDTH, BOARD_HEIGHT);
 }
@@ -176,6 +176,8 @@ Cell* Floor::generateCell(int xPos, int yPos, char symbol){
 			hasPlayer = true;
 			Player *player = Player::getInstance();
 			player->setPos(xPos,yPos);
+			startXPos = xPos;
+			startYPos = yPos;
 		}
 		
 		parsedCell = new Cell(xPos,yPos,cellType,symbol,hasEnemy,hasItem,hasPlayer,id);
@@ -303,6 +305,10 @@ void Floor::updateState(){
         }
     }
 }
+
+int Floor::getStartXPos(){ return startXPos; }
+
+int Floor::getStartYPos(){ return startYPos; }
 
 TextDisplay* Floor::getTextDisplay(){ return td; }
 

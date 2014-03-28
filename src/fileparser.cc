@@ -44,5 +44,7 @@ int FileParser::charToCellType(char c){
 	
 	if (c == '#') return Cell::Passage;
 	
+	if (c == '/') return Cell::Stairs;
+	
 	else return Cell::Floor;
 }

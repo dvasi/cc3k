@@ -229,6 +229,9 @@ void Game::initializeFloors(vector<vector<char> > floorLayout){
 		floor->initializeChambers(floorLayout);
 		floors->push_back(floor);
 	}
+	int startXPos = floors->at(0)->getStartXPos();
+	int startYPos = floors->at(0)->getStartYPos();
+	player->setPos(startXPos,startYPos);
 }
 
 void Game::displayFloors(){
@@ -242,6 +245,13 @@ void Game::updateState(){
 vector <Floor*>* Game::getFloors() { return floors; }
 
 int Game::getCurrentFloor() { return currentFloor; }
+
+void Game::setCurrentFloor(int floorNum) { 
+	currentFloor = floorNum; 
+	int startXPos = floors->at(currentFloor)->getStartXPos();
+	int startYPos = floors->at(currentFloor)->getStartYPos();
+	player->setPos(startXPos,startYPos);	
+}
 
 Player* Game::getPlayer(){ return player; }
 

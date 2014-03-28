@@ -31,6 +31,7 @@ public:
 	void selectRace();
 	void setPlayer(Player* player);
 	int getCurrentFloor();
+	void setCurrentFloor(int floorNum);
 	void updateState();
 	std::vector <Floor*>* getFloors();
 	Player* getPlayer();
