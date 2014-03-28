@@ -1,7 +1,11 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 #include <map>
 #include <cstdlib>
+#include <string>
+#include <ncurses.h>
+#include <sstream>
 #include "floor.h"
 #include "cell.h"
 #include "chamber.h"
@@ -12,37 +16,37 @@
 #include "game.h"
 using namespace std;
 
+int DEBUG_ROW = BOARD_HEIGHT + 1;
+int DEBUG_COL = 0;
+
 Floor::Floor(): dragons(0)
 {
     td = new TextDisplay(BOARD_WIDTH, BOARD_HEIGHT);
 }
 
-Floor::~Floor()
-{
-
-    for (unsigned int i = 0; i < allCells.size(); ++i)
-    {
-        while (!allCells.at(i).empty())
-        {
+Floor::~Floor(){
+    for (unsigned int i = 0; i < allCells.size(); ++i){
+        while (!allCells.at(i).empty()){
             delete allCells.at(i).back();
             allCells.at(i).pop_back();
         }
     }
     delete td;
 
-    while (!chambers.empty())
-    {
+    while (!chambers.empty()){
         delete chambers.back();
         chambers.pop_back();
     }
 
-    for (map<int, Item *>::iterator i = floorItems.begin(); i != floorItems.end(); ++i)
-    {
+    for (map<int, Item*>::iterator i = floorItems.begin(); i != floorItems.end(); ++i){
         delete i->second;
         floorItems.erase(i);
     }
-
-
+    
+    for (map<int, Enemy*>::iterator i = floorEnemies.begin(); i != floorEnemies.end(); ++i){
+        delete i->second;
+        floorEnemies.erase(i);
+    }
 }
 
 void Floor::floodFillChamber(int xStartPos, int yStartPos, char floodChar, vector<vector<char> > &floorLayout)
@@ -163,7 +167,8 @@ Cell* Floor::generateCell(int xPos, int yPos, char symbol){
 			newEnemy->setPos(xPos,yPos);
 			hasEnemy = true;
 			id = newEnemy->getId();
-			floorCharacters[id] = newEnemy;
+			floorEnemies[id] = newEnemy;
+			enemyActionQueue.push(newEnemy);
 		}
 		
 		//Player case
@@ -171,8 +176,6 @@ Cell* Floor::generateCell(int xPos, int yPos, char symbol){
 			hasPlayer = true;
 			Player *player = Player::getInstance();
 			player->setPos(xPos,yPos);
-			id = player->getId();		
-			floorCharacters[id] = player;
 		}
 		
 		parsedCell = new Cell(xPos,yPos,cellType,symbol,hasEnemy,hasItem,hasPlayer,id);
@@ -274,10 +277,31 @@ void Floor::generateGoldPiles() //randomly generate the 10 gold piles
 }
 */
 
-void Floor::removeItem(int id){
-	
+void Floor::removeItem(int id){	
 	delete floorItems[id];
 	floorItems.erase(id);
+}
+
+void Floor::updateState(){
+	int popCount = 0;
+	while (!enemyActionQueue.empty()){
+		Enemy* currentEnemy = enemyActionQueue.front();
+		currentEnemy->update();
+		enemyActionQueue.pop();
+		popCount++;
+	}	
+
+	//Remake our enemy action queue for next update
+	for (unsigned int i = 0; i < allCells.size(); ++i){
+        for(unsigned int j = 0; j < allCells.at(i).size(); ++j){
+        	Cell *current = allCells.at(i).at(j);
+        	if (current->hasEnemy()){
+        		int enemyId = current->getOccupiedId();
+        		Enemy* nextEnemy = floorEnemies[enemyId];
+        		enemyActionQueue.push(nextEnemy);
+        	}
+        }
+    }
 }
 
 TextDisplay* Floor::getTextDisplay(){ return td; }

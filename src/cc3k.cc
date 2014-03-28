@@ -9,7 +9,7 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-
+	
     initscr();
     clear();
     noecho();
@@ -23,40 +23,25 @@ int main(int argc, char *argv[])
     init_pair(4, COLOR_RED, COLOR_BLACK);
     init_pair(5, COLOR_GREEN, COLOR_BLACK);
     init_pair(6, COLOR_MAGENTA, COLOR_BLACK);
+    srand(time(0));
 
+	
     Game *cc3k = Game::getInstance();
-
-
-    PlayerInterpreter interpreter = PlayerInterpreter(cc3k);
-    cout << "INTERPRETER MADE" << endl;
     cc3k->displayWelcomeScreen();
     cc3k->displayRaceSelectionScreen();
-    interpreter.interpretCommand();
+    cc3k->selectRace();
+    Player *player = Player::getInstance();
     cc3k->initializeWorld();
-    cout << "WORLD INITIALIZED" << endl;
     cc3k->displayWorld();
+    
     while (true){
-		interpreter.interpretCommand();
+		player->update();
+		cc3k->updateState();
 		cc3k->displayWorld();
 	}
+	
+	
     endwin();
-
-    //FROM HERE TO RETURN CAN BE COMMENTED OUT, ALL TESTING
-    /*
-    printf("The following block is a test of spawning enemies/gold (in the amount of 20/10, per floor)");
-    Floor *f = new Floor();
-    f->generateGoldPiles(); //gold piles must be generated before enemies to determine number of dragons
-    f->generateEnemies();
-    for (int i = 0; i < 20; ++i)
-    {
-        printf("The following monster is: %c \n", f->enemy[i]);
-        printf("It has hp: %d \n", f->spawnedEnemies[i]->getHp());
-    }
-    for (int i = 0; i < 10; ++i)
-    {
-        //cout << f->goldPiles[i] << endl;
-        printf("The following gold pile is of size: %c \n", f->goldPiles[i]);
-    }
-    */
+	
     return 0;
 }

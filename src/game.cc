@@ -10,9 +10,15 @@
 #include "character.h"
 using namespace std;
 
-Game::Game(): layoutGiven(false), currentFloor(0){}
+Game::Game(): layoutGiven(false), currentFloor(0){ }
 
-Game::~Game(){}
+Game::~Game(){
+	while (!floors->empty()){
+        delete floors->back();
+        floors->pop_back();
+    }
+    delete floors;
+}
 
 Game* Game::getInstance(){
 
@@ -200,21 +206,40 @@ void Game::setPlayer(Player* player){
 	this->player = player;
 }
 
+void Game::selectRace(){
+	char cmd;
+	cmd = getch();
+	while  ((cmd != 'h')&&
+			(cmd != 'd')&&
+			(cmd != 'e')&&
+			(cmd != 'o')){
+		cmd = getch();
+	}	
+	setPlayer(new Human(0,0,Character::generateId()));
+	clear();	
+	return;	
+}
+
 void Game::initializeFloors(vector<vector<char> > floorLayout){
 
+	floors = new vector<Floor*>();
 	for (int i = 0; i < NUM_FLOORS; ++i){
 		Floor *floor = new Floor();
 		floor->initializeCells(floorLayout);
 		floor->initializeChambers(floorLayout);
-		floors.push_back(floor);
+		floors->push_back(floor);
 	}
 }
 
 void Game::displayFloors(){
-	(floors.at(currentFloor))->display();
+	(floors->at(currentFloor))->display();
 }
 
-vector <Floor*> Game::getFloors() { return floors; }
+void Game::updateState(){
+	(floors->at(currentFloor))->updateState();
+}
+
+vector <Floor*>* Game::getFloors() { return floors; }
 
 int Game::getCurrentFloor() { return currentFloor; }
 

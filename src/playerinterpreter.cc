@@ -9,99 +9,87 @@
 #include "textdisplay.h"
 using namespace std;
 
-map<string,char> buildCommandMap(){
+const char MOVE_UP = '8';
+const char MOVE_DOWN = '5';
+const char MOVE_LEFT = '4';
+const char MOVE_RIGHT = '6';
+const char MOVE_UP_LEFT = '7';
+const char MOVE_UP_RIGHT = '9';
+const char MOVE_DOWN_LEFT = '1';
+const char MOVE_DOWN_RIGHT = '3';
+const char USE = 'u';
+const char ATTACK = 'a';
+const char CHOOSE_HUMAN = 'h';
+const char CHOOSE_ELF = 'e';
+const char CHOOSE_DWARF = 'd';
+const char CHOOSE_ORC = 'o';
+const char RESTART = 'r';
+const char QUIT = 'q';
 
-	//Default commands for Player
-	map<string,char> cmdMap;
-	cmdMap["moveUp"] = '8';
-	cmdMap["moveDown"] = '5';
-	cmdMap["moveLeft"] = '4';
-	cmdMap["moveRight"] = '6';
-	cmdMap["moveUpLeft"] = '7';
-	cmdMap["moveUpRight"] = '9';
-	cmdMap["moveDownLeft"] = '1';
-	cmdMap["moveDownRight"] = '3';
-	cmdMap["use"] = 'u';
-	cmdMap["attack"] = 'a';
-	cmdMap["chooseHuman"] = 'h';
-	cmdMap["chooseElf"] = 'e';
-	cmdMap["chooseDwarf"] = 'd';
-	cmdMap["chooseOrc"] = 'o';
-	cmdMap["restart"] = 'r';
-	cmdMap["quit"] = 'q';
-	return cmdMap;
-}
 
 PlayerInterpreter::~PlayerInterpreter(){}
 
-PlayerInterpreter::PlayerInterpreter(Game* game):
-	CommandInterpreter(buildCommandMap()), raceSelected(false), game(game){}
-
-void PlayerInterpreter::interpretCommand(){
+PlayerInterpreter::PlayerInterpreter(){ 
+	game = Game::getInstance(); 
+}
+	
+void PlayerInterpreter::interpretCommand(Player* player){
 	
 	char cmd;
 	cmd = getch();
-	if (!raceSelected){
-		while  ((cmd != commandMap["chooseHuman"])&&
-				(cmd != commandMap["chooseDwarf"])&&
-				(cmd != commandMap["chooseElf"])&&
-				(cmd != commandMap["chooseOrc"])){
-			cmd = getch();
-		}
-		raceSelected = true;
-		setPlayer(new Human(0,0,Character::generateId()));	
-		game->setPlayer(player);
-		clear();	
-		return;
+	
+	if (cmd == MOVE_UP){
+		MoveCommand playerMove = MoveCommand(player, player->getXPos()-1, player->getYPos());	
+		if (isMoveValid(playerMove)) movePlayer(playerMove);
+		else interpretCommand(player);			
+	}
+	if (cmd == MOVE_DOWN){
+		MoveCommand playerMove = MoveCommand(player, player->getXPos()+1, player->getYPos());
+		if (isMoveValid(playerMove)) movePlayer(playerMove);		
+		else interpretCommand(player);
+	}
+	if (cmd == MOVE_LEFT){
+		MoveCommand playerMove = MoveCommand(player, player->getXPos(), player->getYPos()-1);
+		if (isMoveValid(playerMove)) movePlayer(playerMove);
+		else interpretCommand(player);		
+	}
+	if (cmd == MOVE_RIGHT){
+		MoveCommand playerMove = MoveCommand(player, player->getXPos(), player->getYPos()+1);
+		if (isMoveValid(playerMove)) movePlayer(playerMove);
+		else interpretCommand(player);		
+	}
+	if (cmd == MOVE_UP_LEFT){
+		MoveCommand playerMove = MoveCommand(player, player->getXPos()-1, player->getYPos()-1);
+		if (isMoveValid(playerMove)) movePlayer(playerMove);	
+		else interpretCommand(player);	
+	}
+	if (cmd == MOVE_UP_RIGHT){
+		MoveCommand playerMove = MoveCommand(player, player->getXPos()-1, player->getYPos()+1);
+		if (isMoveValid(playerMove)) movePlayer(playerMove);	
+		else interpretCommand(player);	
+	}
+	if (cmd == MOVE_DOWN_LEFT){
+		MoveCommand playerMove = MoveCommand(player, player->getXPos()+1, player->getYPos()-1);
+		if (isMoveValid(playerMove)) movePlayer(playerMove);
+		else interpretCommand(player);		
+	}
+	if (cmd == MOVE_DOWN_RIGHT){
+		MoveCommand playerMove = MoveCommand(player, player->getXPos()+1, player->getYPos()+1);
+		if (isMoveValid(playerMove)) movePlayer(playerMove);	
+		else interpretCommand(player);	
 	}
 	
-	if (cmd == commandMap["moveUp"]){
-		MoveCommand* playerMove = new MoveCommand(player, player->getXPos()-1, player->getYPos());
-		if (isMoveValid(playerMove)) movePlayer(playerMove);		
-	}
-	if (cmd == commandMap["moveDown"]){
-		MoveCommand* playerMove = new MoveCommand(player, player->getXPos()+1, player->getYPos());
-		if (isMoveValid(playerMove)) movePlayer(playerMove);		
-	}
-	if (cmd == commandMap["moveLeft"]){
-		MoveCommand* playerMove = new MoveCommand(player, player->getXPos(), player->getYPos()-1);
-		if (isMoveValid(playerMove)) movePlayer(playerMove);		
-	}
-	if (cmd == commandMap["moveRight"]){
-		MoveCommand* playerMove = new MoveCommand(player, player->getXPos(), player->getYPos()+1);
-		if (isMoveValid(playerMove)) movePlayer(playerMove);		
-	}
-	if (cmd == commandMap["moveUpLeft"]){
-		MoveCommand* playerMove = new MoveCommand(player, player->getXPos()-1, player->getYPos()-1);
-		if (isMoveValid(playerMove)) movePlayer(playerMove);		
-	}
-	if (cmd == commandMap["moveUpRight"]){
-		MoveCommand* playerMove = new MoveCommand(player, player->getXPos()-1, player->getYPos()+1);
-		if (isMoveValid(playerMove)) movePlayer(playerMove);		
-	}
-	if (cmd == commandMap["moveDownLeft"]){
-		MoveCommand* playerMove = new MoveCommand(player, player->getXPos()+1, player->getYPos()-1);
-		if (isMoveValid(playerMove)) movePlayer(playerMove);		
-	}
-	if (cmd == commandMap["moveDownRight"]){
-		MoveCommand* playerMove = new MoveCommand(player, player->getXPos()+1, player->getYPos()+1);
-		if (isMoveValid(playerMove)) movePlayer(playerMove);		
-	}
 	
 }	
 
-void PlayerInterpreter::setPlayer(Player* player) { this->player = player; }
+void PlayerInterpreter::movePlayer(MoveCommand &cmd){
 
-Player* PlayerInterpreter::getPlayer() { return player; }
-
-void PlayerInterpreter::movePlayer(MoveCommand* cmd){
-
-	Character *ch = cmd->getCharacter();
+	Character *ch = Player::getInstance();
 	int currentX = ch->getXPos();
 	int currentY = ch->getYPos();
-	int newX = cmd->getXPos();
-	int newY = cmd->getYPos();
-	Floor* currentFloor = game->getFloors().at(game->getCurrentFloor());
+	int newX = cmd.getXPos();
+	int newY = cmd.getYPos();
+	Floor* currentFloor = game->getFloors()->at(game->getCurrentFloor());
 	Cell* currentCell = currentFloor->getCellAt(currentX,currentY);
 	Cell* newCell = currentFloor->getCellAt(newX,newY);
 	TextDisplay *td = currentFloor->getTextDisplay();
@@ -125,14 +113,13 @@ void PlayerInterpreter::movePlayer(MoveCommand* cmd){
 	newCell->notifyDisplay(*td);
 }
 
-bool PlayerInterpreter::isMoveValid(MoveCommand* cmd){
-
-	Character *ch = cmd->getCharacter();
+bool PlayerInterpreter::isMoveValid(MoveCommand &cmd){
+	Character *ch = Player::getInstance();
 	int currentX = ch->getXPos();
 	int currentY = ch->getYPos();
-	int newX = cmd->getXPos();
-	int newY = cmd->getYPos();
-	Floor* currentFloor = game->getFloors().at(game->getCurrentFloor());
+	int newX = cmd.getXPos();
+	int newY = cmd.getYPos();	
+	Floor* currentFloor = game->getFloors()->at(game->getCurrentFloor());
 	Cell* newCell = currentFloor->getCellAt(newX,newY);
 	
 	if ((abs(currentX-newX) <=1)&&(abs(currentY-newY) <=1)){	

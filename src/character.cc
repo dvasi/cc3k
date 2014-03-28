@@ -48,4 +48,6 @@ int Character::getId(){
 	return id;
 }
 
+char Character::getSymbol(){ return 'h'; }
+
 int Character::idCount = 0;

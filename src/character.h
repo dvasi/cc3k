@@ -2,7 +2,6 @@
 #define __CHARACTER_H__
 class Character
 {
-
 	static int idCount;
 	
 protected:
@@ -23,5 +22,6 @@ public:
     int getXPos();
     int getYPos();
     void setPos(int xPos, int yPos);
+    virtual char getSymbol();
 };
 #endif

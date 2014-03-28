@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <vector>
 #include <string>
-#include "player.h"
+#include "human.h"
 #include "floor.h"
 
 const std::string DEFAULT_LAYOUT_CONFIG_FILE = "defaultLayout.txt";
@@ -16,7 +16,7 @@ class Game{
     static void cleanup();
     bool layoutGiven;
     int currentFloor;
-	std::vector <Floor*> floors;
+	std::vector <Floor*> *floors;
 	void initializeFloors(std::vector<std::vector<char> > floorLayout);
 	void displayFloors();
     Game();
@@ -28,9 +28,11 @@ public:
 	void displayWorld();
 	void displayWelcomeScreen();
 	void displayRaceSelectionScreen();
+	void selectRace();
 	void setPlayer(Player* player);
 	int getCurrentFloor();
-	std::vector <Floor*> getFloors();
+	void updateState();
+	std::vector <Floor*>* getFloors();
 	Player* getPlayer();
 
 };

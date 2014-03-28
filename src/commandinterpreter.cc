@@ -6,12 +6,6 @@ using namespace std;
 
 CommandInterpreter::~CommandInterpreter(){}
 
-CommandInterpreter::CommandInterpreter(map<string,char> cmdMap): commandMap(cmdMap){}
+CommandInterpreter::CommandInterpreter() {}
 
-void CommandInterpreter::setCommand(string cmdName, char cmdChar){
-	commandMap[cmdName] = cmdChar;
-}
-
-char CommandInterpreter::getCommand(string cmdName){
-	return commandMap[cmdName];
-}
+void CommandInterpreter::interpretCommand(Character* ch){}

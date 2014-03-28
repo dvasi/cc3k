@@ -3,16 +3,13 @@
 #include <ncurses.h>
 #include <map>
 #include <string>
+#include "character.h"
 class CommandInterpreter{
 	
 	protected:
-		std::map<std::string,char> commandMap;
-		CommandInterpreter(std::map<std::string,char> cmdMap);
+		CommandInterpreter();
 		virtual ~CommandInterpreter() = 0;
 	public:
-		//Assumes cmdName is already in the Command Map
-		void setCommand(std::string cmdName, char cmdChar);
-		char getCommand(std::string cmdName);
-		virtual void interpretCommand() = 0;		
+		virtual void interpretCommand(Character* ch);		
 };
 #endif

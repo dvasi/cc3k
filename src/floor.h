@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <queue>
 #include "cell.h"
 #include "item.h"
 #include "chamber.h"
@@ -26,7 +27,8 @@ class Floor{
 	
 	//Game object management
 	std::map<int,Item*> floorItems;
-	std::map<int,Character*> floorCharacters;
+	std::map<int,Enemy*> floorEnemies;
+	std::queue<Enemy*> enemyActionQueue;
 	char enemy[numEnemies]; //20 enemies per floor
 	char goldPiles[numGoldPiles]; //10 piles of gold per floor
 
@@ -41,6 +43,7 @@ public:
 	void initializeChambers(std::vector<std::vector<char> > floorLayout);
 	void initializeCells(std::vector<std::vector<char> > floorLayout);
 	void display();
+	void updateState();
 	void removeItem(int id);
 	Cell* generateCell(int xPos, int yPos, char symbol);
 	Cell* getCellAt(int xPos, int yPos);
