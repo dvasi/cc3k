@@ -1,8 +1,9 @@
 #include "character.h"
+#include "visitor.h"
 #include <iostream>
 using namespace std;
 
-Character::Character(int hp, int atk, int def, int x, int y,int id): hp(hp), atk(atk), def(def), x(x), y(y), id(id), currentAtk(atk), currentDef(def){}
+Character::Character(int hp, int atk, int def, int x, int y,int id): hp(hp), atk(atk), def(def), x(x), y(y), id(id), maxHp(hp), currentAtk(atk), currentDef(def){}
 
 Character::~Character(){}
 
@@ -48,6 +49,14 @@ int Character::getId(){
 	return id;
 }
 
+int Character::getMaxHp(){
+	return maxHp;
+}
+
 char Character::getSymbol(){ return 'h'; }
+
+void Character::accept(Visitor* v){ v->visit(this); }
+
+void Character::takeDmg(int dmg) { hp -= dmg; }
 
 int Character::idCount = 0;
