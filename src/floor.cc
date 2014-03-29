@@ -284,16 +284,18 @@ void Floor::removeItem(int id){
 	floorItems.erase(id);
 }
 
-void Floor::updateState(){
-	int popCount = 0;
-	while (!enemyActionQueue.empty()){
-		Enemy* currentEnemy = enemyActionQueue.front();
-		currentEnemy->update();
-		enemyActionQueue.pop();
-		popCount++;
-	}	
+void Floor::removeEnemy(int id){
+	delete floorEnemies[id];
+	floorEnemies.erase(id);
+}
 
-	//Remake our enemy action queue for next update
+Enemy* Floor::getEnemy(int id){
+	return floorEnemies[id];
+}
+
+void Floor::updateState(){
+
+	//Make our enemy action queue for proper ordering
 	for (unsigned int i = 0; i < allCells.size(); ++i){
         for(unsigned int j = 0; j < allCells.at(i).size(); ++j){
         	Cell *current = allCells.at(i).at(j);
@@ -304,6 +306,13 @@ void Floor::updateState(){
         	}
         }
     }
+	while (!enemyActionQueue.empty()){
+		Enemy* currentEnemy = enemyActionQueue.front();
+		currentEnemy->update();
+		enemyActionQueue.pop();
+	}	
+
+	
 }
 
 int Floor::getStartXPos(){ return startXPos; }

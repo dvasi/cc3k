@@ -15,6 +15,8 @@ public:
     static Player* getInstance();
     void update();
     char getSymbol();
+    int getGold();
+    void setGold(int gold);
     virtual ~Player() = 0;
 };
 #endif

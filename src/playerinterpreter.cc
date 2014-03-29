@@ -2,21 +2,24 @@
 #include <map>
 #include <string>
 #include <cmath>
+#include <cstdlib>
 #include "playerinterpreter.h"
 #include "human.h"
 #include "game.h"
 #include "movecommand.h"
+#include "attackcommand.h"
 #include "textdisplay.h"
+#include "attackvisitor.h"
 using namespace std;
 
-const char MOVE_UP = '8';
-const char MOVE_DOWN = '5';
-const char MOVE_LEFT = '4';
-const char MOVE_RIGHT = '6';
-const char MOVE_UP_LEFT = '7';
-const char MOVE_UP_RIGHT = '9';
-const char MOVE_DOWN_LEFT = '1';
-const char MOVE_DOWN_RIGHT = '3';
+const char UP = '8';
+const char DOWN = '5';
+const char LEFT = '4';
+const char RIGHT = '6';
+const char UP_LEFT = '7';
+const char UP_RIGHT = '9';
+const char DOWN_LEFT = '1';
+const char DOWN_RIGHT = '3';
 const char USE = 'u';
 const char ATTACK = 'a';
 const char CHOOSE_HUMAN = 'h';
@@ -38,48 +41,91 @@ void PlayerInterpreter::interpretCommand(Player* player){
 	char cmd;
 	cmd = getch();
 	
-	if (cmd == MOVE_UP){
+	if (cmd == UP){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos()-1, player->getYPos());	
 		if (isMoveValid(playerMove)) movePlayer(playerMove);
 		else interpretCommand(player);			
 	}
-	if (cmd == MOVE_DOWN){
+	if (cmd == DOWN){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos()+1, player->getYPos());
 		if (isMoveValid(playerMove)) movePlayer(playerMove);		
 		else interpretCommand(player);
 	}
-	if (cmd == MOVE_LEFT){
+	if (cmd == LEFT){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos(), player->getYPos()-1);
 		if (isMoveValid(playerMove)) movePlayer(playerMove);
 		else interpretCommand(player);		
 	}
-	if (cmd == MOVE_RIGHT){
+	if (cmd == RIGHT){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos(), player->getYPos()+1);
 		if (isMoveValid(playerMove)) movePlayer(playerMove);
 		else interpretCommand(player);		
 	}
-	if (cmd == MOVE_UP_LEFT){
+	if (cmd == UP_LEFT){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos()-1, player->getYPos()-1);
 		if (isMoveValid(playerMove)) movePlayer(playerMove);	
 		else interpretCommand(player);	
 	}
-	if (cmd == MOVE_UP_RIGHT){
+	if (cmd == UP_RIGHT){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos()-1, player->getYPos()+1);
 		if (isMoveValid(playerMove)) movePlayer(playerMove);	
 		else interpretCommand(player);	
 	}
-	if (cmd == MOVE_DOWN_LEFT){
+	if (cmd == DOWN_LEFT){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos()+1, player->getYPos()-1);
 		if (isMoveValid(playerMove)) movePlayer(playerMove);
 		else interpretCommand(player);		
 	}
-	if (cmd == MOVE_DOWN_RIGHT){
+	if (cmd == DOWN_RIGHT){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos()+1, player->getYPos()+1);
 		if (isMoveValid(playerMove)) movePlayer(playerMove);	
 		else interpretCommand(player);	
 	}
 	
-	
+	if (cmd == ATTACK){
+		cmd = getch();
+		
+		if (cmd == UP){
+			AttackCommand atkCmd = AttackCommand(player, player->getXPos()-1, player->getYPos());	
+			if (isAttackValid(atkCmd)) playerAttack(atkCmd);
+			else interpretCommand(player);			
+		}
+		if (cmd == DOWN){
+			AttackCommand atkCmd = AttackCommand(player, player->getXPos()+1, player->getYPos());	
+			if (isAttackValid(atkCmd)) playerAttack(atkCmd);
+			else interpretCommand(player);	
+		}
+		if (cmd == LEFT){
+			AttackCommand atkCmd = AttackCommand(player, player->getXPos(), player->getYPos()-1);	
+			if (isAttackValid(atkCmd)) playerAttack(atkCmd);
+			else interpretCommand(player);			
+		}
+		if (cmd == RIGHT){
+			AttackCommand atkCmd = AttackCommand(player, player->getXPos(), player->getYPos()+1);	
+			if (isAttackValid(atkCmd)) playerAttack(atkCmd);
+			else interpretCommand(player);			
+		}
+		if (cmd == UP_LEFT){
+			AttackCommand atkCmd = AttackCommand(player, player->getXPos()-1, player->getYPos()-1);	
+			if (isAttackValid(atkCmd)) playerAttack(atkCmd);
+			else interpretCommand(player);
+		}
+		if (cmd == UP_RIGHT){
+			AttackCommand atkCmd = AttackCommand(player, player->getXPos()-1, player->getYPos()+1);	
+			if (isAttackValid(atkCmd)) playerAttack(atkCmd);
+			else interpretCommand(player);
+		}
+		if (cmd == DOWN_LEFT){
+			AttackCommand atkCmd = AttackCommand(player, player->getXPos()+1, player->getYPos()-1);	
+			if (isAttackValid(atkCmd)) playerAttack(atkCmd);
+			else interpretCommand(player);	
+		}
+		if (cmd == DOWN_RIGHT){
+			AttackCommand atkCmd = AttackCommand(player, player->getXPos()+1, player->getYPos()+1);	
+			if (isAttackValid(atkCmd)) playerAttack(atkCmd);
+			else interpretCommand(player);
+		}	
+	}
 }	
 
 void PlayerInterpreter::movePlayer(MoveCommand &cmd){
@@ -144,4 +190,50 @@ bool PlayerInterpreter::isMoveValid(MoveCommand &cmd){
 							
 	return false;
 }
+
+bool PlayerInterpreter::isAttackValid(AttackCommand &cmd){
+	Player *ch = Player::getInstance();
+	int currentX = ch->getXPos();
+	int currentY = ch->getYPos();
+	int newX = cmd.getXPos();
+	int newY = cmd.getYPos();	
+	Floor* currentFloor = game->getFloors()->at(game->getCurrentFloor());
+	Cell* newCell = currentFloor->getCellAt(newX,newY);
+	
+	if ((abs(currentX-newX) <=1)&&(abs(currentY-newY) <=1)){	
+		if ((newCell->getCellType() != Cell::Wall)&&(newCell->getCellType() != Cell::Empty)){		
+			if (newCell->hasEnemy()){										
+				return true;
+			}
+		}
+	}							
+	return false;
+}
+
+void PlayerInterpreter::playerAttack(AttackCommand &cmd){
+
+	Player *ch = Player::getInstance();
+	int newX = cmd.getXPos();
+	int newY = cmd.getYPos();
+	Floor* currentFloor = game->getFloors()->at(game->getCurrentFloor());
+	Cell* newCell = currentFloor->getCellAt(newX,newY);
+	Enemy *enemy = currentFloor->getEnemy(newCell->getOccupiedId());
+	TextDisplay *td = currentFloor->getTextDisplay();
+	
+	//attack enemy
+	AttackVisitor atkVisitor = AttackVisitor(ch);
+	enemy->accept(atkVisitor);
+	
+	//if enemy is dead
+	if (enemy->getHp() <= 0){
+		newCell->setOccupation(false,false,false);
+		newCell->setCellSymbol('.');
+		currentFloor->removeEnemy(newCell->getOccupiedId());
+		ch->setGold(ch->getGold()+1);
+	}	
+	
+	//Notify our display
+	newCell->notifyDisplay(*td);
+}
+
 

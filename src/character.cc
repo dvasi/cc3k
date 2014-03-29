@@ -55,7 +55,7 @@ int Character::getMaxHp(){
 
 char Character::getSymbol(){ return 'h'; }
 
-void Character::accept(Visitor* v){ v->visit(this); }
+void Character::accept(Visitor &v){ v.visit(this); }
 
 void Character::takeDmg(int dmg) { hp -= dmg; }
 

@@ -25,4 +25,8 @@ void Player::update(){
 
 char Player::getSymbol(){ return race; }
 
+int Player::getGold(){ return gold; }
+
+void Player::setGold(int gold) { this->gold = gold; }
+
 Player* Player::playerInstance = NULL;
