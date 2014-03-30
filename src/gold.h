@@ -4,14 +4,15 @@
 
 class Visitor;
 
-class Gold : public Item{
+class Gold : public Item
+{
 
-	int value;
-	public:
-		Gold(int id, int value=2);
-		~Gold();
-		int getValue();
-		void setValue(int value);
-		void accept(Visitor &v);
+    int value;
+public:
+    Gold(int id, int value=2);
+    ~Gold();
+    int getValue();
+    void setValue(int value);
+    void accept(Visitor &v);
 };
 #endif

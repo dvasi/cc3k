@@ -1,4 +1,4 @@
 #include "rhPot.h"
 using namespace std;
 
-rhPot::rhPot(): magnitude(10), revealed(false), beneficial(true){}
+rhPot::rhPot(int id): Potion(id), magnitude(10), revealed(false){}

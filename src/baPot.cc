@@ -1,4 +1,4 @@
 #include "baPot.h"
 using namespace std;
 
-baPot::baPot(): magnitude(5), revealed(false), beneficial(true){}
+baPot::baPot(int id): Potion(id), magnitude(5), revealed(false){}

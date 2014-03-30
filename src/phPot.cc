@@ -1,4 +1,4 @@
 #include "phPot.h"
 using namespace std;
 
-phPot::phPot(): magnitude(10), revealed(false), beneficial(false){}
+phPot::phPot(int id): Potion(id), magnitude(-10), revealed(false){}

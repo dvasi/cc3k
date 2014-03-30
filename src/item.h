@@ -11,6 +11,7 @@ class Item{
 		bool useable;
 		
 	public:
+		Item();
 		Item(int id, bool lootable=false, bool useable=true);
 		static int generateId();
 		int getId();
