@@ -9,10 +9,12 @@
 
 class Game;
 class Enemy;
+class TextDisplay;
 
 class EnemyInterpreter : public CommandInterpreter{
 
 	Game* game;
+	std::string actionStr;
 	public:
 		EnemyInterpreter();
 		~EnemyInterpreter();
@@ -20,5 +22,6 @@ class EnemyInterpreter : public CommandInterpreter{
 		virtual bool isMoveValid(MoveCommand &cmd);
 		virtual void moveEnemy(MoveCommand &cmd);	
 		virtual void enemyAttack(AttackCommand &cmd);
+		void notifyDisplay(TextDisplay &td, std::string action);
 };
 #endif

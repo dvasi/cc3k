@@ -47,10 +47,7 @@ void Game::initializeWorld(string layoutFileName){
 }
 
 void Game::displayWorld(){
-
-	//OVERLOAD THE PRINT FOR WORLD OR SOMETHING
 	displayFloors();
-
 }
 
 void Game::displayWelcomeScreen(){
@@ -106,7 +103,7 @@ void Game::displayRaceSelectionScreen(){
 	race1.push_back("140 HP");
 	race1.push_back("20 Atk");
 	race1.push_back("20 Def");
-	race1.push_back("Score x 2");
+	race1.push_back("Score x 1.5");
 	race1.push_back("");
 	race1.push_back("h");
 	

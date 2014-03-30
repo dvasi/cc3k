@@ -27,7 +27,7 @@ public:
     void takeDmg(int dmg);
     void alterHp(int delta);
     void setPos(int xPos, int yPos);
-    virtual void accept(Visitor &v);
+    virtual int accept(Visitor &v);
     virtual char getSymbol();
 };
 #endif

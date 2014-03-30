@@ -10,7 +10,7 @@
 #include "game.h"
 using namespace std;
 
-TextDisplay::TextDisplay(int width, int height): actionStr(""){
+TextDisplay::TextDisplay(int width, int height): actionStr("Player character has spawned."){
 	for (int i = 0; i < height; ++i){
 		vector<char> row;
 		for (int j = 0; j < width; ++j){
