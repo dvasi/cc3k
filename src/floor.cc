@@ -293,6 +293,10 @@ Enemy* Floor::getEnemy(int id){
 	return floorEnemies[id];
 }
 
+Item* Floor::getItem(int id){
+	return floorItems[id];
+}
+
 void Floor::updateState(){
 
 	//Make our enemy action queue for proper ordering

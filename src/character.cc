@@ -59,4 +59,10 @@ void Character::accept(Visitor &v){ v.visit(this); }
 
 void Character::takeDmg(int dmg) { hp -= dmg; }
 
+void Character::alterHp(int delta){
+	hp += delta;
+	if (hp > maxHp) hp = maxHp;
+	if (hp <= 0) hp = 1;
+}
+
 int Character::idCount = 0;

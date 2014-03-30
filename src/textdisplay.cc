@@ -1,7 +1,12 @@
 #include <vector>
 #include <iostream>
 #include <ncurses.h>
+#include <string>
+#include <cstdlib>
+#include <sstream>
 #include "textdisplay.h"
+#include "player.h"
+#include "game.h"
 using namespace std;
 
 TextDisplay::TextDisplay(int width, int height){
@@ -61,11 +66,65 @@ ostream &operator<<(ostream &out, const TextDisplay &td){
 			
 			if (current == '/') attroff(A_STANDOUT);
 			
-			if (((current >= 64)&&(current <=90))||(current == 47)) attroff(A_BOLD);
-			
-			
-			
+			if (((current >= 64)&&(current <=90))||(current == 47)) attroff(A_BOLD);		
 		}
 	}
+	
+	Player *player = Player::getInstance();
+	Game *game = Game::getInstance();
+	ostringstream convert;
+	
+	string race = Player::charToRace(player->getSymbol());
+	int gold = player->getGold();
+	int hp = player->getHp();
+	int atk = player->getAtk();
+	int def = player->getDef();
+	int floorNum = game->getCurrentFloor()+1;
+	
+	string raceStr = "Race: " + race;
+	string goldStr = "Gold: ";
+	convert << gold;
+	goldStr+= convert.str();
+	convert.str("");
+	convert.clear();
+	string hpStr = "HP: ";
+	convert << hp;
+	hpStr+= convert.str();
+	convert.str("");
+	convert.clear();
+	string atkStr = "Atk: ";
+	convert << atk;
+	atkStr+= convert.str();
+	convert.str("");
+	convert.clear();
+	string defStr = "Def: ";
+	convert << def;
+	defStr+= convert.str();
+	convert.str("");
+	convert.clear();
+	string floorStr = "Floor ";
+	convert << floorNum;
+	floorStr+= convert.str();
+	convert.str("");
+	convert.clear();
+	
+	move(BOARD_HEIGHT,0);
+	clrtoeol();
+	mvprintw(BOARD_HEIGHT,0,"%s",raceStr.c_str());
+	
+	mvprintw(BOARD_HEIGHT,raceStr.length()+1,"%s",goldStr.c_str());
+	mvprintw(BOARD_HEIGHT,BOARD_WIDTH-floorStr.length()-1,"%s",floorStr.c_str());
+	
+	move(BOARD_HEIGHT+1,0);
+	clrtoeol();
+	mvprintw(BOARD_HEIGHT+1,0,"%s",hpStr.c_str());
+	
+	move(BOARD_HEIGHT+2,0);
+	clrtoeol();
+	mvprintw(BOARD_HEIGHT+2,0,"%s",atkStr.c_str());
+	
+	move(BOARD_HEIGHT+3,0);
+	clrtoeol();
+	mvprintw(BOARD_HEIGHT+3,0,"%s",defStr.c_str());
 	return out;
 }

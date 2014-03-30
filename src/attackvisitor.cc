@@ -17,9 +17,4 @@ void AttackVisitor::visit(Character *defender){
 	int damage = static_cast<int>(ceil((100.00 / (100.00 + def)) * atk));
 	
     defender->takeDmg(damage);
-    ostringstream out;
-    out << damage;
-    string dmgMsg = "Damage dealt: ";
-    dmgMsg += out.str();
-    mvprintw(26,0,"%s",dmgMsg.c_str());
 }

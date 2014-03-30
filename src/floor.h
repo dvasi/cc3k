@@ -48,6 +48,7 @@ public:
 	void removeItem(int id);
 	void removeEnemy(int id);
 	Enemy* getEnemy(int id);
+	Item* getItem(int id);
 	Cell* generateCell(int xPos, int yPos, char symbol);
 	Cell* getCellAt(int xPos, int yPos);
 	int getStartXPos();

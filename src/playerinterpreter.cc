@@ -10,6 +10,7 @@
 #include "attackcommand.h"
 #include "textdisplay.h"
 #include "attackvisitor.h"
+#include "itemusevisitor.h"
 using namespace std;
 
 const char UP = '8';
@@ -126,6 +127,8 @@ void PlayerInterpreter::interpretCommand(Player* player){
 			else interpretCommand(player);
 		}	
 	}
+	
+	//TODO ITEMS
 }	
 
 void PlayerInterpreter::movePlayer(MoveCommand &cmd){
@@ -149,6 +152,9 @@ void PlayerInterpreter::movePlayer(MoveCommand &cmd){
 	//Set up our new cell
 	if ((newCell->hasItem())&&(newCell->symbolToDisplayChar(newCell->getCellSymbol()) == 'G')){
 		//Add gold to player TODO
+		Item *gold = currentFloor->getItem(newCell->getOccupiedId());
+		ItemUseVisitor itemVisitor = ItemUseVisitor();
+		gold->accept(itemVisitor);
 		currentFloor->removeItem(newCell->getOccupiedId());			
 	}
 	newCell->setOccupation(false,false,true,ch->getId());

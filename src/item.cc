@@ -1,12 +1,11 @@
 #include <iostream>
 #include "item.h"
+#include "visitor.h"
 using namespace std;
 
-Item::Item(int id): id(id) {}
+Item::Item(int id, bool lootable, bool useable): id(id), lootable(lootable), useable(useable) {}
 
 Item::~Item() {}
-
-void Item::use(){ cout << "Using item " << endl; } 
 
 int Item::generateId(){
 	idCount++;
@@ -15,5 +14,11 @@ int Item::generateId(){
 
 
 int Item::getId(){ return id; }
+
+bool Item::canPickUp(){ return lootable; }
+
+bool Item::canUse(){ return useable; }
+
+void Item::accept(Visitor &v) {}
 
 int Item::idCount = 0;

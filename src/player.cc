@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <iostream>
+#include <string>
 #include "player.h"
 using namespace std;
 
@@ -28,5 +29,13 @@ char Player::getSymbol(){ return race; }
 int Player::getGold(){ return gold; }
 
 void Player::setGold(int gold) { this->gold = gold; }
+
+string Player::charToRace(char ch){
+	if (ch == 'h') { return "Human"; }
+	if (ch == 'd') { return "Dwarf"; }
+	if (ch == 'e') { return "Elf"; }
+	if (ch == 'o') { return "Orc"; }
+	return "Human";
+}
 
 Player* Player::playerInstance = NULL;
