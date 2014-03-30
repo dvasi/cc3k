@@ -28,7 +28,10 @@ public:
 	void displayWorld();
 	void displayWelcomeScreen();
 	void displayRaceSelectionScreen();
+	void displayVictoryScreen();
+	void displayDefeatScreen();
 	void selectRace();
+	void selectEndGameCommand();
 	void setPlayer(Player* player);
 	int getCurrentFloor();
 	void setCurrentFloor(int floorNum);

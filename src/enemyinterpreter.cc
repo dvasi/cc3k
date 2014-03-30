@@ -6,11 +6,14 @@
 #include "attackcommand.h"
 #include "attackvisitor.h"
 #include <cstdlib>
+#include <string>
+#include <iostream>
+#include <sstream>
 using namespace std;
 
 EnemyInterpreter::~EnemyInterpreter(){}
 
-EnemyInterpreter::EnemyInterpreter(){ 
+EnemyInterpreter::EnemyInterpreter(): actionStr(""){
 	game = Game::getInstance(); 
 }
 
@@ -132,14 +135,30 @@ void EnemyInterpreter::enemyAttack(AttackCommand &cmd){
 
 	Character *enemy = cmd.getAttacker();
 	Player *ch = Player::getInstance();
-	//Floor *currentFloor = game->getFloors()->at(game->getCurrentFloor());
+	Floor *currentFloor = game->getFloors()->at(game->getCurrentFloor());
+	TextDisplay *td = currentFloor->getTextDisplay();
 	
 	//Attack enemy
 	AttackVisitor atkVisitor = AttackVisitor(enemy);
-	ch->accept(atkVisitor);
+	int damageDealt = ch->accept(atkVisitor);
+	char enemyName = enemy->getSymbol();
+	ostringstream convert;
+	actionStr = enemyName;
+	actionStr += " deals ";
+	convert << damageDealt;
+	actionStr += convert.str();
+	actionStr += " damage to PC";
 	
 	//If player is dead restart game
 	if (ch->getHp() <= 0){
-	//Notify display?	
+
 	}
+	//Notify display
+	actionStr += ". ";
+	notifyDisplay(*td,actionStr);
+	actionStr = "";
+}
+
+void EnemyInterpreter::notifyDisplay(TextDisplay &td, string action){
+	td.notify(action);
 }

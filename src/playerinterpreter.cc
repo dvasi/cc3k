@@ -34,7 +34,7 @@ const char QUIT = 'q';
 
 PlayerInterpreter::~PlayerInterpreter(){}
 
-PlayerInterpreter::PlayerInterpreter(): actionStr(""){ 
+PlayerInterpreter::PlayerInterpreter(): actionStr(""){
 	game = Game::getInstance(); 
 }
 	
@@ -174,9 +174,17 @@ void PlayerInterpreter::movePlayer(MoveCommand &cmd){
 	ch->setPos(newX,newY);
 	
 	if (newCell->getCellType() == Cell::Stairs){
+		int floorNum = game->getCurrentFloor();
+		//Handle victory
+		if (floorNum == NUM_FLOORS-1){
+			game->displayVictoryScreen();
+			game->selectEndGameCommand();
+			return;
+		}
 		game->setCurrentFloor(game->getCurrentFloor() + 1);
 		Floor *nextFloor = game->getFloors()->at(game->getCurrentFloor());
 		TextDisplay *nextTd = nextFloor->getTextDisplay();
+		nextTd->resetGameActions();
 		nextTd->notify("PC advances to the next floor.");
 	}
 	
@@ -202,7 +210,7 @@ void PlayerInterpreter::movePlayer(MoveCommand &cmd){
 	//Notify our display
 	currentCell->notifyDisplay(*td);
 	newCell->notifyDisplay(*td);
-	actionStr += ".";
+	actionStr += ". ";
 	notifyDisplay(*td,actionStr);
 	actionStr = "";
 }
@@ -266,10 +274,25 @@ void PlayerInterpreter::playerAttack(AttackCommand &cmd){
 	
 	//Attack enemy
 	AttackVisitor atkVisitor = AttackVisitor(ch);
-	enemy->accept(atkVisitor);
+	int damageDealt = enemy->accept(atkVisitor);
+	int currentEnemyHp = enemy->getHp();
+	if (currentEnemyHp <= 0) currentEnemyHp = 0;
+	char enemyName = enemy->getSymbol();
+	ostringstream convert;
+	actionStr += " deals ";
+	convert << damageDealt;
+	actionStr += convert.str();
+	convert.str("");
+	convert.clear();
+	convert << currentEnemyHp;
+	actionStr += " damage to ";
+	actionStr+= enemyName;
+	actionStr+= " (" + convert.str() + " HP)";
+
+
 	
 	//If enemy is dead remove it and add gold appropriately
-	if (enemy->getHp() <= 0){
+	if (currentEnemyHp == 0){
 		newCell->setOccupation(false,false,false);
 		newCell->setCellSymbol('.');
 		currentFloor->removeEnemy(newCell->getOccupiedId());
@@ -278,6 +301,9 @@ void PlayerInterpreter::playerAttack(AttackCommand &cmd){
 	
 	//Notify our display
 	newCell->notifyDisplay(*td);
+	actionStr += ". ";
+	notifyDisplay(*td,actionStr);
+	actionStr = "";
 }
 
 void PlayerInterpreter::notifyDisplay(TextDisplay &td, string action){
