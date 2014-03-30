@@ -33,7 +33,7 @@ void Cell::setCellType(int type) { cellType = type; }
 
 int Cell::getCellType() { return cellType; }
 
-void Cell::setCellSymbol(char symbol) { cellSymbol = symbol; }
+void Cell::setCellSymbol(char symbol) {	cellSymbol = symbol; }
 
 char Cell::getCellSymbol() { return cellSymbol; }
 
@@ -43,7 +43,7 @@ char Cell::symbolToDisplayChar(char cellSymbol){
 	
 	//Potions represented by 0-5  in layout files
 	if ((cellSymbol >= 48)&&(cellSymbol <= 53)) return 'P';
-	
+
 	//Gold represented by 6-9 in layout files
 	if ((cellSymbol >= 54)&&(cellSymbol <=57)) return 'G';
 	

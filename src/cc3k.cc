@@ -9,7 +9,7 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-	
+
     initscr();
     clear();
     noecho();
@@ -42,6 +42,6 @@ int main(int argc, char *argv[])
 	
 	
     endwin();
-	
+
     return 0;
 }

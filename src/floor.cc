@@ -161,7 +161,7 @@ Cell* Floor::generateCell(int xPos, int yPos, char symbol){
 			(symbol == 'M')||
 			(symbol == 'X')||
 			(symbol == 'T')||
-			(symbol == 'M')){
+			(symbol == 'D')){
 			EnemyFactory enFactory = EnemyFactory();			
 			Enemy *newEnemy = enFactory.getEnemy(symbol);
 			newEnemy->setPos(xPos,yPos);

@@ -6,7 +6,7 @@ Visitor::Visitor(){}
 
 Visitor::~Visitor(){}
 
-int Visitor::visit(Character *ch){}
+int Visitor::visit(Character *ch){ return 0; }
 
 void Visitor::visit(Potion *potion){}
 
