@@ -174,6 +174,13 @@ void PlayerInterpreter::movePlayer(MoveCommand &cmd){
 	ch->setPos(newX,newY);
 	
 	if (newCell->getCellType() == Cell::Stairs){
+		int floorNum = game->getCurrentFloor();
+		//Handle victory
+		if (floorNum == NUM_FLOORS-1){
+			game->displayVictoryScreen();
+			game->selectEndGameCommand();
+			return;
+		}
 		game->setCurrentFloor(game->getCurrentFloor() + 1);
 		Floor *nextFloor = game->getFloors()->at(game->getCurrentFloor());
 		TextDisplay *nextTd = nextFloor->getTextDisplay();
