@@ -47,43 +47,43 @@ void PlayerInterpreter::interpretCommand(Player* player){
 		if (isMoveValid(playerMove)) movePlayer(playerMove);
 		else interpretCommand(player);			
 	}
-	if (cmd == DOWN){
+	else if (cmd == DOWN){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos()+1, player->getYPos());
 		if (isMoveValid(playerMove)) movePlayer(playerMove);		
 		else interpretCommand(player);
 	}
-	if (cmd == LEFT){
+	else if (cmd == LEFT){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos(), player->getYPos()-1);
 		if (isMoveValid(playerMove)) movePlayer(playerMove);
 		else interpretCommand(player);		
 	}
-	if (cmd == RIGHT){
+	else if (cmd == RIGHT){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos(), player->getYPos()+1);
 		if (isMoveValid(playerMove)) movePlayer(playerMove);
 		else interpretCommand(player);		
 	}
-	if (cmd == UP_LEFT){
+	else if (cmd == UP_LEFT){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos()-1, player->getYPos()-1);
 		if (isMoveValid(playerMove)) movePlayer(playerMove);	
 		else interpretCommand(player);	
 	}
-	if (cmd == UP_RIGHT){
+	else if (cmd == UP_RIGHT){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos()-1, player->getYPos()+1);
 		if (isMoveValid(playerMove)) movePlayer(playerMove);	
 		else interpretCommand(player);	
 	}
-	if (cmd == DOWN_LEFT){
+	else if (cmd == DOWN_LEFT){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos()+1, player->getYPos()-1);
 		if (isMoveValid(playerMove)) movePlayer(playerMove);
 		else interpretCommand(player);		
 	}
-	if (cmd == DOWN_RIGHT){
+	else if (cmd == DOWN_RIGHT){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos()+1, player->getYPos()+1);
 		if (isMoveValid(playerMove)) movePlayer(playerMove);	
 		else interpretCommand(player);	
 	}
 	
-	if (cmd == ATTACK){
+	else if (cmd == ATTACK){
 		cmd = getch();
 		
 		if (cmd == UP){
@@ -91,42 +91,44 @@ void PlayerInterpreter::interpretCommand(Player* player){
 			if (isAttackValid(atkCmd)) playerAttack(atkCmd);
 			else interpretCommand(player);			
 		}
-		if (cmd == DOWN){
+		else if (cmd == DOWN){
 			AttackCommand atkCmd = AttackCommand(player, player->getXPos()+1, player->getYPos());	
 			if (isAttackValid(atkCmd)) playerAttack(atkCmd);
 			else interpretCommand(player);	
 		}
-		if (cmd == LEFT){
+		else if (cmd == LEFT){
 			AttackCommand atkCmd = AttackCommand(player, player->getXPos(), player->getYPos()-1);	
 			if (isAttackValid(atkCmd)) playerAttack(atkCmd);
 			else interpretCommand(player);			
 		}
-		if (cmd == RIGHT){
+		else if (cmd == RIGHT){
 			AttackCommand atkCmd = AttackCommand(player, player->getXPos(), player->getYPos()+1);	
 			if (isAttackValid(atkCmd)) playerAttack(atkCmd);
 			else interpretCommand(player);			
 		}
-		if (cmd == UP_LEFT){
+		else if (cmd == UP_LEFT){
 			AttackCommand atkCmd = AttackCommand(player, player->getXPos()-1, player->getYPos()-1);	
 			if (isAttackValid(atkCmd)) playerAttack(atkCmd);
 			else interpretCommand(player);
 		}
-		if (cmd == UP_RIGHT){
+		else if (cmd == UP_RIGHT){
 			AttackCommand atkCmd = AttackCommand(player, player->getXPos()-1, player->getYPos()+1);	
 			if (isAttackValid(atkCmd)) playerAttack(atkCmd);
 			else interpretCommand(player);
 		}
-		if (cmd == DOWN_LEFT){
+		else if (cmd == DOWN_LEFT){
 			AttackCommand atkCmd = AttackCommand(player, player->getXPos()+1, player->getYPos()-1);	
 			if (isAttackValid(atkCmd)) playerAttack(atkCmd);
 			else interpretCommand(player);	
 		}
-		if (cmd == DOWN_RIGHT){
+		else if (cmd == DOWN_RIGHT){
 			AttackCommand atkCmd = AttackCommand(player, player->getXPos()+1, player->getYPos()+1);	
 			if (isAttackValid(atkCmd)) playerAttack(atkCmd);
 			else interpretCommand(player);
-		}	
+		}
+		else interpretCommand(player);	
 	}
+	else interpretCommand(player);
 	
 	//TODO ITEMS
 }	
