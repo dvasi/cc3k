@@ -9,6 +9,6 @@ class AttackVisitor : public Visitor{
 	public:
 		AttackVisitor(Character* ch);
 		~AttackVisitor();
-		void visit(Character* defender);
+		int visit(Character* defender);
 };
 #endif

@@ -9,12 +9,13 @@
 
 class Game;
 class Player;
+class TextDisplay;
 
 class PlayerInterpreter: public CommandInterpreter{
 
 	Game* game;
+	std::string actionStr;
 	public:
-		//Assumes cmdName is already in the Command Map
 		PlayerInterpreter();
 		~PlayerInterpreter();
 		void interpretCommand(Player* player);
@@ -22,6 +23,7 @@ class PlayerInterpreter: public CommandInterpreter{
 		void movePlayer(MoveCommand &cmd);
 		bool isAttackValid(AttackCommand &cmd);
 		void playerAttack(AttackCommand &cmd);
+		void notifyDisplay(TextDisplay &td, std::string action);
 		Player* getPlayer();		
 };
 #endif

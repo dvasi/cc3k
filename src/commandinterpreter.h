@@ -7,6 +7,7 @@
 class CommandInterpreter{
 	
 	protected:
+		std::string actionStr;
 		CommandInterpreter();
 		virtual ~CommandInterpreter() = 0;
 	public:

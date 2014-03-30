@@ -1,6 +1,7 @@
 #include <ncurses.h>
 #include <map>
 #include <string>
+#include <sstream>
 #include <cmath>
 #include <cstdlib>
 #include "playerinterpreter.h"
@@ -33,7 +34,7 @@ const char QUIT = 'q';
 
 PlayerInterpreter::~PlayerInterpreter(){}
 
-PlayerInterpreter::PlayerInterpreter(){ 
+PlayerInterpreter::PlayerInterpreter(): actionStr(""){ 
 	game = Game::getInstance(); 
 }
 	
@@ -41,45 +42,70 @@ void PlayerInterpreter::interpretCommand(Player* player){
 	
 	char cmd;
 	cmd = getch();
+	actionStr = "PC";
 	
 	if (cmd == UP){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos()-1, player->getYPos());	
-		if (isMoveValid(playerMove)) movePlayer(playerMove);
+		if (isMoveValid(playerMove)){
+			actionStr += " moves North";
+			movePlayer(playerMove);			
+		}
 		else interpretCommand(player);			
 	}
 	else if (cmd == DOWN){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos()+1, player->getYPos());
-		if (isMoveValid(playerMove)) movePlayer(playerMove);		
+		if (isMoveValid(playerMove)){
+			actionStr += " moves South";
+			movePlayer(playerMove);	
+		}		
 		else interpretCommand(player);
 	}
 	else if (cmd == LEFT){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos(), player->getYPos()-1);
-		if (isMoveValid(playerMove)) movePlayer(playerMove);
+		if (isMoveValid(playerMove)){
+			actionStr += " moves West";
+			movePlayer(playerMove);	
+		}
 		else interpretCommand(player);		
 	}
 	else if (cmd == RIGHT){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos(), player->getYPos()+1);
-		if (isMoveValid(playerMove)) movePlayer(playerMove);
+		if (isMoveValid(playerMove)){
+			actionStr += " moves East";
+			movePlayer(playerMove);	
+		}
 		else interpretCommand(player);		
 	}
 	else if (cmd == UP_LEFT){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos()-1, player->getYPos()-1);
-		if (isMoveValid(playerMove)) movePlayer(playerMove);	
+		if (isMoveValid(playerMove)){
+			actionStr += " moves North West";
+			movePlayer(playerMove);	
+		}	
 		else interpretCommand(player);	
 	}
 	else if (cmd == UP_RIGHT){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos()-1, player->getYPos()+1);
-		if (isMoveValid(playerMove)) movePlayer(playerMove);	
+		if (isMoveValid(playerMove)){
+			actionStr += " moves North East";
+			movePlayer(playerMove);	
+		}	
 		else interpretCommand(player);	
 	}
 	else if (cmd == DOWN_LEFT){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos()+1, player->getYPos()-1);
-		if (isMoveValid(playerMove)) movePlayer(playerMove);
+		if (isMoveValid(playerMove)){
+			actionStr += " moves South West";
+			movePlayer(playerMove);	
+		}
 		else interpretCommand(player);		
 	}
 	else if (cmd == DOWN_RIGHT){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos()+1, player->getYPos()+1);
-		if (isMoveValid(playerMove)) movePlayer(playerMove);	
+		if (isMoveValid(playerMove)){
+			actionStr += " moves South East";
+			movePlayer(playerMove);	
+		}	
 		else interpretCommand(player);	
 	}
 	
@@ -135,7 +161,7 @@ void PlayerInterpreter::interpretCommand(Player* player){
 
 void PlayerInterpreter::movePlayer(MoveCommand &cmd){
 
-	Character *ch = Player::getInstance();
+	Player *ch = Player::getInstance();
 	int currentX = ch->getXPos();
 	int currentY = ch->getYPos();
 	int newX = cmd.getXPos();
@@ -149,14 +175,21 @@ void PlayerInterpreter::movePlayer(MoveCommand &cmd){
 	
 	if (newCell->getCellType() == Cell::Stairs){
 		game->setCurrentFloor(game->getCurrentFloor() + 1);
+		Floor *nextFloor = game->getFloors()->at(game->getCurrentFloor());
+		TextDisplay *nextTd = nextFloor->getTextDisplay();
+		nextTd->notify("PC advances to the next floor.");
 	}
 	
 	//Set up our new cell
 	if ((newCell->hasItem())&&(newCell->symbolToDisplayChar(newCell->getCellSymbol()) == 'G')){
-		//Add gold to player TODO
-		Item *gold = currentFloor->getItem(newCell->getOccupiedId());
+		Item *gold = currentFloor->getItem(newCell->getOccupiedId());	
+		int oldGold = ch->getGold();	
 		ItemUseVisitor itemVisitor = ItemUseVisitor();
 		gold->accept(itemVisitor);
+		int newGold = ch->getGold();
+		ostringstream convert;
+		convert << (newGold-oldGold);		
+		actionStr += " and picks up " + convert.str() + " gold";
 		currentFloor->removeItem(newCell->getOccupiedId());			
 	}
 	newCell->setOccupation(false,false,true,ch->getId());
@@ -169,6 +202,9 @@ void PlayerInterpreter::movePlayer(MoveCommand &cmd){
 	//Notify our display
 	currentCell->notifyDisplay(*td);
 	newCell->notifyDisplay(*td);
+	actionStr += ".";
+	notifyDisplay(*td,actionStr);
+	actionStr = "";
 }
 
 bool PlayerInterpreter::isMoveValid(MoveCommand &cmd){
@@ -242,6 +278,10 @@ void PlayerInterpreter::playerAttack(AttackCommand &cmd){
 	
 	//Notify our display
 	newCell->notifyDisplay(*td);
+}
+
+void PlayerInterpreter::notifyDisplay(TextDisplay &td, string action){
+	td.notify(action);
 }
 
 

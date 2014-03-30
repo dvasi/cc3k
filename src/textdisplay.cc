@@ -4,12 +4,13 @@
 #include <string>
 #include <cstdlib>
 #include <sstream>
+#include <string>
 #include "textdisplay.h"
 #include "player.h"
 #include "game.h"
 using namespace std;
 
-TextDisplay::TextDisplay(int width, int height){
+TextDisplay::TextDisplay(int width, int height): actionStr(""){
 	for (int i = 0; i < height; ++i){
 		vector<char> row;
 		for (int j = 0; j < width; ++j){
@@ -23,7 +24,15 @@ void TextDisplay::notify(int xPos, int yPos, char symbol){
 	gameDisplay.at(xPos).at(yPos) = symbol;
 }
 
+void TextDisplay::notify(std::string gameAction){
+	actionStr += gameAction;
+}
+
+void TextDisplay::resetGameActions(){ actionStr = ""; }
+
 ostream &operator<<(ostream &out, const TextDisplay &td){
+
+	refresh();
 
 	for (unsigned int i = 0; i < td.gameDisplay.size(); ++i){
 		for (unsigned int j = 0; j < td.gameDisplay.at(i).size(); ++j){
@@ -102,6 +111,7 @@ ostream &operator<<(ostream &out, const TextDisplay &td){
 	defStr+= convert.str();
 	convert.str("");
 	convert.clear();
+	string turnActions = "Actions: " + td.actionStr;
 	string floorStr = "Floor ";
 	convert << floorNum;
 	floorStr+= convert.str();
@@ -126,5 +136,11 @@ ostream &operator<<(ostream &out, const TextDisplay &td){
 	move(BOARD_HEIGHT+3,0);
 	clrtoeol();
 	mvprintw(BOARD_HEIGHT+3,0,"%s",defStr.c_str());
+	
+	move(BOARD_HEIGHT+4,0);
+	clrtoeol();
+	mvprintw(BOARD_HEIGHT+4,0,"%s",turnActions.c_str());
 	return out;
+	
+	
 }

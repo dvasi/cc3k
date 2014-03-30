@@ -193,6 +193,7 @@ Cell* Floor::generateCell(int xPos, int yPos, char symbol){
 void Floor::display()
 {
     cout << *td;
+    td->resetGameActions();
 }
 
 //WE WILL USE THESE AFTER OUR SUBCLASSES GET REFINED
