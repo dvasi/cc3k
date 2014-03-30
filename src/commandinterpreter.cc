@@ -6,6 +6,6 @@ using namespace std;
 
 CommandInterpreter::~CommandInterpreter(){}
 
-CommandInterpreter::CommandInterpreter() {}
+CommandInterpreter::CommandInterpreter(): actionStr("") {}
 
 void CommandInterpreter::interpretCommand(Character* ch){}

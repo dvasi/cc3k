@@ -10,7 +10,7 @@ class Visitor{
 	public:
 		Visitor();
 		virtual ~Visitor() = 0;
-		virtual void visit(Character* ch);
+		virtual int visit(Character* ch);
 		virtual void visit(Potion *potion);
 		virtual void visit(Gold *gold);
 };
