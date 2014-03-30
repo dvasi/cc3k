@@ -220,11 +220,11 @@ void PlayerInterpreter::playerAttack(AttackCommand &cmd){
 	Enemy *enemy = currentFloor->getEnemy(newCell->getOccupiedId());
 	TextDisplay *td = currentFloor->getTextDisplay();
 	
-	//attack enemy
+	//Attack enemy
 	AttackVisitor atkVisitor = AttackVisitor(ch);
 	enemy->accept(atkVisitor);
 	
-	//if enemy is dead
+	//If enemy is dead remove it and add gold appropriately
 	if (enemy->getHp() <= 0){
 		newCell->setOccupation(false,false,false);
 		newCell->setCellSymbol('.');

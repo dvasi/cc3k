@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-Enemy::Enemy(int hp, int atk, int def, int x, int y, char type, int id, EnemyInterpreter* input): Character(hp,atk,def,x,y,id), isHostile(true), type(type), input(input){}
+Enemy::Enemy(int hp, int atk, int def, int x, int y, char type, int id, EnemyInterpreter* input, bool hostile, bool mobile): Character(hp,atk,def,x,y,id), input(input), type(type), hostile(hostile), mobile(mobile) {}
 
 Enemy::~Enemy(){ delete input; }
 
@@ -15,10 +15,12 @@ double Enemy::takeDamage(int playerAtk)
     return damage;
 }
 
-char Enemy::getType(){ return 'T'; } 
-
 void Enemy::update(){
 	input->interpretCommand(this);
 }
 
 char Enemy::getSymbol(){ return type; }
+
+bool Enemy::isHostile(){ return hostile; }
+
+bool Enemy::isMobile(){ return mobile; }

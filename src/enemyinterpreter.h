@@ -5,6 +5,7 @@
 #include <string>
 #include "commandinterpreter.h"
 #include "movecommand.h"
+#include "attackcommand.h"
 
 class Game;
 class Enemy;
@@ -18,5 +19,6 @@ class EnemyInterpreter : public CommandInterpreter{
 		virtual void interpretCommand(Enemy* enemy);
 		virtual bool isMoveValid(MoveCommand &cmd);
 		virtual void moveEnemy(MoveCommand &cmd);	
+		virtual void enemyAttack(AttackCommand &cmd);
 };
 #endif

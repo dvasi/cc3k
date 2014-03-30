@@ -1,7 +1,10 @@
 #include "enemyinterpreter.h"
 #include "enemy.h"
+#include "player.h"
 #include "game.h"
 #include "movecommand.h"
+#include "attackcommand.h"
+#include "attackvisitor.h"
 #include <cstdlib>
 using namespace std;
 
@@ -13,50 +16,65 @@ EnemyInterpreter::EnemyInterpreter(){
 
 void EnemyInterpreter::interpretCommand(Enemy* enemy){
 
-	//PRIORITIZE ATTACKING FIRST THOUGH LATER
-	
-	int random;
-	random = (rand()%8) + 1; //random number between 1 and 8 for direction
-
-	if (random == 1){
-		MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos()-1, enemy->getYPos());
-		if (isMoveValid(enemyMove)) moveEnemy(enemyMove);	
-		else interpretCommand(enemy);	
-	}
-	if (random == 2){
-		MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos()+1, enemy->getYPos());
-		if (isMoveValid(enemyMove)) moveEnemy(enemyMove);	
-		else interpretCommand(enemy);			
-	}
-	if (random == 3){
-		MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos(), enemy->getYPos()-1);
-		if (isMoveValid(enemyMove)) moveEnemy(enemyMove);	
-		else interpretCommand(enemy);			
-	}
-	if (random == 4){
-		MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos(), enemy->getYPos()+1);
-		if (isMoveValid(enemyMove)) moveEnemy(enemyMove);	
-		else interpretCommand(enemy);			
-	}
-	if (random == 5){
-		MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos()-1, enemy->getYPos()-1);
-		if (isMoveValid(enemyMove)) moveEnemy(enemyMove);	
-		else interpretCommand(enemy);		
-	}
-	if (random == 6){
-		MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos()-1, enemy->getYPos()+1);
-		if (isMoveValid(enemyMove)) moveEnemy(enemyMove);	
-		else interpretCommand(enemy);			
-	}
-	if (random == 7){
-		MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos()+1, enemy->getYPos()-1);
-		if (isMoveValid(enemyMove)) moveEnemy(enemyMove);	
-		else interpretCommand(enemy);			
-	}
-	if (random == 8){
-		MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos()+1, enemy->getYPos()+1);
-		if (isMoveValid(enemyMove)) moveEnemy(enemyMove);	
-		else interpretCommand(enemy);			
+	//Prioritize Attacking for enemy AI
+	if (enemy->isHostile()){
+		Player *player = Player::getInstance();
+		int playerXPos = player->getXPos();
+		int playerYPos = player->getYPos();
+		int enemyXPos = enemy->getXPos();
+		int enemyYPos = enemy->getYPos();
+		
+		//Player is within attacking vicinity
+		if ((abs(playerXPos-enemyXPos) <=1)&&(abs(playerYPos-enemyYPos) <=1)){
+			AttackCommand atkCmd = AttackCommand(enemy,playerXPos,playerYPos);
+			enemyAttack(atkCmd);
+		}
+		
+		else if (enemy->isMobile()){
+			int random;
+			random = (rand()%8) + 1; //random number between 1 and 8 for direction
+			if (random == 1){
+				MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos()-1, enemy->getYPos());
+				if (isMoveValid(enemyMove)) moveEnemy(enemyMove);	
+				else interpretCommand(enemy);	
+			}
+			if (random == 2){
+				MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos()+1, enemy->getYPos());
+				if (isMoveValid(enemyMove)) moveEnemy(enemyMove);	
+				else interpretCommand(enemy);			
+			}
+			if (random == 3){
+				MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos(), enemy->getYPos()-1);
+				if (isMoveValid(enemyMove)) moveEnemy(enemyMove);	
+				else interpretCommand(enemy);			
+			}
+			if (random == 4){
+				MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos(), enemy->getYPos()+1);
+				if (isMoveValid(enemyMove)) moveEnemy(enemyMove);	
+				else interpretCommand(enemy);			
+			}
+			if (random == 5){
+				MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos()-1, enemy->getYPos()-1);
+				if (isMoveValid(enemyMove)) moveEnemy(enemyMove);	
+				else interpretCommand(enemy);		
+			}
+			if (random == 6){
+				MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos()-1, enemy->getYPos()+1);
+				if (isMoveValid(enemyMove)) moveEnemy(enemyMove);	
+				else interpretCommand(enemy);			
+			}
+			if (random == 7){
+				MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos()+1, enemy->getYPos()-1);
+				if (isMoveValid(enemyMove)) moveEnemy(enemyMove);	
+				else interpretCommand(enemy);			
+			}
+			if (random == 8){
+				MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos()+1, enemy->getYPos()+1);
+				if (isMoveValid(enemyMove)) moveEnemy(enemyMove);	
+				else interpretCommand(enemy);			
+			}
+				
+		}	
 	}
 }
 
@@ -108,4 +126,20 @@ void EnemyInterpreter::moveEnemy(MoveCommand &cmd){
 	//Notify our display
 	currentCell->notifyDisplay(*td);
 	newCell->notifyDisplay(*td);
+}
+
+void EnemyInterpreter::enemyAttack(AttackCommand &cmd){
+
+	Character *enemy = cmd.getAttacker();
+	Player *ch = Player::getInstance();
+	//Floor *currentFloor = game->getFloors()->at(game->getCurrentFloor());
+	
+	//Attack enemy
+	AttackVisitor atkVisitor = AttackVisitor(enemy);
+	ch->accept(atkVisitor);
+	
+	//If player is dead restart game
+	if (ch->getHp() <= 0){
+	//Notify display?	
+	}
 }

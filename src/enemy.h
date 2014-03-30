@@ -5,17 +5,19 @@
 class EnemyInterpreter;
 
 class Enemy : public Character{
-protected:
-	bool isHostile; //for merchants and dragons
-	char type;
+protected:	
 	EnemyInterpreter* input;
-	Enemy(int hp, int atk, int def, int x, int y, char type, int id, EnemyInterpreter* input);
+	char type;	
+	bool hostile;
+	bool mobile;
+	Enemy(int hp, int atk, int def, int x, int y, char type, int id, EnemyInterpreter* input, bool hostile=true, bool mobile=true);
 public:
 	double takeDamage(int);
-	virtual char getType();
 	virtual void update();
 	virtual ~Enemy();
 	char getSymbol();
+	bool isHostile();
+	bool isMobile();
 };
 
 #endif
