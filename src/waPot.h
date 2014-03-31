@@ -1,16 +1,14 @@
-#ifndef __waPot_H__
-#define __waPot_H__
+#ifndef __WAPOT_H__
+#define __WAPOT_H__
 #include "potion.h"
 #include "item.h"
 
-class waPot: public Potion
+class WAPot: public Potion
 {
-protected:
-    int magnitude;
-    bool revealed; //whether or not the player knows the potion's effect
+	static bool revealed;
 public:
-    //int getMagnitude();
-    waPot(int id);
+    WAPot(int id);
+    bool isRevealed();
 };
 
 #endif

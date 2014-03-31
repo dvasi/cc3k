@@ -1,4 +1,8 @@
 #include "baPot.h"
 using namespace std;
 
-baPot::baPot(int id): Potion(id), magnitude(5), revealed(false){}
+BAPot::BAPot(int id): Potion(id, 5){}
+
+bool BAPot::isRevealed(){ return BAPot::revealed; }
+
+bool BAPot::revealed = false;

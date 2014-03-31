@@ -1,4 +1,8 @@
 #include "waPot.h"
 using namespace std;
 
-waPot::waPot(int id): Potion(id), magnitude(-5), revealed(false){}
+WAPot::WAPot(int id): Potion(id,-5){}
+
+bool WAPot::isRevealed(){ return WAPot::revealed; }
+
+bool WAPot::revealed = false;

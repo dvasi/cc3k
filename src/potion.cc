@@ -7,8 +7,8 @@ int Potion::getMagnitude()
     return magnitude;
 }
 
-Potion::Potion(int id): Item (id){}
+Potion::Potion(int id, int magnitude): Item (id), magnitude(magnitude){}
 
-bool Potion::isRevealed(){ return revealed; }
+bool Potion::isRevealed(){ return false; }
 
 void Potion::accept(Visitor &v) { v.visit(this); }

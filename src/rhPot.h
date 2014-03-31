@@ -3,15 +3,12 @@
 #include "potion.h"
 #include "item.h"
 
-class rhPot: public Potion
+class RHPot: public Potion
 {
-protected:
-    int magnitude;
-    bool revealed; //whether or not the player knows the potion's effect
+	static bool revealed;
 public:
-    //int getMagnitude();
-    rhPot(int id);
-
+    RHPot(int id);
+    bool isRevealed();
 };
 
 #endif

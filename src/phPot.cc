@@ -1,4 +1,8 @@
 #include "phPot.h"
 using namespace std;
 
-phPot::phPot(int id): Potion(id), magnitude(-10), revealed(false){}
+PHPot::PHPot(int id): Potion(id,-10){}
+
+bool PHPot::isRevealed(){ return PHPot::revealed; }
+
+bool PHPot::revealed = false;

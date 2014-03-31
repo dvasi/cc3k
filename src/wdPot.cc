@@ -1,5 +1,9 @@
 #include "wdPot.h"
 using namespace std;
 
-wdPot::wdPot(int id): Potion(id), magnitude(-5), revealed(false){}
+WDPot::WDPot(int id): Potion(id,-5){}
+
+bool WDPot::isRevealed(){ return WDPot::revealed; }
+
+bool WDPot::revealed = false;
 

@@ -16,17 +16,17 @@ Item *ItemFactory::getItem(char itemChar)
     Item *newItem;
 
     if (itemChar == '0') //RH
-        newItem =  new rhPot(Item::generateId());
+        newItem =  new RHPot(Item::generateId());
     else if (itemChar == '1') //BA
-        newItem =  new baPot(Item::generateId());
+        newItem =  new BAPot(Item::generateId());
     else if (itemChar == '2') //BD
-        newItem =  new bdPot(Item::generateId());
+        newItem =  new BDPot(Item::generateId());
     else if (itemChar == '3') //PH
-        newItem =  new phPot(Item::generateId());
+        newItem =  new PHPot(Item::generateId());
     else if (itemChar == '4') //WA
-        newItem =  new waPot(Item::generateId());
+        newItem =  new WAPot(Item::generateId());
     else if (itemChar == '5') //WD
-        newItem =  new wdPot(Item::generateId());
+        newItem =  new WDPot(Item::generateId());
     else if (itemChar == '6') //normal gold pile
         newItem =  new Gold(Item::generateId(), 1);
     else if (itemChar == '7') //small hoard

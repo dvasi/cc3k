@@ -7,11 +7,10 @@ class Potion: public Item
 {
 protected:
     int magnitude;
-    bool revealed; //whether or not the player knows the potion's effect
 public:
-	Potion(int id);
+	Potion(int id, int magnitude);
     int getMagnitude();
-    bool isRevealed();
+    virtual bool isRevealed();
     void accept(Visitor &v);
 };
 

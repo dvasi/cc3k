@@ -1,4 +1,8 @@
 #include "bdPot.h"
 using namespace std;
 
-bdPot::bdPot(int id): Potion(id), magnitude(5), revealed(false){}
+BDPot::BDPot(int id): Potion(id,5){}
+
+bool BDPot::isRevealed(){ return BDPot::revealed; }
+
+bool BDPot::revealed = false;

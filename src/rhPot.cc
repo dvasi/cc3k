@@ -1,4 +1,8 @@
 #include "rhPot.h"
 using namespace std;
 
-rhPot::rhPot(int id): Potion(id), magnitude(10), revealed(false){}
+RHPot::RHPot(int id): Potion(id,10){}
+
+bool RHPot::isRevealed(){ return RHPot::revealed; }
+
+bool RHPot::revealed = false;

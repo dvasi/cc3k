@@ -1,17 +1,14 @@
-#ifndef __baPot_H__
-#define __baPot_H__
+#ifndef __BAPOT_H__
+#define __BAPOT_H__
 #include "potion.h"
 #include "item.h"
 
-class baPot: public Potion
+class BAPot: public Potion
 {
-protected:
-    int magnitude;
-    bool revealed; //whether or not the player knows the potion's effect
+	static bool revealed;
 public:
-    //int getMagnitude();
-    baPot(int id);
-
+    BAPot(int id);
+    bool isRevealed();
 };
 
 #endif

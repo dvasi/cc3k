@@ -1,17 +1,14 @@
-#ifndef __phPot_H__
-#define __phPot_H__
+#ifndef __PHPOT_H__
+#define __PHPOT_H__
 #include "potion.h"
 #include "item.h"
 
-class phPot: public Potion
+class PHPot: public Potion
 {
-protected:
-    int magnitude;
-    bool revealed; //whether or not the player knows the potion's effect
+	static bool revealed;
 public:
-    //int getMagnitude();
-    phPot(int id);
-
+    PHPot(int id);
+    bool isRevealed();
 };
 
 #endif
