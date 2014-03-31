@@ -11,7 +11,7 @@ Player::Player(int hp, int atk, int def, int x, int y, char race, int id): Chara
 	atexit(cleanup); 
 }
 
-Player::~Player(){ delete input; }
+Player::~Player(){ 	delete input; }
 
 //Assumes a player is only explicitly created once during race selection
 Player* Player::getInstance() { return playerInstance; }

@@ -28,7 +28,7 @@ public:
 	void displayWorld();
 	void displayWelcomeScreen();
 	void displayRaceSelectionScreen();
-	void displayVictoryScreen();
+	void displayEndScreen();
 	void displayDefeatScreen();
 	void selectRace();
 	void selectEndGameCommand();
@@ -36,6 +36,7 @@ public:
 	int getCurrentFloor();
 	void setCurrentFloor(int floorNum);
 	void updateState();
+	void restartGame();
 	std::vector <Floor*>* getFloors();
 	Player* getPlayer();
 

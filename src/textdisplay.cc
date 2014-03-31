@@ -86,6 +86,7 @@ ostream &operator<<(ostream &out, const TextDisplay &td){
 	string race = Player::charToRace(player->getSymbol());
 	int gold = player->getGold();
 	int hp = player->getHp();
+	if (hp < 0) hp=0; //as to not display negative hp
 	int atk = player->getAtk();
 	int def = player->getDef();
 	int floorNum = game->getCurrentFloor()+1;

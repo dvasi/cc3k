@@ -222,7 +222,7 @@ void PlayerInterpreter::movePlayer(MoveCommand &cmd){
 		int floorNum = game->getCurrentFloor();
 		//Handle victory
 		if (floorNum == NUM_FLOORS-1){
-			game->displayVictoryScreen();
+			game->displayEndScreen();
 			game->selectEndGameCommand();
 			return;
 		}

@@ -201,7 +201,7 @@ void Game::displayRaceSelectionScreen(){
 	attroff(COLOR_PAIR(1));
 }
 
-void Game::displayVictoryScreen(){
+void Game::displayEndScreen(){
 
 	clear();
 
@@ -216,6 +216,9 @@ void Game::displayVictoryScreen(){
 	string authorMsg = "Made by Tyler Sanderson and Steve Weng";
 
 	 vector<string> victoryArt;
+	 bool defeat=false;
+	 if (player->getHp()<=0) defeat=true;
+	 if (!defeat){
 	 victoryArt.push_back("__      ___      _                   _");
 	 victoryArt.push_back("\\ \\    / (_)    | |                 | |");
 	 victoryArt.push_back(" \\ \\  / / _  ___| |_ ___  _ __ _   _| |");
@@ -224,6 +227,17 @@ void Game::displayVictoryScreen(){
 	 victoryArt.push_back("    \\/   |_|\\___|\\__\\___/|_|   \\__, (_)");
 	 victoryArt.push_back("                                __/ |  ");
 	 victoryArt.push_back("                               |___/   ");
+	}
+    //okay so this defeat word is not the same font as victory...and might have to change method name
+	else{
+	 victoryArt.push_back("________          _____              __   ");
+	 victoryArt.push_back("\\______ \\   _____/ ____\\____ _____ _/  |_");
+	 victoryArt.push_back(" |    |  \\_/ __ \\   __\\/ __ \\__  \\   __\\ ");
+	 victoryArt.push_back(" |    |  \\_/ __ \\   __\\/ __ \\__  \\   __\\ ");
+	 victoryArt.push_back(" |    `   \\  ___/|  | \\  ___/ / __ \\|  |  ");
+	 victoryArt.push_back("/_______  /\\___  >__|  \\___  >____  /__|  ");
+	 victoryArt.push_back("        \\/     \\/          \\/     \\/      ");
+	}
 
 	 vector<string> swordArt;
 	 swordArt.push_back("          /\\          ");
@@ -283,6 +297,7 @@ void Game::selectRace(){
 			(cmd != 'o')){
 		cmd = getch();
 	}	
+	//make options available for selecing other races
 	setPlayer(new Human(0,0,Character::generateId()));
 	clear();	
 	return;	
@@ -292,9 +307,17 @@ void Game::selectEndGameCommand(){
 	char cmd;
 	cmd = getch();
 	while ((cmd != 'r')&&(cmd != 'q')) cmd = getch();
-	if (cmd == 'r'); //restart
+	if (cmd == 'r') //this->restartGame();
 	if (cmd == 'q'); //exit
 }
+
+/*void Game::restartGame(){
+	this->~Game();
+	this->initializeWorld();
+    player->~Player();
+	this->displayRaceSelectionScreen();
+    this->selectRace();
+}*/
 
 void Game::initializeFloors(vector<vector<char> > floorLayout){
 
@@ -329,6 +352,80 @@ void Game::setCurrentFloor(int floorNum) {
 	player->setPos(startXPos,startYPos);	
 }
 
+
 Player* Game::getPlayer(){ return player; }
 
 Game* Game::gameInstance = NULL;
+
+
+/*void Game::displayVictoryScreen(){
+
+	clear();
+
+	string scoreMsg = "Your final score is: ";
+	ostringstream convert;
+	Player *player = Player::getInstance();
+	int finalScore = player->getGold();
+	convert << finalScore;
+	scoreMsg += convert.str();
+
+	string commandMsg = "Press 'r' to restart, 'q' to quit";
+	string authorMsg = "Made by Tyler Sanderson and Steve Weng";
+
+	 vector<string> victoryArt;
+
+	 victoryArt.push_back("__      ___      _                   _");
+	 victoryArt.push_back("\\ \\    / (_)    | |                 | |");
+	 victoryArt.push_back(" \\ \\  / / _  ___| |_ ___  _ __ _   _| |");
+	 victoryArt.push_back("  \\ \\/ / | |/ __| __/ _ \\| '__| | | | |");
+	 victoryArt.push_back("   \\  /  | | (__| || (_) | |  | |_| |_|");
+	 victoryArt.push_back("    \\/   |_|\\___|\\__\\___/|_|   \\__, (_)");
+	 victoryArt.push_back("                                __/ |  ");
+	 victoryArt.push_back("                               |___/   ");
+	
+
+	 vector<string> swordArt;
+	 swordArt.push_back("          /\\          ");
+	 swordArt.push_back("         /  \\         ");
+	 swordArt.push_back("        |    |        ");
+	 swordArt.push_back("        |    |        ");
+	 swordArt.push_back("        |    |        ");
+	 swordArt.push_back("        |    |        ");
+
+	 vector<string> swordArt2;
+	 swordArt2.push_back("        |    |        ");
+	 swordArt2.push_back("        | /\\ |        ");
+	 swordArt2.push_back(":\\______|/  \\|______/:");
+	 swordArt2.push_back(" \\__________________/");
+	 swordArt2.push_back("        | /\\ |        ");
+	 swordArt2.push_back("        ||  ||        ");
+	 swordArt2.push_back("        ||  ||        ");
+	 swordArt2.push_back("        ||  ||        ");
+	 swordArt2.push_back("        | \\/ |        ");
+	 swordArt2.push_back("        \\____/        ");
+	 swordArt2.push_back("        (____)        ");
+
+
+	int row, col;
+	getmaxyx(stdscr,row,col);
+
+	attron(COLOR_PAIR(1));
+	for (unsigned int i = 0; i < victoryArt.size(); ++i){
+		mvprintw(i,(col-strlen(victoryArt.at(0).c_str()))/2,"%s",victoryArt.at(i).c_str());
+	}
+	for (unsigned int i = 0; i < swordArt.size(); ++i){
+			mvprintw(victoryArt.size()+1+i,(col-strlen(swordArt.at(0).c_str()))/2,"%s",swordArt.at(i).c_str());
+	}
+	attron(A_BOLD);
+	mvprintw(victoryArt.size()+swordArt.size()+1,col/2-strlen(scoreMsg.c_str())/2,"%s",scoreMsg.c_str());
+	mvprintw(victoryArt.size()+swordArt.size()+2,col/2-strlen(commandMsg.c_str())/2,"%s",commandMsg.c_str());
+	attroff(A_BOLD);
+	refresh();
+	for (unsigned int i = 0; i < swordArt2.size(); ++i){
+		mvprintw(victoryArt.size()+swordArt.size()+3+i,(col-strlen(swordArt2.at(0).c_str()))/2,"%s",swordArt2.at(i).c_str());
+	}
+
+	mvprintw(row-2,(col-authorMsg.length())/2,authorMsg.c_str());
+	attroff(COLOR_PAIR(1));
+}
+*/

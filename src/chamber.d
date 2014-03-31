@@ -1,1 +1,1 @@
-chamber.o: chamber.cc chamber.h cell.h textdisplay.h
+chamber.o: chamber.cc chamber.h
