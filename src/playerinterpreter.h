@@ -6,6 +6,7 @@
 #include "commandinterpreter.h"
 #include "movecommand.h"
 #include "attackcommand.h"
+#include "itemusecommand.h"
 
 class Game;
 class Player;
@@ -23,6 +24,8 @@ class PlayerInterpreter: public CommandInterpreter{
 		void movePlayer(MoveCommand &cmd);
 		bool isAttackValid(AttackCommand &cmd);
 		void playerAttack(AttackCommand &cmd);
+		bool isUseValid(ItemUseCommand &cmd);
+		void playerUseItem(ItemUseCommand &cmd);
 		void notifyDisplay(TextDisplay &td, std::string action);
 		Player* getPlayer();		
 };

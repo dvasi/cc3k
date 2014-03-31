@@ -12,6 +12,7 @@ class WDPot: public Potion
 public:
     WDPot(int id);
     bool isRevealed();
+    static void revealPotion();
     std::string getName();
     void accept(Visitor &v);
 };

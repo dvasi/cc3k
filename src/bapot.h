@@ -12,6 +12,7 @@ class BAPot: public Potion
 public:
     BAPot(int id);
     bool isRevealed();
+    static void revealPotion();
     std::string getName();
     void accept(Visitor &v);
 };

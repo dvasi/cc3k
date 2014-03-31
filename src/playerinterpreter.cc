@@ -9,6 +9,7 @@
 #include "game.h"
 #include "movecommand.h"
 #include "attackcommand.h"
+#include "itemusecommand.h"
 #include "textdisplay.h"
 #include "attackvisitor.h"
 #include "itemusevisitor.h"
@@ -333,4 +334,49 @@ void PlayerInterpreter::notifyDisplay(TextDisplay &td, string action){
 	td.notify(action);
 }
 
+bool PlayerInterpreter::isUseValid(ItemUseCommand &cmd) {
+	Player *ch = Player::getInstance();
+	int currentX = ch->getXPos();
+	int currentY = ch->getYPos();
+	int newX = cmd.getXPos();
+	int newY = cmd.getYPos();
+	Floor* currentFloor = game->getFloors()->at(game->getCurrentFloor());
+	Cell* newCell = currentFloor->getCellAt(newX,newY);
 
+	if ((abs(currentX-newX) <=1)&&(abs(currentY-newY) <=1)){
+		if ((newCell->getCellType() != Cell::Wall)&&(newCell->getCellType() != Cell::Empty)){
+			if (newCell->hasItem()){
+				Item *item = currentFloor->getItem(newCell->getOccupiedId());
+				if (item->canUse()) return true;
+			}
+		}
+	}
+	return false;
+}
+
+void PlayerInterpreter::playerUseItem(ItemUseCommand &cmd) {
+
+	int newX = cmd.getXPos();
+	int newY = cmd.getYPos();
+	Floor* currentFloor = game->getFloors()->at(game->getCurrentFloor());
+	Cell* newCell = currentFloor->getCellAt(newX,newY);
+	Item *item = currentFloor->getItem(newCell->getOccupiedId());
+	TextDisplay *td = currentFloor->getTextDisplay();
+
+	//Use Item
+	ItemUseVisitor itemVisitor = ItemUseVisitor();
+	item->accept(itemVisitor);
+	actionStr += " uses ";
+	actionStr += item->getName();
+
+	//Remove Item
+	newCell->setOccupation(false,false,false);
+	newCell->setCellSymbol('.');
+	currentFloor->removeItem(newCell->getOccupiedId());
+
+	//Notify our display
+	newCell->notifyDisplay(*td);
+	actionStr += ". ";
+	notifyDisplay(*td,actionStr);
+	actionStr = "";
+}

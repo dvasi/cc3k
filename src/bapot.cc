@@ -7,6 +7,8 @@ BAPot::BAPot(int id): Potion(id, 5){}
 
 bool BAPot::isRevealed(){ return BAPot::revealed; }
 
+void BAPot::revealPotion(){ BAPot::revealed = true; }
+
 string BAPot::getName(){ return "BA potion"; }
 
 void BAPot::accept(Visitor &v) { v.visit(this); }

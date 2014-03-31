@@ -7,6 +7,8 @@ RHPot::RHPot(int id): Potion(id,10){}
 
 bool RHPot::isRevealed(){ return RHPot::revealed; }
 
+void RHPot::revealPotion(){ RHPot::revealed = true; }
+
 string RHPot::getName(){ return "RH potion"; }
 
 void RHPot::accept(Visitor &v){ v.visit(this); }

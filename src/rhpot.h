@@ -12,6 +12,7 @@ class RHPot: public Potion
 public:
     RHPot(int id);
     bool isRevealed();
+    static void revealPotion();
     std::string getName();
     void accept(Visitor &v);
 };
