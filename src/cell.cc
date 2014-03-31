@@ -17,6 +17,10 @@ int Cell::getOccupiedId() { return occupiedId; }
 
 bool Cell::hasItem() { return item; }
 
+bool Cell::hasGold() { return ((item)&&(symbolToDisplayChar(cellSymbol) == 'G')); }
+
+bool Cell::hasPotion() { return ((item)&&(symbolToDisplayChar(cellSymbol) == 'P')); }
+
 bool Cell::hasEnemy() { return enemy; }
 
 bool Cell::hasPlayer() { return player; }

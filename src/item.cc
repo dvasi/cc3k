@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "item.h"
 #include "visitor.h"
 using namespace std;
@@ -18,6 +19,10 @@ int Item::getId(){ return id; }
 bool Item::canPickUp(){ return lootable; }
 
 bool Item::canUse(){ return useable; }
+
+string Item::getName(){ return "Item"; }
+
+bool Item::isRevealed(){ return true; }
 
 void Item::accept(Visitor &v) {}
 

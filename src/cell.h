@@ -32,6 +32,8 @@ public:
 	
 	bool hasEnemy();
 	bool hasItem();
+	bool hasGold();
+	bool hasPotion();
 	bool hasPlayer();
 	void setOccupation(bool hasEnemy, bool hasItem, bool hasPlayer, int id=-1);
 	

@@ -2,6 +2,7 @@
 #define __BDPOT_H__
 #include "potion.h"
 #include "item.h"
+#include <string>
 
 class BDPot: public Potion
 {
@@ -9,6 +10,7 @@ class BDPot: public Potion
 public:
     BDPot(int id);
     bool isRevealed();
+    std::string getName();
 };
 
 #endif

@@ -2,6 +2,7 @@
 #define __WAPOT_H__
 #include "potion.h"
 #include "item.h"
+#include <string>
 
 class WAPot: public Potion
 {
@@ -9,6 +10,7 @@ class WAPot: public Potion
 public:
     WAPot(int id);
     bool isRevealed();
+    std::string getName();
 };
 
 #endif

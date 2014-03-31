@@ -188,8 +188,8 @@ void PlayerInterpreter::movePlayer(MoveCommand &cmd){
 		nextTd->notify("PC advances to the next floor.");
 	}
 	
-	//Set up our new cell
-	if ((newCell->hasItem())&&(newCell->symbolToDisplayChar(newCell->getCellSymbol()) == 'G')){
+	//Check for gold to pick up
+	if (newCell->hasGold()){
 		Item *gold = currentFloor->getItem(newCell->getOccupiedId());	
 		int oldGold = ch->getGold();	
 		ItemUseVisitor itemVisitor = ItemUseVisitor();
@@ -200,8 +200,31 @@ void PlayerInterpreter::movePlayer(MoveCommand &cmd){
 		actionStr += " and picks up " + convert.str() + " gold";
 		currentFloor->removeItem(newCell->getOccupiedId());			
 	}
+
+	//Check for potions adjacent to our new position
+	Cell* adjacentCell;
+	for (int deltaX = -1; deltaX <= 1; ++deltaX){
+		for (int deltaY = -1; deltaY <=1; ++deltaY){
+			adjacentCell = currentFloor->getCellAt(newX+deltaX,newY+deltaY);
+			if (adjacentCell->hasPotion()){
+				Item *potion = currentFloor->getItem(adjacentCell->getOccupiedId());
+				actionStr += " and sees a";
+				if (potion->isRevealed()){
+					actionStr += " ";
+					actionStr += potion->getName();
+				}
+				else{
+					actionStr += "n unknown potion";
+				}
+				break;
+			}
+		}
+	}
+
+	//Set up our new cell
 	newCell->setOccupation(false,false,true,ch->getId());
-	newCell->setCellSymbol('@');	
+	newCell->setCellSymbol('@');
+
 	
 	//Change our old one
 	currentCell->setOccupation(false,false,false);
