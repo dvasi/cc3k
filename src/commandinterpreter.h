@@ -3,7 +3,9 @@
 #include <ncurses.h>
 #include <map>
 #include <string>
-#include "character.h"
+
+class Character;
+
 class CommandInterpreter{
 	
 	protected:

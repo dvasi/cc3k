@@ -6,10 +6,11 @@
 #include <queue>
 #include "cell.h"
 #include "item.h"
-#include "chamber.h"
-#include "textdisplay.h"
-#include "player.h"
 #include "enemy.h"
+
+class Chamber;
+class TextDisplay;
+class Player;
 
 const int BOARD_WIDTH = 79;
 const int BOARD_HEIGHT = 25;

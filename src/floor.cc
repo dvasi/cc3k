@@ -16,9 +16,6 @@
 #include "game.h"
 using namespace std;
 
-int DEBUG_ROW = BOARD_HEIGHT + 1;
-int DEBUG_COL = 0;
-
 Floor::Floor(): startXPos(3), startYPos(3), dragons(0)
 {
     td = new TextDisplay(BOARD_WIDTH, BOARD_HEIGHT);

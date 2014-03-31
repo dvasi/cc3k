@@ -2,12 +2,11 @@
 #include "visitor.h"
 using namespace std;
 
-int Potion::getMagnitude()
-{
+int Potion::getMagnitude(){
     return magnitude;
 }
 
-Potion::Potion(int id, int magnitude): Item (id), magnitude(magnitude){}
+Potion::Potion(int id, int magnitude): Item (id,false,true), magnitude(magnitude){}
 
 bool Potion::isRevealed(){ return false; }
 

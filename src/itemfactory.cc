@@ -6,7 +6,6 @@
 #include "phpot.h"
 #include "wapot.h"
 #include "wdpot.h"
-#include "potion.h"
 
 ItemFactory::ItemFactory() {}
 

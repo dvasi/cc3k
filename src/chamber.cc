@@ -1,9 +1,9 @@
 #include <iostream>
 #include <vector>
 #include "chamber.h"
-#include "cell.h"
-using namespace std; 
+using namespace std;
 
+class Cell;
 
 Chamber::Chamber(vector<Cell*> cells): cells(cells){}
 

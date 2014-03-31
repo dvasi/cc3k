@@ -1,6 +1,7 @@
 #ifndef __POTION_H__
 #define __POTION_H__
 #include "item.h"
+
 class Visitor;
 
 class Potion: public Item

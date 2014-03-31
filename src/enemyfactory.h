@@ -1,6 +1,8 @@
 #ifndef __ENEMYFACTORY_H__
 #define __ENEMYFACTORY_H__
-#include "enemy.h"
+
+class Enemy;
+
 class EnemyFactory{
 	
 	public:

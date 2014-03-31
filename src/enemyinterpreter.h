@@ -4,12 +4,12 @@
 #include <map>
 #include <string>
 #include "commandinterpreter.h"
-#include "movecommand.h"
-#include "attackcommand.h"
 
 class Game;
 class Enemy;
 class TextDisplay;
+class MoveCommand;
+class AttackCommand;
 
 class EnemyInterpreter : public CommandInterpreter{
 

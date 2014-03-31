@@ -1,7 +1,6 @@
 #ifndef __PHPOT_H__
 #define __PHPOT_H__
 #include "potion.h"
-#include "item.h"
 #include <string>
 
 class Visitor;

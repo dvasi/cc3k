@@ -5,7 +5,6 @@
 #include <cmath>
 #include <cstdlib>
 #include "playerinterpreter.h"
-#include "human.h"
 #include "game.h"
 #include "movecommand.h"
 #include "attackcommand.h"
@@ -13,6 +12,7 @@
 #include "textdisplay.h"
 #include "attackvisitor.h"
 #include "itemusevisitor.h"
+#include "cell.h"
 using namespace std;
 
 const char UP = '8';
@@ -155,9 +155,53 @@ void PlayerInterpreter::interpretCommand(Player* player){
 		}
 		else interpretCommand(player);	
 	}
+
+	else if (cmd == USE){
+		cmd = getch();
+
+		if (cmd == UP){
+			ItemUseCommand itemCmd = ItemUseCommand(player, player->getXPos()-1, player->getYPos());
+			if (isUseValid(itemCmd)) playerUseItem(itemCmd);
+			else interpretCommand(player);
+		}
+		else if (cmd == DOWN){
+			ItemUseCommand itemCmd = ItemUseCommand(player, player->getXPos()+1, player->getYPos());
+			if (isUseValid(itemCmd)) playerUseItem(itemCmd);
+			else interpretCommand(player);
+		}
+		else if (cmd == LEFT){
+			ItemUseCommand itemCmd = ItemUseCommand(player, player->getXPos(), player->getYPos()-1);
+			if (isUseValid(itemCmd)) playerUseItem(itemCmd);
+			else interpretCommand(player);
+		}
+		else if (cmd == RIGHT){
+			ItemUseCommand itemCmd = ItemUseCommand(player, player->getXPos(), player->getYPos()+1);
+			if (isUseValid(itemCmd)) playerUseItem(itemCmd);
+			else interpretCommand(player);
+		}
+		else if (cmd == UP_LEFT){
+			ItemUseCommand itemCmd = ItemUseCommand(player, player->getXPos()-1, player->getYPos()-1);
+			if (isUseValid(itemCmd)) playerUseItem(itemCmd);
+			else interpretCommand(player);
+		}
+		else if (cmd == UP_RIGHT){
+			ItemUseCommand itemCmd = ItemUseCommand(player, player->getXPos()-1, player->getYPos()+1);
+			if (isUseValid(itemCmd)) playerUseItem(itemCmd);
+			else interpretCommand(player);
+		}
+		else if (cmd == DOWN_LEFT){
+			ItemUseCommand itemCmd = ItemUseCommand(player, player->getXPos()+1, player->getYPos()-1);
+			if (isUseValid(itemCmd)) playerUseItem(itemCmd);
+			else interpretCommand(player);
+		}
+		else if (cmd == DOWN_RIGHT){
+			ItemUseCommand itemCmd = ItemUseCommand(player, player->getXPos()+1, player->getYPos()+1);
+			if (isUseValid(itemCmd)) playerUseItem(itemCmd);
+			else interpretCommand(player);
+		}
+		else interpretCommand(player);
+	}
 	else interpretCommand(player);
-	
-	//TODO ITEMS
 }	
 
 void PlayerInterpreter::movePlayer(MoveCommand &cmd){
@@ -252,14 +296,10 @@ bool PlayerInterpreter::isMoveValid(MoveCommand &cmd){
 		if ((newCell->getCellType() != Cell::Wall)&&(newCell->getCellType() != Cell::Empty)){		
 			if (!newCell->hasEnemy()){										
 				if (newCell->hasItem()){					
-					if (newCell->symbolToDisplayChar(newCell->getCellSymbol()) == 'G'){
-						return true;
-					}
-					else{
-						return false;
-					}
+					Item *item = currentFloor->getItem(newCell->getOccupiedId());
+					if (item->canPickUp()) return true;
 				}
-				return true;
+				else return true;
 			}
 		}
 	}

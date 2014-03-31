@@ -2,7 +2,9 @@
 #define __CHAMBER_H__
 #include <iostream>
 #include <vector>
-#include "cell.h"
+#
+class Cell;
+
 class Chamber{
 
 

@@ -4,13 +4,13 @@
 #include <map>
 #include <string>
 #include "commandinterpreter.h"
-#include "movecommand.h"
-#include "attackcommand.h"
-#include "itemusecommand.h"
 
 class Game;
 class Player;
 class TextDisplay;
+class MoveCommand;
+class AttackCommand;
+class ItemUseCommand;
 
 class PlayerInterpreter: public CommandInterpreter{
 

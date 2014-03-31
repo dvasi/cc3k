@@ -1,12 +1,12 @@
 #include "itemusecommand.h"
-#include "item.h"
+#include "character.h"
 
-ItemUseCommand::ItemUseCommand(Item *item, int itemXPos, int itemYPos):
-		item(item),itemXPos(itemXPos),itemYPos(itemYPos){}
+ItemUseCommand::ItemUseCommand(Character *user, int itemXPos, int itemYPos):
+		user(user),itemXPos(itemXPos),itemYPos(itemYPos){}
 
 ItemUseCommand::~ItemUseCommand(){}
 
-Item* ItemUseCommand::getItem(){ return item; }
+Character* ItemUseCommand::getUser(){ return user; }
 
 int ItemUseCommand::getXPos(){ return itemXPos; }
 

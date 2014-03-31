@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <vector>
 #include <string>
-#include "human.h"
+#include "player.h"
 #include "floor.h"
 
 const std::string DEFAULT_LAYOUT_CONFIG_FILE = "defaultLayout.txt";

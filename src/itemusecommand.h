@@ -1,16 +1,17 @@
 #ifndef __ITEMUSECOMMAND_H__
 #define __ITEMUSECOMMAND_H__
 #include "command.h"
-class Item;
+
+class Character;
 
 class ItemUseCommand: public Command {
 
-	Item* item;
+	Character* user;
 	int itemXPos, itemYPos;
 public:
-	ItemUseCommand(Item *item, int itemXPos, int itemYPos);
+	ItemUseCommand(Character *user, int itemXPos, int itemYPos);
 	~ItemUseCommand();
-	Item *getItem();
+	Character *getUser();
 	int getXPos();
 	int getYPos();
 };

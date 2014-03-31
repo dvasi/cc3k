@@ -1,7 +1,6 @@
 #ifndef __WAPOT_H__
 #define __WAPOT_H__
 #include "potion.h"
-#include "item.h"
 #include <string>
 
 class Visitor;

@@ -1,3 +1,7 @@
+#include <cstdlib>
+#include <string>
+#include <iostream>
+#include <sstream>
 #include "enemyinterpreter.h"
 #include "enemy.h"
 #include "player.h"
@@ -5,10 +9,6 @@
 #include "movecommand.h"
 #include "attackcommand.h"
 #include "attackvisitor.h"
-#include <cstdlib>
-#include <string>
-#include <iostream>
-#include <sstream>
 using namespace std;
 
 EnemyInterpreter::~EnemyInterpreter(){}

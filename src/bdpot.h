@@ -1,7 +1,6 @@
 #ifndef __BDPOT_H__
 #define __BDPOT_H__
 #include "potion.h"
-#include "item.h"
 #include <string>
 
 class Visitor;

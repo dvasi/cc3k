@@ -1,5 +1,4 @@
 #include "attackcommand.h"
-#include "character.h"
 
 AttackCommand::AttackCommand(Character *attacker, int attackXPos, int attackYPos):
 	attacker(attacker), attackXPos(attackXPos), attackYPos(attackYPos){}

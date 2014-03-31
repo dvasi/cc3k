@@ -3,8 +3,8 @@
 #include <iostream>
 #include <vector>
 #include "fileparser.h"
-#include "cell.h"
 #include "floor.h"
+#include "cell.h"
 
 using namespace std;
 

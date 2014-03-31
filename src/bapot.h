@@ -2,7 +2,6 @@
 #define __BAPOT_H__
 #include <string>
 #include "potion.h"
-#include "item.h"
 
 class Visitor;
 

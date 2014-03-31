@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include "player.h"
+#include "playerinterpreter.h"
 using namespace std;
 
 Player::Player(int hp, int atk, int def, int x, int y, char race, int id): Character(hp,atk,def,x,y,id), gold(0), race(race) { 

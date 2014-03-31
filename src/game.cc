@@ -8,7 +8,8 @@
 #include <vector>
 #include "game.h"
 #include "fileparser.h"
-#include "character.h"
+#include "human.h"
+#include "floor.h"
 using namespace std;
 
 Game::Game(): layoutGiven(false), currentFloor(0){ }

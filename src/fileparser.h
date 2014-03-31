@@ -2,7 +2,6 @@
 #define __FILEPARSER_H__
 #include <fstream>
 #include <vector>
-#include "floor.h"
 
 class FileParser{
 	

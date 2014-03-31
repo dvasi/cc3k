@@ -2,7 +2,9 @@
 #define __PASSAGE_H__
 #include <iostream>
 #include <vector>
-#include "cell.h"
+
+class Cell;
+
 class Passage{
 
 	std::vector<std::vector<Cell*> > cell;
