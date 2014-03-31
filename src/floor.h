@@ -51,6 +51,7 @@ public:
 	Enemy* getEnemy(int id);
 	Item* getItem(int id);
 	Cell* generateCell(int xPos, int yPos, char symbol);
+	void spawnItem(int xPos, int yPos, char symbol);
 	Cell* getCellAt(int xPos, int yPos);
 	int getStartXPos();
 	int getStartYPos();

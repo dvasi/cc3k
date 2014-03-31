@@ -295,6 +295,15 @@ Item* Floor::getItem(int id){
 	return floorItems[id];
 }
 
+void Floor::spawnItem(int xPos, int yPos, char symbol){
+	ItemFactory itFactory = ItemFactory();
+	Item *item = itFactory.getItem(symbol);
+	Cell *currentCell = allCells.at(xPos).at(yPos);
+	currentCell->setOccupation(false,true,false,item->getId());
+	currentCell->setCellSymbol(symbol);
+	floorItems[item->getId()] = item;
+}
+
 void Floor::updateState(){
 
 	//Make our enemy action queue for proper ordering

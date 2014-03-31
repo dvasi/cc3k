@@ -367,10 +367,16 @@ void PlayerInterpreter::playerAttack(AttackCommand &cmd){
 	
 	//If enemy is dead remove it and add gold appropriately
 	if (currentEnemyHp == 0){
-		newCell->setOccupation(false,false,false);
-		newCell->setCellSymbol('.');
+		//Spawn merchant hoard upon merchant death
+		if (enemy->getSymbol() == 'M'){
+			currentFloor->spawnItem(newX,newY,'8');
+		}
+		else{
+			newCell->setOccupation(false,false,false);
+			newCell->setCellSymbol('.');
+			ch->setGold(ch->getGold()+1);
+		}
 		currentFloor->removeEnemy(newCell->getOccupiedId());
-		ch->setGold(ch->getGold()+1);
 	}	
 	
 	//Notify our display
