@@ -37,9 +37,15 @@ int main(int argc, char *argv[])
     while (true){
 		player->update();
 		cc3k->updateState();
-		cc3k->displayWorld();
+		if (cc3k->gameFinished()){
+			cc3k->displayEndScreen();
+			cc3k->selectEndGameCommand();
+
+			player = Player::getInstance();
+			cc3k->displayWorld();
+		}
+		else cc3k->displayWorld();
 	}
-	
 	
     endwin();
 

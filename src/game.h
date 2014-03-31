@@ -16,6 +16,8 @@ class Game{
     static void cleanup();
     bool layoutGiven;
     int currentFloor;
+    bool isOver;
+    bool victorious;
 	std::vector <Floor*> *floors;
 	void initializeFloors(std::vector<std::vector<char> > floorLayout);
 	void displayFloors();
@@ -38,6 +40,8 @@ public:
 	void updateState();
 	void restartGame();
 	void clearGame();
+	bool gameFinished();
+	void setGameOver(bool victorious);
 	std::vector <Floor*>* getFloors();
 	Player* getPlayer();
 

@@ -16,7 +16,7 @@ public:
 	virtual void update();
 	virtual ~Enemy();
 	char getSymbol();
-	bool isHostile();
+	virtual bool isHostile();
 	bool isMobile();
 };
 

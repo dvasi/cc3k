@@ -75,7 +75,7 @@ void PlayerInterpreter::interpretCommand(Player* player){
 			actionStr += " moves East";
 			movePlayer(playerMove);	
 		}
-		else interpretCommand(player);		
+		else interpretCommand(player);
 	}
 	else if (cmd == UP_LEFT){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos()-1, player->getYPos()-1);
@@ -222,8 +222,7 @@ void PlayerInterpreter::movePlayer(MoveCommand &cmd){
 		int floorNum = game->getCurrentFloor();
 		//Handle victory
 		if (floorNum == NUM_FLOORS-1){
-			game->displayEndScreen();
-			game->selectEndGameCommand();
+			game->setGameOver(true);
 			return;
 		}
 		game->setCurrentFloor(game->getCurrentFloor() + 1);

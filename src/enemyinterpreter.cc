@@ -194,9 +194,8 @@ void EnemyInterpreter::enemyAttack(AttackCommand &cmd){
 	
 	//If player is dead restart game
 	if (ch->getHp() <= 0){
-	game->displayEndScreen();
-	game->selectEndGameCommand();
-	return;	}
+		game->setGameOver(false);
+	}
 	//Notify display
 	actionStr += ". ";
 	notifyDisplay(*td,actionStr);

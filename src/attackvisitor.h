@@ -3,6 +3,7 @@
 #include "visitor.h"
 
 class Character;
+class Merchant;
 class BAPot;
 class BDPot;
 class PHPot;
@@ -17,6 +18,7 @@ class AttackVisitor : public Visitor{
 		AttackVisitor(Character* ch);
 		~AttackVisitor();
 		int visit(Character* defender);
+		int visit (Merchant* merchant);
 		void visit(BAPot* potion);
 		void visit(BDPot* potion);
 		void visit(PHPot* potion);

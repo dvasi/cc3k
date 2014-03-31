@@ -12,7 +12,7 @@
 #include "floor.h"
 using namespace std;
 
-Game::Game(): layoutGiven(false), currentFloor(0){ }
+Game::Game(): layoutGiven(false), currentFloor(0), isOver(false),victorious(false){ }
 
 Game::~Game(){
 	while (!floors->empty()){
@@ -216,9 +216,7 @@ void Game::displayEndScreen(){
 	string authorMsg = "Made by Tyler Sanderson and Steve Weng";
 
 	 vector<string> victoryArt;
-	 bool defeat=false;
-	 if (player->getHp()<=0) defeat=true;
-	 if (!defeat){
+	 if (victorious){
 	 victoryArt.push_back("__      ___      _                   _");
 	 victoryArt.push_back("\\ \\    / (_)    | |                 | |");
 	 victoryArt.push_back(" \\ \\  / / _  ___| |_ ___  _ __ _   _| |");
@@ -307,25 +305,33 @@ void Game::selectEndGameCommand(){
 	char cmd;
 	cmd = getch();
 	while ((cmd != 'r')&&(cmd != 'q')) cmd = getch();
-	if (cmd == 'r') this->restartGame();
-	if (cmd == 'q'); //exit
+	if (cmd == 'r') {
+		restartGame();
+	}
+	return;
 }
 
 void Game::restartGame(){
-	this->clearGame();
-	this->initializeWorld();
-	setPlayer(new Human(0,0,Character::generateId()));
-    //player->cleanup();
-	//this->displayRaceSelectionScreen();
-    //this->selectRace();
+
+	clearGame();
+	displayRaceSelectionScreen();
+	selectRace();
+	initializeWorld();
+	return;
 }
 
 void Game::clearGame(){
-		while (!floors->empty()){
-        delete floors->back();
-        floors->pop_back();
+
+	while (!floors->empty()){
+		delete floors->back();
+		floors->pop_back();
     }
     delete floors;
+
+    victorious = false;
+    isOver = false;
+    clear();
+    return;
 }
 
 void Game::initializeFloors(vector<vector<char> > floorLayout){
@@ -340,6 +346,7 @@ void Game::initializeFloors(vector<vector<char> > floorLayout){
 	int startXPos = floors->at(0)->getStartXPos();
 	int startYPos = floors->at(0)->getStartYPos();
 	player->setPos(startXPos,startYPos);
+	return;
 }
 
 void Game::displayFloors(){
@@ -359,6 +366,13 @@ void Game::setCurrentFloor(int floorNum) {
 	int startXPos = floors->at(currentFloor)->getStartXPos();
 	int startYPos = floors->at(currentFloor)->getStartYPos();
 	player->setPos(startXPos,startYPos);	
+}
+
+bool Game::gameFinished(){ return isOver; }
+
+void Game::setGameOver(bool victorious){
+	isOver = true;
+	this->victorious = victorious;
 }
 
 

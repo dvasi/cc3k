@@ -1,4 +1,5 @@
 #include "character.h"
+#include "merchant.h"
 #include "attackvisitor.h"
 #include <cmath>
 #include <cstdlib>
@@ -25,6 +26,17 @@ int AttackVisitor::visit(Character *defender){
 	int damage = static_cast<int>(ceil((100.00 / (100.00 + def)) * atk));
 	
     defender->takeDmg(damage);
+    return damage;
+}
+
+int AttackVisitor::visit(Merchant *defender){
+	double atk = static_cast<double>(attacker->getAtk());
+	double def = static_cast<double>(defender->getDef());
+	int damage = static_cast<int>(ceil((100.00 / (100.00 + def)) * atk));
+
+    defender->takeDmg(damage);
+    if (!defender->isHostile()) Merchant::activateAngryMode();
+
     return damage;
 }
 
