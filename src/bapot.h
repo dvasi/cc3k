@@ -4,6 +4,8 @@
 #include "potion.h"
 #include "item.h"
 
+class Visitor;
+
 class BAPot: public Potion
 {
 	static bool revealed;
@@ -11,6 +13,7 @@ public:
     BAPot(int id);
     bool isRevealed();
     std::string getName();
+    void accept(Visitor &v);
 };
 
 #endif

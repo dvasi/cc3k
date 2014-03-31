@@ -1,17 +1,19 @@
-#ifndef __WDPOT_H__
-#define __WDPOT_H__
+#ifndef __WAPOT_H__
+#define __WAPOT_H__
 #include "potion.h"
 #include "item.h"
 #include <string>
 
-class WDPot: public Potion
+class Visitor;
+
+class WAPot: public Potion
 {
 	static bool revealed;
 public:
-    WDPot(int id);
+    WAPot(int id);
     bool isRevealed();
     std::string getName();
+    void accept(Visitor &v);
 };
 
 #endif
-

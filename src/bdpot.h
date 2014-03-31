@@ -1,16 +1,19 @@
-#ifndef __RHPOT_H__
-#define __RHPOT_H__
+#ifndef __BDPOT_H__
+#define __BDPOT_H__
 #include "potion.h"
 #include "item.h"
 #include <string>
 
-class RHPot: public Potion
+class Visitor;
+
+class BDPot: public Potion
 {
 	static bool revealed;
 public:
-    RHPot(int id);
+    BDPot(int id);
     bool isRevealed();
     std::string getName();
+    void accept(Visitor &v);
 };
 
 #endif
