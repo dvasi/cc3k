@@ -12,6 +12,6 @@ public:
     ~Merchant();
     int accept(Visitor &v);
     bool isHostile();
-    static void activateAngryMode();
+    static void setAngryMode(bool angry=true);
 };
 #endif

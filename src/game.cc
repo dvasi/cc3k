@@ -9,6 +9,7 @@
 #include "game.h"
 #include "fileparser.h"
 #include "human.h"
+#include "merchant.h"
 #include "floor.h"
 using namespace std;
 
@@ -330,6 +331,8 @@ void Game::clearGame(){
 
     victorious = false;
     isOver = false;
+    currentFloor = 0;
+    Merchant::setAngryMode(false);
     clear();
     return;
 }

@@ -36,18 +36,24 @@ int main(int argc, char *argv[])
     
     while (true){
 		player->update();
-		cc3k->updateState();
 		if (cc3k->gameFinished()){
-			cc3k->displayEndScreen();
-			cc3k->selectEndGameCommand();
-
+			cc3k->restartGame();
 			player = Player::getInstance();
 			cc3k->displayWorld();
 		}
-		else cc3k->displayWorld();
+		else{
+			cc3k->updateState();
+			if (cc3k->gameFinished()){
+				cc3k->displayEndScreen();
+				cc3k->selectEndGameCommand();
+
+				player = Player::getInstance();
+				cc3k->displayWorld();
+			}
+			else cc3k->displayWorld();
+		}
 	}
 	
     endwin();
-
     return 0;
 }

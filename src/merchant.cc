@@ -11,6 +11,6 @@ int Merchant::accept(Visitor &v){ return v.visit(this); }
 
 bool Merchant::isHostile(){ return Merchant::hostile; }
 
-void Merchant::activateAngryMode(){ Merchant::hostile = true; }
+void Merchant::setAngryMode(bool angry){ Merchant::hostile = angry; }
 
 bool Merchant::hostile = false;

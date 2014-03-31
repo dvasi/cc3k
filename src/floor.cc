@@ -44,12 +44,6 @@ Floor::~Floor(){
         delete i->second;
         floorEnemies.erase(i);
     }
-/*
-    while (!enemyActionQueue.empty()){
-    delete enemyActionQueue.front();
-    enemyActionQueue.pop();
-    }
-*/
 }
 
 void Floor::floodFillChamber(int xStartPos, int yStartPos, char floodChar, vector<vector<char> > &floorLayout)

@@ -35,7 +35,7 @@ int AttackVisitor::visit(Merchant *defender){
 	int damage = static_cast<int>(ceil((100.00 / (100.00 + def)) * atk));
 
     defender->takeDmg(damage);
-    if (!defender->isHostile()) Merchant::activateAngryMode();
+    if (!defender->isHostile()) Merchant::setAngryMode();
 
     return damage;
 }

@@ -201,6 +201,17 @@ void PlayerInterpreter::interpretCommand(Player* player){
 		}
 		else interpretCommand(player);
 	}
+
+	else if (cmd == RESTART){
+		game->setGameOver();
+		return;
+	}
+
+	else if (cmd == QUIT){
+		clear();
+		endwin();
+		exit(0);
+	}
 	else interpretCommand(player);
 }	
 
