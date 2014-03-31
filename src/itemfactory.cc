@@ -1,11 +1,11 @@
 #include "itemfactory.h"
 #include "gold.h"
-#include "rhPot.h"
-#include "baPot.h"
-#include "bdPot.h"
-#include "phPot.h"
-#include "waPot.h"
-#include "wdPot.h"
+#include "rhpot.h"
+#include "bapot.h"
+#include "bdpot.h"
+#include "phpot.h"
+#include "wapot.h"
+#include "wdpot.h"
 #include "potion.h"
 
 ItemFactory::ItemFactory() {}

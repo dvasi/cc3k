@@ -65,4 +65,14 @@ void Character::alterHp(int delta){
 	if (hp <= 0) hp = 1;
 }
 
+void Character::alterAtk(int delta){
+	currentAtk += delta;
+	if (currentAtk < 0) currentAtk = 0;
+}
+
+void Character::alterDef(int delta){
+	currentDef += delta;
+	if (currentDef < 0) currentDef = 0;
+}
+
 int Character::idCount = 0;
