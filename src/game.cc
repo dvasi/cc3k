@@ -307,17 +307,26 @@ void Game::selectEndGameCommand(){
 	char cmd;
 	cmd = getch();
 	while ((cmd != 'r')&&(cmd != 'q')) cmd = getch();
-	if (cmd == 'r') //this->restartGame();
+	if (cmd == 'r') this->restartGame();
 	if (cmd == 'q'); //exit
 }
 
-/*void Game::restartGame(){
-	this->~Game();
+void Game::restartGame(){
+	this->clearGame();
 	this->initializeWorld();
-    player->~Player();
-	this->displayRaceSelectionScreen();
-    this->selectRace();
-}*/
+	setPlayer(new Human(0,0,Character::generateId()));
+    //player->cleanup();
+	//this->displayRaceSelectionScreen();
+    //this->selectRace();
+}
+
+void Game::clearGame(){
+		while (!floors->empty()){
+        delete floors->back();
+        floors->pop_back();
+    }
+    delete floors;
+}
 
 void Game::initializeFloors(vector<vector<char> > floorLayout){
 

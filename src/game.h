@@ -37,6 +37,7 @@ public:
 	void setCurrentFloor(int floorNum);
 	void updateState();
 	void restartGame();
+	void clearGame();
 	std::vector <Floor*>* getFloors();
 	Player* getPlayer();
 
