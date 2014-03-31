@@ -17,7 +17,6 @@ public:
 	Visitor();
 	virtual ~Visitor() = 0;
 	virtual int visit(Character* ch);
-	virtual void visit(Potion *potion);
 	virtual void visit(BAPot* potion);
 	virtual void visit(BDPot* potion);
 	virtual void visit(PHPot* potion);

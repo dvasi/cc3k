@@ -5,14 +5,15 @@
 #include <ncurses.h>
 #include <sstream>
 #include <string>
-#include <iostream>
-#include "bapot.h"
-#include "bdpot.h"
-#include "phpot.h"
-#include "wapot.h"
-#include "rhpot.h"
-#include "wdpot.h"
+
 using namespace std;
+
+class BAPot;
+class BDPot;
+class PHPot;
+class RHPot;
+class WAPot;
+class WDPot;
 
 AttackVisitor::AttackVisitor(Character* ch): attacker(ch){}
 
@@ -37,4 +38,4 @@ void AttackVisitor::visit(RHPot* potion){}
 
 void AttackVisitor::visit(WAPot* potion){}
 
-void AttackVisitor::visit(WDPot* potion){cout<<"VISITING";}
+void AttackVisitor::visit(WDPot* potion){}

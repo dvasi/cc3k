@@ -1,6 +1,5 @@
 #include "visitor.h"
 #include "character.h"
-#include "potion.h"
 #include "bapot.h"
 #include "bdpot.h"
 #include "phpot.h"
@@ -17,8 +16,6 @@ Visitor::~Visitor(){}
 
 int Visitor::visit(Character *ch){ return 0; }
 
-void Visitor::visit(Potion *potion){}
-
 void Visitor::visit(BAPot* potion){}
 
 void Visitor::visit(BDPot* potion){}
@@ -29,6 +26,6 @@ void Visitor::visit(RHPot* potion){}
 
 void Visitor::visit(WAPot* potion){}
 
-void Visitor::visit(WDPot* potion){cout<<"VISITING";}
+void Visitor::visit(WDPot* potion){}
 
 void Visitor::visit(Gold *gold){}

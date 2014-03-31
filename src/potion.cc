@@ -9,5 +9,3 @@ int Potion::getMagnitude(){
 Potion::Potion(int id, int magnitude): Item (id,false,true), magnitude(magnitude){}
 
 bool Potion::isRevealed(){ return false; }
-
-void Potion::accept(Visitor &v) { v.visit(this); }

@@ -12,7 +12,6 @@ public:
 	Potion(int id, int magnitude);
     int getMagnitude();
     virtual bool isRevealed();
-    void accept(Visitor &v);
 };
 
 #endif

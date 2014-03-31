@@ -1,13 +1,14 @@
 #ifndef __ATTACKVISITOR_H__
 #define __ATTACKVISITOR_H__
 #include "visitor.h"
-#include "bapot.h"
-#include "bdpot.h"
-#include "phpot.h"
-#include "wapot.h"
-#include "rhpot.h"
-#include "wdpot.h"
+
 class Character;
+class BAPot;
+class BDPot;
+class PHPot;
+class RHPot;
+class WAPot;
+class WDPot;
 
 class AttackVisitor : public Visitor{
 
