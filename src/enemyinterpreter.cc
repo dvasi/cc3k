@@ -38,46 +38,89 @@ void EnemyInterpreter::interpretCommand(Enemy* enemy){
 			random = (rand()%8) + 1; //random number between 1 and 8 for direction
 			if (random == 1){
 				MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos()-1, enemy->getYPos());
-				if (isMoveValid(enemyMove)) moveEnemy(enemyMove);	
-				else interpretCommand(enemy);	
+				if (isMoveValid(enemyMove)) moveEnemy(enemyMove);
+				else interpretCommand(enemy);
 			}
 			if (random == 2){
 				MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos()+1, enemy->getYPos());
-				if (isMoveValid(enemyMove)) moveEnemy(enemyMove);	
-				else interpretCommand(enemy);			
+				if (isMoveValid(enemyMove)) moveEnemy(enemyMove);
+				else interpretCommand(enemy);
 			}
 			if (random == 3){
 				MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos(), enemy->getYPos()-1);
-				if (isMoveValid(enemyMove)) moveEnemy(enemyMove);	
-				else interpretCommand(enemy);			
+				if (isMoveValid(enemyMove)) moveEnemy(enemyMove);
+				else interpretCommand(enemy);
 			}
 			if (random == 4){
 				MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos(), enemy->getYPos()+1);
-				if (isMoveValid(enemyMove)) moveEnemy(enemyMove);	
-				else interpretCommand(enemy);			
+				if (isMoveValid(enemyMove)) moveEnemy(enemyMove);
+				else interpretCommand(enemy);
 			}
 			if (random == 5){
 				MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos()-1, enemy->getYPos()-1);
-				if (isMoveValid(enemyMove)) moveEnemy(enemyMove);	
-				else interpretCommand(enemy);		
+				if (isMoveValid(enemyMove)) moveEnemy(enemyMove);
+				else interpretCommand(enemy);
 			}
 			if (random == 6){
 				MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos()-1, enemy->getYPos()+1);
-				if (isMoveValid(enemyMove)) moveEnemy(enemyMove);	
-				else interpretCommand(enemy);			
+				if (isMoveValid(enemyMove)) moveEnemy(enemyMove);
+				else interpretCommand(enemy);
 			}
 			if (random == 7){
 				MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos()+1, enemy->getYPos()-1);
-				if (isMoveValid(enemyMove)) moveEnemy(enemyMove);	
-				else interpretCommand(enemy);			
+				if (isMoveValid(enemyMove)) moveEnemy(enemyMove);
+				else interpretCommand(enemy);
 			}
 			if (random == 8){
 				MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos()+1, enemy->getYPos()+1);
-				if (isMoveValid(enemyMove)) moveEnemy(enemyMove);	
-				else interpretCommand(enemy);			
+				if (isMoveValid(enemyMove)) moveEnemy(enemyMove);
+				else interpretCommand(enemy);
 			}
-				
-		}	
+		}
+	}
+	else if (enemy->isMobile()){
+		int random;
+		random = (rand()%8) + 1; //random number between 1 and 8 for direction
+		if (random == 1){
+			MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos()-1, enemy->getYPos());
+			if (isMoveValid(enemyMove)) moveEnemy(enemyMove);
+			else interpretCommand(enemy);
+		}
+		if (random == 2){
+			MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos()+1, enemy->getYPos());
+			if (isMoveValid(enemyMove)) moveEnemy(enemyMove);
+			else interpretCommand(enemy);
+		}
+		if (random == 3){
+			MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos(), enemy->getYPos()-1);
+			if (isMoveValid(enemyMove)) moveEnemy(enemyMove);
+			else interpretCommand(enemy);
+		}
+		if (random == 4){
+			MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos(), enemy->getYPos()+1);
+			if (isMoveValid(enemyMove)) moveEnemy(enemyMove);
+			else interpretCommand(enemy);
+		}
+		if (random == 5){
+			MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos()-1, enemy->getYPos()-1);
+			if (isMoveValid(enemyMove)) moveEnemy(enemyMove);
+			else interpretCommand(enemy);
+		}
+		if (random == 6){
+			MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos()-1, enemy->getYPos()+1);
+			if (isMoveValid(enemyMove)) moveEnemy(enemyMove);
+			else interpretCommand(enemy);
+		}
+		if (random == 7){
+			MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos()+1, enemy->getYPos()-1);
+			if (isMoveValid(enemyMove)) moveEnemy(enemyMove);
+			else interpretCommand(enemy);
+		}
+		if (random == 8){
+			MoveCommand enemyMove = MoveCommand(enemy, enemy->getXPos()+1, enemy->getYPos()+1);
+			if (isMoveValid(enemyMove)) moveEnemy(enemyMove);
+			else interpretCommand(enemy);
+		}
 	}
 }
 
