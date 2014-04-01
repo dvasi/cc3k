@@ -7,11 +7,11 @@ class Visitor;
 class Gold : public Item
 {
 	friend class Dragon;
-    int value;
+    double value;
 public:
-    Gold(int id, int value=2, bool lootable=true);
+    Gold(int id, double value=2, bool lootable=true);
     ~Gold();
-    int getValue();
+    double getValue();
     void setValue(int value);
     void accept(Visitor &v);
 };

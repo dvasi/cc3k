@@ -24,7 +24,7 @@ void ItemUseVisitor::visit(BDPot *potion){
 }
 
 void ItemUseVisitor::visit(PHPot *potion){
-    if (player->race == 'e'){
+    if (player->getRace() == 'e'){
         player->alterHp(abs(potion->getMagnitude()));
     }
     else{
@@ -39,7 +39,7 @@ void ItemUseVisitor::visit(RHPot *potion){
 }
 
 void ItemUseVisitor::visit(WAPot *potion){
-    if (player->race == 'e')
+    if (player->getRace() == 'e')
     {
         player->alterAtk(abs(potion->getMagnitude()));
     }
@@ -52,7 +52,7 @@ void ItemUseVisitor::visit(WAPot *potion){
 
 void ItemUseVisitor::visit(WDPot *potion)
 {
-    if (player->race == 'e')
+    if (player->getRace() == 'e')
     {
         player->alterDef(abs(potion->getMagnitude()));
     }
@@ -64,15 +64,15 @@ void ItemUseVisitor::visit(WDPot *potion)
 }
 
 void ItemUseVisitor::visit(Gold *gold){
-    int value = gold->getValue();
-    if (player->race == 'd')
+    double value = gold->getValue();
+    if (player->getRace() == 'd')
     {
-        value = value * 2;
+        value = static_cast<int>(value * 2);
     }
-    if (player->race == 'o')
+    if (player->getRace() == 'o')
     {
         value = value / 2;
     }
-    int currentGold = player->getGold();
+    double currentGold = player->getGold();
     player->setGold(currentGold + value);
 }

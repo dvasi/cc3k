@@ -246,10 +246,10 @@ void PlayerInterpreter::movePlayer(MoveCommand &cmd){
 	//Check for gold to pick up
 	if (newCell->hasGold()){
 		Item *gold = currentFloor->getItem(newCell->getOccupiedId());	
-		int oldGold = ch->getGold();	
+		double oldGold = ch->getGold();	
 		ItemUseVisitor itemVisitor = ItemUseVisitor();
 		gold->accept(itemVisitor);
-		int newGold = ch->getGold();
+		double newGold = ch->getGold();
 		ostringstream convert;
 		convert << (newGold-oldGold);	
 		actionStr += " and picks up " + convert.str() + " gold";

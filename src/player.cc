@@ -27,13 +27,13 @@ void Player::update(){
 
 char Player::getSymbol(){ return race; }
 
-int Player::getGold(){ 
-	//if (race=='d') return gold*2;
-	//if (race=='o') return gold/2;
+double Player::getGold(){ 
 	return gold; 
 }
 
-void Player::setGold(int gold) { this->gold = gold; }
+void Player::setGold(double gold) { this->gold = gold; }
+
+char Player::getRace(){ return race;}
 
 string Player::charToRace(char ch){
 	if (ch == 'h') { return "Human"; }

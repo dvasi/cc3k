@@ -8,19 +8,20 @@ class PlayerInterpreter;
 class Player : public Character{
 
 protected:
-	int gold;
+	double gold;
+    char race;
 	PlayerInterpreter* input;
 	static Player* playerInstance;
     static void cleanup();
     Player(int hp, int atk, int def, int x, int y, char race, int id);
 public:
-        char race;
+    char getRace();
     static Player* getInstance();
     static std::string charToRace(char ch);
     void update();
     char getSymbol();
-    int getGold();
-    void setGold(int gold);
+    double getGold();
+    void setGold(double gold);
     virtual ~Player() = 0;
 };
 #endif
