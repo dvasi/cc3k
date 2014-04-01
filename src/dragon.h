@@ -14,6 +14,8 @@ public:
     void guard(Gold *hoard);
     void freeHoard();
     int accept(Visitor &v);
+    int getHoardXPos();
+    int getHoardYPos();
 
 };
 #endif

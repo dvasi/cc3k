@@ -21,6 +21,7 @@ class EnemyInterpreter : public CommandInterpreter{
 		virtual void interpretCommand(Enemy* enemy);
 		virtual bool isMoveValid(MoveCommand &cmd);
 		virtual void moveEnemy(MoveCommand &cmd);	
+		virtual bool playerInRange(Enemy* enemy);
 		virtual void enemyAttack(AttackCommand &cmd);
 		void notifyDisplay(TextDisplay &td, std::string action);
 };

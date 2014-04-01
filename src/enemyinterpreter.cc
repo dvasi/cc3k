@@ -22,14 +22,9 @@ void EnemyInterpreter::interpretCommand(Enemy* enemy){
 	//Prioritize Attacking for enemy AI
 	if (enemy->isHostile()){
 		Player *player = Player::getInstance();
-		int playerXPos = player->getXPos();
-		int playerYPos = player->getYPos();
-		int enemyXPos = enemy->getXPos();
-		int enemyYPos = enemy->getYPos();
-		
 		//Player is within attacking vicinity
-		if ((abs(playerXPos-enemyXPos) <=1)&&(abs(playerYPos-enemyYPos) <=1)){
-			AttackCommand atkCmd = AttackCommand(enemy,playerXPos,playerYPos);
+		if (playerInRange(enemy)){
+			AttackCommand atkCmd = AttackCommand(enemy,player->getXPos(),player->getYPos());
 			enemyAttack(atkCmd);
 		}
 		
@@ -144,6 +139,19 @@ bool EnemyInterpreter::isMoveValid(MoveCommand &cmd){
 			}
 		}
 	}						
+	return false;
+}
+
+bool EnemyInterpreter::playerInRange(Enemy* enemy){
+
+	Player *player = Player::getInstance();
+	int playerXPos = player->getXPos();
+	int playerYPos = player->getYPos();
+	int enemyXPos = enemy->getXPos();
+	int enemyYPos = enemy->getYPos();
+
+	//Player is within attacking vicinity
+	if ((abs(playerXPos-enemyXPos) <=1)&&(abs(playerYPos-enemyYPos) <=1)) return true;
 	return false;
 }
 

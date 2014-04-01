@@ -1,10 +1,10 @@
 #include "dragon.h"
-#include "enemyinterpreter.h"
+#include "dragoninterpreter.h"
 #include "gold.h"
 #include "visitor.h"
 using namespace std;
 
-Dragon::Dragon(int x, int y, int id): Enemy(15,20,20,x,y,'D',id, new EnemyInterpreter(), true, false), guardedHoard(0){}
+Dragon::Dragon(int x, int y, int id): Enemy(150,20,20,x,y,'D',id, new DragonInterpreter(), true, false), guardedHoard(0){}
 
 Dragon::~Dragon(){}
 
@@ -18,3 +18,7 @@ void Dragon::freeHoard(){
 }
 
 int Dragon::accept(Visitor &v){ return v.visit(this); }
+
+int Dragon::getHoardXPos(){ return guardedHoard->getXPos(); }
+
+int Dragon::getHoardYPos(){ return guardedHoard->getYPos(); }
