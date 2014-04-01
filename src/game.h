@@ -38,6 +38,7 @@ public:
 	int getCurrentFloor();
 	void setCurrentFloor(int floorNum);
 	void updateState();
+	void getInput();
 	void restartGame();
 	void clearGame();
 	bool gameFinished();

@@ -203,7 +203,9 @@ void PlayerInterpreter::interpretCommand(Player* player){
 	}
 
 	else if (cmd == RESTART){
-		game->setGameOver();
+		game->restartGame();
+		game->displayWorld();
+		game->getInput();
 		return;
 	}
 

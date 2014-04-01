@@ -30,24 +30,23 @@ int main(int argc, char *argv[])
     cc3k->displayWelcomeScreen();
     cc3k->displayRaceSelectionScreen();
     cc3k->selectRace();
-    Player *player = Player::getInstance();
     cc3k->initializeWorld();
     cc3k->displayWorld();
     
     while (true){
-		player->update();
+		cc3k->getInput();
+		//Reached the final staircase
 		if (cc3k->gameFinished()){
-			cc3k->restartGame();
-			player = Player::getInstance();
+			cc3k->displayEndScreen();
+			cc3k->selectEndGameCommand();
 			cc3k->displayWorld();
 		}
 		else{
 			cc3k->updateState();
+			//Player died
 			if (cc3k->gameFinished()){
 				cc3k->displayEndScreen();
 				cc3k->selectEndGameCommand();
-
-				player = Player::getInstance();
 				cc3k->displayWorld();
 			}
 			else cc3k->displayWorld();

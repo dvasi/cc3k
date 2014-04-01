@@ -296,6 +296,10 @@ void Game::setPlayer(Player* player){
 	this->player = player;
 }
 
+void Game::getInput(){
+	player->update();
+}
+
 void Game::selectRace(){
 	char cmd;
 	cmd = getch();
@@ -332,6 +336,11 @@ void Game::selectEndGameCommand(){
 	while ((cmd != 'r')&&(cmd != 'q')) cmd = getch();
 	if (cmd == 'r') {
 		restartGame();
+	}
+	if (cmd == 'q'){
+		clear();
+		endwin();
+		exit(0);
 	}
 	return;
 }
