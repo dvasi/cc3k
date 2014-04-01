@@ -67,7 +67,7 @@ void ItemUseVisitor::visit(Gold *gold){
     double value = gold->getValue();
     if (player->getRace() == 'd')
     {
-        value = static_cast<int>(value * 2);
+        value = value * 2;
     }
     if (player->getRace() == 'o')
     {
