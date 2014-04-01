@@ -9,6 +9,9 @@
 #include "game.h"
 #include "fileparser.h"
 #include "human.h"
+#include "dwarf.h"
+#include "elf.h"
+#include "orc.h"
 #include "merchant.h"
 #include "floor.h"
 using namespace std;
@@ -296,8 +299,23 @@ void Game::selectRace(){
 			(cmd != 'o')){
 		cmd = getch();
 	}	
-	//make options available for selecing other races
-	setPlayer(new Human(0,0,Character::generateId()));
+
+    if (cmd == 'h')
+    {
+        setPlayer(new Human(0, 0, Character::generateId()));
+    }
+    else if (cmd == 'd')
+    {
+        setPlayer(new Dwarf(0, 0, Character::generateId()));
+    }
+    else if (cmd == 'e')
+    {
+        setPlayer(new Elf(0, 0, Character::generateId()));
+    }
+    else{
+        setPlayer(new Orc(0, 0, Character::generateId()));
+    }
+
 	clear();	
 	return;	
 }
