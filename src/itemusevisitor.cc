@@ -7,6 +7,7 @@
 #include "wdpot.h"
 #include "gold.h"
 #include "player.h"
+#include "stdlib.h"
 
 ItemUseVisitor::ItemUseVisitor(){ player = Player::getInstance(); }
 
@@ -23,7 +24,12 @@ void ItemUseVisitor::visit(BDPot *potion){
 }
 
 void ItemUseVisitor::visit(PHPot *potion){
-	player->alterHp(potion->getMagnitude());
+    if (player->race == 'e'){
+        player->alterHp(abs(potion->getMagnitude()));
+    }
+    else{
+        player->alterHp(potion->getMagnitude());
+    }
 	PHPot::revealPotion();
 }
 
@@ -33,17 +39,40 @@ void ItemUseVisitor::visit(RHPot *potion){
 }
 
 void ItemUseVisitor::visit(WAPot *potion){
-	player->alterAtk(potion->getMagnitude());
-	WAPot::revealPotion();
+    if (player->race == 'e')
+    {
+        player->alterAtk(abs(potion->getMagnitude()));
+    }
+    else
+    {
+        player->alterAtk(potion->getMagnitude());
+    }
+    WAPot::revealPotion();
 }
 
-void ItemUseVisitor::visit(WDPot *potion){
-	player->alterDef(potion->getMagnitude());
-	WDPot::revealPotion();
+void ItemUseVisitor::visit(WDPot *potion)
+{
+    if (player->race == 'e')
+    {
+        player->alterDef(abs(potion->getMagnitude()));
+    }
+    else
+    {
+        player->alterDef(potion->getMagnitude());
+    }
+    WDPot::revealPotion();
 }
+
 void ItemUseVisitor::visit(Gold *gold){
-
-	int value = gold->getValue();
-	int currentGold = player->getGold();
-	player->setGold(currentGold+value);
+    int value = gold->getValue();
+    if (player->race == 'd')
+    {
+        value = value * 2;
+    }
+    if (player->race == 'o')
+    {
+        value = value / 2;
+    }
+    int currentGold = player->getGold();
+    player->setGold(currentGold + value);
 }

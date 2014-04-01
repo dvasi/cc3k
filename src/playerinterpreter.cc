@@ -251,7 +251,7 @@ void PlayerInterpreter::movePlayer(MoveCommand &cmd){
 		gold->accept(itemVisitor);
 		int newGold = ch->getGold();
 		ostringstream convert;
-		convert << (newGold-oldGold);		
+		convert << (newGold-oldGold);	
 		actionStr += " and picks up " + convert.str() + " gold";
 		currentFloor->removeItem(newCell->getOccupiedId());			
 	}
