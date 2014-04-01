@@ -13,6 +13,7 @@ class TextDisplay;
 class Player;
 class Dragon;
 class Gold;
+class ItemUseVisitor;
 
 const int BOARD_WIDTH = 79;
 const int BOARD_HEIGHT = 25;
@@ -23,6 +24,7 @@ class Floor{
 
 	friend class Game;
 	TextDisplay *td;
+	ItemUseVisitor *itemStatMonitor;
 	
 	//Layout management
 	std::vector<Chamber*> chambers;
@@ -57,7 +59,9 @@ public:
 	Cell* getCellAt(int xPos, int yPos);
 	int getStartXPos();
 	int getStartYPos();
+	void negateTempStats();
 	TextDisplay* getTextDisplay();
+	ItemUseVisitor* getItemStatMonitor();
 	Floor();
 	~Floor();
 };

@@ -238,9 +238,11 @@ void PlayerInterpreter::movePlayer(MoveCommand &cmd){
 			game->setGameOver(true);
 			return;
 		}
+		currentFloor->negateTempStats();
 		game->setCurrentFloor(game->getCurrentFloor() + 1);
 		Floor *nextFloor = game->getFloors()->at(game->getCurrentFloor());
 		TextDisplay *nextTd = nextFloor->getTextDisplay();
+
 		nextTd->resetGameActions();
 		nextTd->notify("PC advances to the next floor.");
 	}
@@ -419,10 +421,10 @@ void PlayerInterpreter::playerUseItem(ItemUseCommand &cmd) {
 	Cell* newCell = currentFloor->getCellAt(newX,newY);
 	Item *item = currentFloor->getItem(newCell->getOccupiedId());
 	TextDisplay *td = currentFloor->getTextDisplay();
+	ItemUseVisitor *potionTracker = currentFloor->getItemStatMonitor();
 
 	//Use Item
-	ItemUseVisitor itemVisitor = ItemUseVisitor();
-	item->accept(itemVisitor);
+	item->accept(*potionTracker);
 	actionStr += " uses ";
 	actionStr += item->getName();
 

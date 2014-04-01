@@ -9,56 +9,63 @@
 #include "player.h"
 #include "stdlib.h"
 
-ItemUseVisitor::ItemUseVisitor(){ player = Player::getInstance(); }
+ItemUseVisitor::ItemUseVisitor(): tempAtkDelta(0),tempDefDelta(0){ player = Player::getInstance(); }
 
 ItemUseVisitor::~ItemUseVisitor(){}
 
 void ItemUseVisitor::visit(BAPot *potion){
-	player->alterAtk(potion->getMagnitude());
+	int magnitude = potion->getMagnitude();
+	player->alterAtk(magnitude);
+	tempAtkDelta += magnitude;
 	BAPot::revealPotion();
 }
 
 void ItemUseVisitor::visit(BDPot *potion){
-	player->alterDef(potion->getMagnitude());
+	int magnitude = potion->getMagnitude();
+	player->alterDef(magnitude);
+	tempDefDelta += magnitude;
 	BDPot::revealPotion();
 }
 
 void ItemUseVisitor::visit(PHPot *potion){
+	int magnitude = potion->getMagnitude();
     if (player->getRace() == 'e'){
-        player->alterHp(abs(potion->getMagnitude()));
+        player->alterHp(abs(magnitude));
     }
     else{
-        player->alterHp(potion->getMagnitude());
+        player->alterHp(magnitude);
     }
 	PHPot::revealPotion();
 }
 
 void ItemUseVisitor::visit(RHPot *potion){
-	player->alterHp(potion->getMagnitude());
+	int magnitude = potion->getMagnitude();
+	player->alterHp(magnitude);
 	RHPot::revealPotion();
 }
 
 void ItemUseVisitor::visit(WAPot *potion){
-    if (player->getRace() == 'e')
-    {
-        player->alterAtk(abs(potion->getMagnitude()));
+	int magnitude = potion->getMagnitude();
+    if (player->getRace() == 'e'){
+        player->alterAtk(abs(magnitude));
+        tempAtkDelta += abs(magnitude);
     }
-    else
-    {
-        player->alterAtk(potion->getMagnitude());
+    else{
+        player->alterAtk(magnitude);
+        tempAtkDelta += magnitude;
     }
     WAPot::revealPotion();
 }
 
-void ItemUseVisitor::visit(WDPot *potion)
-{
-    if (player->getRace() == 'e')
-    {
-        player->alterDef(abs(potion->getMagnitude()));
+void ItemUseVisitor::visit(WDPot *potion){
+	int magnitude = potion->getMagnitude();
+    if (player->getRace() == 'e'){
+        player->alterDef(abs(magnitude));
+        tempDefDelta += abs(magnitude);
     }
-    else
-    {
-        player->alterDef(potion->getMagnitude());
+    else{
+        player->alterDef(magnitude);
+        tempDefDelta += magnitude;
     }
     WDPot::revealPotion();
 }
@@ -76,3 +83,7 @@ void ItemUseVisitor::visit(Gold *gold){
     double currentGold = player->getGold();
     player->setGold(currentGold + value);
 }
+
+int ItemUseVisitor::getTempAtkDelta(){ return tempAtkDelta; }
+
+int ItemUseVisitor::getTempDefDelta(){ return tempDefDelta; }

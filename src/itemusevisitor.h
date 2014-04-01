@@ -14,6 +14,8 @@ class Player;
 class ItemUseVisitor : public Visitor{
 
 	Player *player;
+	int tempAtkDelta;
+	int tempDefDelta;
 	public:
 		ItemUseVisitor();
 		~ItemUseVisitor();
@@ -24,5 +26,7 @@ class ItemUseVisitor : public Visitor{
 		void visit(WAPot *potion);
 		void visit(WDPot *potion);
 		void visit(Gold *gold);
+		int getTempAtkDelta();
+		int getTempDefDelta();
 };
 #endif

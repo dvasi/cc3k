@@ -11,6 +11,7 @@
 #include "chamber.h"
 #include "fileparser.h"
 #include "itemfactory.h"
+#include "itemusevisitor.h"
 #include "enemyfactory.h"
 #include "player.h"
 #include "game.h"
@@ -21,6 +22,7 @@ using namespace std;
 Floor::Floor(): startXPos(3), startYPos(3), dragons(0)
 {
     td = new TextDisplay(BOARD_WIDTH, BOARD_HEIGHT);
+    itemStatMonitor = new ItemUseVisitor();
 }
 
 Floor::~Floor(){
@@ -31,6 +33,7 @@ Floor::~Floor(){
         }
     }
     delete td;
+    delete itemStatMonitor;
 
     while (!chambers.empty()){
         delete chambers.back();
@@ -373,5 +376,13 @@ int Floor::getStartXPos(){ return startXPos; }
 int Floor::getStartYPos(){ return startYPos; }
 
 TextDisplay* Floor::getTextDisplay(){ return td; }
+
+ItemUseVisitor* Floor::getItemStatMonitor(){ return itemStatMonitor; }
+
+void Floor::negateTempStats(){
+	Player *player = Player::getInstance();
+	player->alterAtk(-(itemStatMonitor->getTempAtkDelta()));
+	player->alterDef(-(itemStatMonitor->getTempDefDelta()));
+}
 
 Cell* Floor::getCellAt(int xPos, int yPos) { return allCells.at(xPos).at(yPos); }
