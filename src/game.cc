@@ -218,7 +218,10 @@ void Game::displayEndScreen(){
 	string scoreMsg = "Your final score is: ";
 	ostringstream convert;
 	Player *player = Player::getInstance();
-	int finalScore = player->getGold();
+	double finalScore = player->getGold();
+	if (player->getRace()=='h'){
+		finalScore*=1.5;
+	}
 	convert << finalScore;
 	scoreMsg += convert.str();
 
