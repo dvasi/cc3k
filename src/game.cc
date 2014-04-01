@@ -13,6 +13,12 @@
 #include "elf.h"
 #include "orc.h"
 #include "merchant.h"
+#include "bapot.h"
+#include "bdpot.h"
+#include "phpot.h"
+#include "rhpot.h"
+#include "wapot.h"
+#include "wdpot.h"
 #include "floor.h"
 using namespace std;
 
@@ -351,6 +357,12 @@ void Game::clearGame(){
     isOver = false;
     currentFloor = 0;
     Merchant::setAngryMode(false);
+    BAPot::concealPotion();
+    BDPot::concealPotion();
+    PHPot::concealPotion();
+    RHPot::concealPotion();
+    WAPot::concealPotion();
+    WDPot::concealPotion();
     clear();
     return;
 }

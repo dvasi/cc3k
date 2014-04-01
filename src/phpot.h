@@ -12,6 +12,7 @@ public:
     PHPot(int id);
     bool isRevealed();
     static void revealPotion();
+    static void concealPotion();
     std::string getName();
     void accept(Visitor &v);
 };

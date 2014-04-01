@@ -9,6 +9,8 @@ bool BAPot::isRevealed(){ return BAPot::revealed; }
 
 void BAPot::revealPotion(){ BAPot::revealed = true; }
 
+void BAPot::concealPotion(){ BAPot::revealed = false; }
+
 string BAPot::getName(){ return "BA potion"; }
 
 void BAPot::accept(Visitor &v) { v.visit(this); }

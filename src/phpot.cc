@@ -9,6 +9,8 @@ bool PHPot::isRevealed(){ return PHPot::revealed; }
 
 void PHPot::revealPotion(){ PHPot::revealed = true; }
 
+void PHPot::concealPotion(){ PHPot::revealed = false; }
+
 string PHPot::getName(){ return "PH potion"; }
 
 void PHPot::accept(Visitor &v){ v.visit(this); }

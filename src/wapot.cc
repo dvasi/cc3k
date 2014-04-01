@@ -9,6 +9,8 @@ bool WAPot::isRevealed(){ return WAPot::revealed; }
 
 void WAPot::revealPotion(){ WAPot::revealed = true; }
 
+void WAPot::concealPotion(){ WAPot::revealed = false; }
+
 string WAPot::getName(){ return "WA potion"; }
 
 void WAPot::accept(Visitor &v){ v.visit(this); }

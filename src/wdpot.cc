@@ -10,6 +10,8 @@ bool WDPot::isRevealed(){ return WDPot::revealed; }
 
 void WDPot::revealPotion(){ WDPot::revealed = true; }
 
+void WDPot::concealPotion(){ WDPot::revealed = false; }
+
 string WDPot::getName(){ return "WD potion"; }
 
 void WDPot::accept(Visitor &v){ v.visit(this); }
