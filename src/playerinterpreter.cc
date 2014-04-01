@@ -374,7 +374,6 @@ void PlayerInterpreter::playerAttack(AttackCommand &cmd){
 		else{
 			newCell->setOccupation(false,false,false);
 			newCell->setCellSymbol('.');
-			ch->setGold(ch->getGold()+1);
 		}
 		currentFloor->removeEnemy(newCell->getOccupiedId());
 	}	

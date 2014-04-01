@@ -1,5 +1,7 @@
 #include "character.h"
+#include "player.h"
 #include "merchant.h"
+#include "dragon.h"
 #include "attackvisitor.h"
 #include <cmath>
 #include <cstdlib>
@@ -29,6 +31,19 @@ int AttackVisitor::visit(Character *defender){
     return damage;
 }
 
+int AttackVisitor::visit(Enemy* defender){
+	double atk = static_cast<double>(attacker->getAtk());
+	double def = static_cast<double>(defender->getDef());
+	int damage = static_cast<int>(ceil((100.00 / (100.00 + def)) * atk));
+
+	defender->takeDmg(damage);
+	if (defender->getHp() <=0 ){
+		Player *player = Player::getInstance();
+		player->setGold(player->getGold()+1);
+	}
+	return damage;
+}
+
 int AttackVisitor::visit(Merchant *defender){
 	double atk = static_cast<double>(attacker->getAtk());
 	double def = static_cast<double>(defender->getDef());
@@ -38,6 +53,16 @@ int AttackVisitor::visit(Merchant *defender){
     if (!defender->isHostile()) Merchant::setAngryMode();
 
     return damage;
+}
+
+int AttackVisitor::visit(Dragon* defender){
+	double atk = static_cast<double>(attacker->getAtk());
+	double def = static_cast<double>(defender->getDef());
+	int damage = static_cast<int>(ceil((100.00 / (100.00 + def)) * atk));
+
+	defender->takeDmg(damage);
+	if (defender->getHp() <= 0) defender->freeHoard();
+	return damage;
 }
 
 void AttackVisitor::visit(BAPot* potion){}

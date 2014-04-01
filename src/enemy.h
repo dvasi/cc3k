@@ -3,6 +3,7 @@
 #include "character.h"
 
 class EnemyInterpreter;
+class Visitor;
 
 class Enemy : public Character{
 protected:	
@@ -17,6 +18,7 @@ public:
 	virtual ~Enemy();
 	char getSymbol();
 	virtual bool isHostile();
+	int accept(Visitor &v);
 	bool isMobile();
 };
 

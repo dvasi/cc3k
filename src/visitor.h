@@ -2,7 +2,9 @@
 #define __VISITOR_H__
 
 class Character;
+class Enemy;
 class Merchant;
+class Dragon;
 class Potion;
 class BAPot;
 class BDPot;
@@ -18,7 +20,9 @@ public:
 	Visitor();
 	virtual ~Visitor() = 0;
 	virtual int visit(Character* ch);
+	virtual int visit(Enemy* enemy);
 	virtual int visit(Merchant* merchant);
+	virtual int visit(Dragon* dragon);
 	virtual void visit(BAPot* potion);
 	virtual void visit(BDPot* potion);
 	virtual void visit(PHPot* potion);

@@ -11,14 +11,18 @@ class Item{
 		int id;
 		bool lootable;
 		bool useable;
+		int x, y;
 		
 	public:
 		Item();
-		Item(int id, bool lootable=false, bool useable=true);
+		Item(int id, bool lootable=false, bool useable=true, int x=0, int y=0);
 		static int generateId();
 		int getId();
 		bool canPickUp();
 		bool canUse();
+		void setPos(int xPos, int yPos);
+		int getXPos();
+		int getYPos();
 		virtual std::string getName();
 		virtual bool isRevealed();
 		virtual ~Item() = 0;

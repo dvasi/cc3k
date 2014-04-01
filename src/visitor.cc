@@ -1,5 +1,6 @@
 #include "visitor.h"
 #include "character.h"
+#include "enemy.h"
 #include "merchant.h"
 #include "bapot.h"
 #include "bdpot.h"
@@ -17,7 +18,11 @@ Visitor::~Visitor(){}
 
 int Visitor::visit(Character *ch){ return 0; }
 
+int Visitor::visit(Enemy* enemy){ return 0; }
+
 int Visitor::visit(Merchant *merchant){ return 0; }
+
+int Visitor::visit(Dragon* dragon){ return 0; }
 
 void Visitor::visit(BAPot* potion){}
 

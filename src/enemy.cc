@@ -1,5 +1,6 @@
 #include "enemy.h"
 #include "enemyinterpreter.h"
+#include "visitor.h"
 #include <math.h>
 #include <iostream>
 using namespace std;
@@ -24,3 +25,5 @@ char Enemy::getSymbol(){ return type; }
 bool Enemy::isHostile(){ return hostile; }
 
 bool Enemy::isMobile(){ return mobile; }
+
+int Enemy::accept(Visitor &v){ return v.visit(this); }

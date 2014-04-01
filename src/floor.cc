@@ -14,6 +14,8 @@
 #include "enemyfactory.h"
 #include "player.h"
 #include "game.h"
+#include "dragon.h"
+#include "gold.h"
 using namespace std;
 
 Floor::Floor(): startXPos(3), startYPos(3), dragons(0)
@@ -113,18 +115,35 @@ void Floor::initializeCells(vector<vector<char> > floorLayout)
 {
 
     char current;
-    for (int i = 0; i < BOARD_HEIGHT; ++i)
-    {
-        vector<Cell *> row;
-        for (int j = 0; j < BOARD_WIDTH; ++j)
-        {
 
+    //Generate cells based on given layout
+    for (int i = 0; i < BOARD_HEIGHT; ++i){
+        vector<Cell *> row;
+        for (int j = 0; j < BOARD_WIDTH; ++j){
             current = floorLayout.at(i).at(j);
             Cell *parsedCell = generateCell(i, j, current);
             parsedCell->notifyDisplay(*td);
             row.push_back(parsedCell);
         }
         allCells.push_back(row);
+    }
+
+    //Match up Dragons and Dragon Hoards
+    Dragon *dragon;
+    Gold *hoard;
+    for (unsigned int i = 0; i < floorDragons.size(); ++i){
+    	dragon = floorDragons.at(i);
+    	for (unsigned int j = 0; j < floorDragonHoards.size(); ++j){
+    		hoard = floorDragonHoards.at(j);
+    		int dragonXPos = dragon->getXPos();
+    		int dragonYPos = dragon->getYPos();
+    		int hoardXPos = hoard->getXPos();
+    		int hoardYPos = hoard->getYPos();
+    		if ((abs(dragonXPos-hoardXPos) <= 1)&&(abs(dragonYPos-hoardYPos) <=1)){
+    			dragon->guard(hoard);
+    			break;
+    		}
+    	}
     }
 }
 
@@ -142,23 +161,45 @@ Cell* Floor::generateCell(int xPos, int yPos, char symbol){
 		bool hasPlayer = false;
 		int id = -1;
 
-		//Item case
-		if (isdigit(symbol)){
+		//Special dragon hoard case, to match it with a Dragon after
+		if (symbol == '9'){
+			Gold* hoard = new Gold(Item::generateId(),6);
+			hoard->setPos(xPos,yPos);
+			hasItem = true;
+			id = hoard->getId();
+			floorDragonHoards.push_back(hoard);
+			floorItems[id] = hoard;
+		}
+
+		//Other item case
+		else if (isdigit(symbol)){
 			ItemFactory itFactory = ItemFactory();
 			Item* newItem = itFactory.getItem(symbol);
+			newItem->setPos(xPos,yPos);
 			hasItem = true;
 			id = newItem->getId();
 			floorItems[id] = newItem;
 		}
 		
+		//Special Dragon case, to match it with a dragon hoard after.
+
+		else if (symbol == 'D'){
+			Dragon* dragon = new Dragon(0,0,Character::generateId());
+			dragon->setPos(xPos,yPos);
+			hasEnemy = true;
+			id = dragon->getId();
+			floorDragons.push_back(dragon);
+			floorEnemies[id] = dragon;
+			enemyActionQueue.push(dragon);
+		}
+
 		//Enemy case
-		if  ((symbol == 'V')||
+		else if  ((symbol == 'V')||
 			(symbol == 'W')||
 			(symbol == 'N')||
 			(symbol == 'M')||
 			(symbol == 'X')||
-			(symbol == 'T')||
-			(symbol == 'D')){
+			(symbol == 'T')){
 			EnemyFactory enFactory = EnemyFactory();			
 			Enemy *newEnemy = enFactory.getEnemy(symbol);
 			newEnemy->setPos(xPos,yPos);
@@ -169,7 +210,7 @@ Cell* Floor::generateCell(int xPos, int yPos, char symbol){
 		}
 		
 		//Player case
-		if (symbol == '@'){
+		else if (symbol == '@'){
 			hasPlayer = true;
 			Player *player = Player::getInstance();
 			player->setPos(xPos,yPos);
@@ -301,6 +342,7 @@ void Floor::spawnItem(int xPos, int yPos, char symbol){
 	Cell *currentCell = allCells.at(xPos).at(yPos);
 	currentCell->setOccupation(false,true,false,item->getId());
 	currentCell->setCellSymbol(symbol);
+	item->setPos(xPos,yPos);
 	floorItems[item->getId()] = item;
 }
 

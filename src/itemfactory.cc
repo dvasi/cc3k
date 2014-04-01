@@ -33,7 +33,7 @@ Item *ItemFactory::getItem(char itemChar)
     else if (itemChar == '8') //merchant hoard
         newItem =  new Gold(Item::generateId(), 4);
     else //dragon hoard, itemChar '9'
-        newItem =  new Gold(Item::generateId(), 6);
+        newItem =  new Gold(Item::generateId(), 6,false);
 
     return newItem;
 }

@@ -11,6 +11,8 @@
 class Chamber;
 class TextDisplay;
 class Player;
+class Dragon;
+class Gold;
 
 const int BOARD_WIDTH = 79;
 const int BOARD_HEIGHT = 25;
@@ -31,8 +33,8 @@ class Floor{
 	std::map<int,Item*> floorItems;
 	std::map<int,Enemy*> floorEnemies;
 	std::queue<Enemy*> enemyActionQueue;
-	char enemy[numEnemies]; //20 enemies per floor
-	char goldPiles[numGoldPiles]; //10 piles of gold per floor
+	std::vector<Dragon*> floorDragons;
+	std::vector<Gold*> floorDragonHoards;
 
 protected:
     int dragons; //number of dragons on the floor

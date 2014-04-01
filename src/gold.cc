@@ -3,7 +3,7 @@
 #include "visitor.h"
 using namespace std;
 
-Gold::Gold(int id, int value): Item(id,true,false), value(value){}
+Gold::Gold(int id, int value, bool lootable): Item(id,lootable,false), value(value){}
 
 Gold::~Gold(){}
 
