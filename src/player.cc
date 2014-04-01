@@ -27,7 +27,11 @@ void Player::update(){
 
 char Player::getSymbol(){ return race; }
 
-int Player::getGold(){ return gold; }
+int Player::getGold(){ 
+	//if (race=='d') return gold*2;
+	//if (race=='o') return gold/2;
+	return gold; 
+}
 
 void Player::setGold(int gold) { this->gold = gold; }
 
