@@ -3,6 +3,8 @@
 #include "merchant.h"
 #include "dragon.h"
 #include "attackvisitor.h"
+#include "itemusevisitor.h"
+#include "gold.h"
 #include <cmath>
 #include <cstdlib>
 #include <ncurses.h>
@@ -38,8 +40,9 @@ int AttackVisitor::visit(Enemy* defender){
 
 	defender->takeDmg(damage);
 	if (defender->getHp() <=0 ){
-		Player *player = Player::getInstance();
-		player->setGold(player->getGold()+1);
+		Gold loot = Gold(-1,1);
+		ItemUseVisitor lootVisitor = ItemUseVisitor();
+		loot.accept(lootVisitor);
 	}
 	return damage;
 }
