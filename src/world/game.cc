@@ -87,12 +87,9 @@ void Game::displayWelcomeScreen(){
     titleArt2.push_back(" _____                    _             _____ _    ");
     titleArt2.push_back("/  __ \\                  | |           |____ | |   ");
     titleArt2.push_back("| /  \\/_ __ __ ___      _| | ___ _ __      / / | __");
-    titleArt2.push_back(
-        "| |   | '__/ _` \\ \\ /\\ / / |/ _ \\ '__|     \\ \\ |/ /");
-    titleArt2.push_back(
-        "| \\__/\\ | | (_| |\\ V  V /| |  __/ |    .___/ /   < ");
-    titleArt2.push_back(
-        " \\____/_|  \\__,_| \\_/\\_/ |_|\\___|_|    \\____/|_|\\_\\");
+    titleArt2.push_back("| |   | '__/ _` \\ \\ /\\ / / |/ _ \\ '__|     \\ \\ |/ /");
+    titleArt2.push_back("| \\__/\\ | | (_| |\\ V  V /| |  __/ |    .___/ /   < ");
+    titleArt2.push_back(" \\____/_|  \\__,_| \\_/\\_/ |_|\\___|_|    \\____/|_|\\_\\");
 
     int row, col;
     getmaxyx(stdscr, row, col);
@@ -138,14 +135,6 @@ void Game::displayInstructions(){
     interactKeys.push_back("Use Item: u");
     interactKeys.push_back("Attack Enemy: a");
 
-    vector<string> selectKeys;
-    selectKeys.push_back("Selection Keys");
-    selectKeys.push_back(" ");
-    selectKeys.push_back("Choose Human: h");
-    selectKeys.push_back("Choose Dwarf: d");
-    selectKeys.push_back("Choose Elf: e");
-    selectKeys.push_back("Choose Orc: o");
-
     vector<string> miscKeys;
     miscKeys.push_back("Other Keys");
     miscKeys.push_back(" ");
@@ -156,23 +145,17 @@ void Game::displayInstructions(){
     vector<vector<string> > keys;
     keys.push_back(moveKeys);
     keys.push_back(interactKeys);
-    keys.push_back(selectKeys);
     keys.push_back(miscKeys);
 
     vector<string> commands;
-    commands.push_back(
-        "_________                                          .___      ");
-    commands.push_back(
-        "\\_   ___ \\  ____   _____   _____ _____    ____    __| _/______");
-    commands.push_back(
-        "/    \\  \\/ /  _ \\ /     \\ /     \\__  \\  /    \\  / __ |/  ___/");
-    commands.push_back(
-        "\\     \\___(  <_> )  Y Y  \\  Y Y  \\/ __ \\|   |  \\/ /_/ |\\___ \\ ");
-    commands.push_back(
-        " \\______  /\\____/|__|_|  /__|_|  (____  /___|  /\\____ /____  >");
-    commands.push_back(
-        "        \\/             \\/      \\/     \\/     \\/      \\/    \\/ ");
-
+    commands.push_back("   _____                                          _     ");
+    commands.push_back("  / ____|                                        | |    ");
+    commands.push_back(" | |     ___  _ __ ___  _ __ ___   __ _ _ __   __| |___ ");
+    commands.push_back(" | |    / _ \\| '_ ` _ \\| '_ ` _ \\ / _` | '_ \\ / _` / __| ");
+    commands.push_back(" | |___| (_) | | | | | | | | | | | (_| | | | | (_| \\__ \\ ");
+    commands.push_back("  \\_____\\___/|_| |_| |_|_| |_| |_|\\__,_|_| |_|\\__,_|___/");
+                                                        
+                                                        
     int row, col;
     getmaxyx(stdscr, row, col);
 
@@ -186,7 +169,7 @@ void Game::displayInstructions(){
         for (unsigned int j = 0; j < keys.at(i).size(); ++j){
             refresh();
             mvprintw((row / 2 + j) - 3,
-                (i + 1) * ((col - strlen(keys.at(i).at(0).c_str())) / 5), "%s",
+                (i + 1) * ((col - strlen(keys.at(i).at(0).c_str())) / 4), "%s",
                 keys.at(i).at(j).c_str());
         }
     }
@@ -253,12 +236,9 @@ void Game::displayRaceSelectionScreen(){
     titleArt2.push_back(" _____                    _             _____ _    ");
     titleArt2.push_back("/  __ \\                  | |           |____ | |   ");
     titleArt2.push_back("| /  \\/_ __ __ ___      _| | ___ _ __      / / | __");
-    titleArt2.push_back(
-        "| |   | '__/ _` \\ \\ /\\ / / |/ _ \\ '__|     \\ \\ |/ /");
-    titleArt2.push_back(
-        "| \\__/\\ | | (_| |\\ V  V /| |  __/ |    .___/ /   < ");
-    titleArt2.push_back(
-        " \\____/_|  \\__,_| \\_/\\_/ |_|\\___|_|    \\____/|_|\\_\\");
+    titleArt2.push_back("| |   | '__/ _` \\ \\ /\\ / / |/ _ \\ '__|     \\ \\ |/ /");
+    titleArt2.push_back("| \\__/\\ | | (_| |\\ V  V /| |  __/ |    .___/ /   < ");
+    titleArt2.push_back(" \\____/_|  \\__,_| \\_/\\_/ |_|\\___|_|    \\____/|_|\\_\\");
 
     int row, col;
     getmaxyx(stdscr, row, col);
@@ -349,15 +329,15 @@ void Game::displayEndScreen(){
     }
     //okay so this defeat word is not the same font as victory...and might have to change method name
     else{
-        victoryArt.push_back("________          _____              __   ");
-        victoryArt.push_back("\\______ \\   _____/ ____\\____ _____ _/  |_");
-        victoryArt.push_back(" |    |  \\_/ __ \\   __\\/ __ \\__  \\   __\\ ");
-        victoryArt.push_back(" |    |  \\_/ __ \\   __\\/ __ \\__  \\   __\\ ");
-        victoryArt.push_back(" |    `   \\  ___/|  | \\  ___/ / __ \\|  |  ");
-        victoryArt.push_back("/_______  /\\___  >__|  \\___  >____  /__|  ");
-        victoryArt.push_back("        \\/     \\/          \\/     \\/      ");
-    }
+        victoryArt.push_back("  _____        __           _   ");
+        victoryArt.push_back(" |  __ \\      / _|         | |  ");
+        victoryArt.push_back(" | |  | | ___| |_ ___  __ _| |_ ");
+        victoryArt.push_back(" | |  | |/ _ \\  _/ _ \\/ _` | __|");
+        victoryArt.push_back(" | |__| |  __/ ||  __/ (_| | |_ ");
+        victoryArt.push_back(" |_____/ \\___|_| \\___|\\__,_|\\__|");
+    }                                
 
+                                                                            
     vector<string> swordArt;
     swordArt.push_back("          /\\          ");
     swordArt.push_back("         /  \\         ");
