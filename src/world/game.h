@@ -6,7 +6,7 @@
 #include "player.h"
 #include "floor.h"
 
-const std::string DEFAULT_LAYOUT_CONFIG_FILE = "defaultLayout.txt";
+const std::string DEFAULT_LAYOUT_CONFIG_FILE = "src/defaultLayout.txt";
       
 class Game{
 
