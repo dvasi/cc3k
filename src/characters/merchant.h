@@ -4,14 +4,13 @@
 
 class Visitor;
 
-class Merchant : public Enemy
-{
-	static bool hostile;
+class Merchant: public Enemy{
+    static bool hostile;
 public:
     Merchant(int x, int y, int id);
     ~Merchant();
     int accept(Visitor &v);
     bool isHostile();
-    static void setAngryMode(bool angry=true);
+    static void setAngryMode(bool angry = true);
 };
 #endif

@@ -5,9 +5,8 @@
 
 class Visitor;
 
-class BDPot: public Potion
-{
-	static bool revealed;
+class BDPot: public Potion{
+    static bool revealed;
 public:
     BDPot(int id);
     bool isRevealed();

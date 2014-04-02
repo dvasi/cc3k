@@ -7,12 +7,12 @@
 class Character;
 
 class CommandInterpreter{
-	
-	protected:
-		std::string actionStr;
-		CommandInterpreter();
-		virtual ~CommandInterpreter() = 0;
-	public:
-		virtual void interpretCommand(Character* ch);		
+
+protected:
+    std::string actionStr;
+    CommandInterpreter();
+    virtual ~CommandInterpreter() = 0;
+public:
+    virtual void interpretCommand(Character* ch);
 };
 #endif

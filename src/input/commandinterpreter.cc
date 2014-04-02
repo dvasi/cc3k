@@ -4,8 +4,12 @@
 #include "commandinterpreter.h"
 using namespace std;
 
-CommandInterpreter::~CommandInterpreter(){}
+CommandInterpreter::~CommandInterpreter(){
+}
 
-CommandInterpreter::CommandInterpreter(): actionStr("") {}
+CommandInterpreter::CommandInterpreter() :
+    actionStr(""){
+}
 
-void CommandInterpreter::interpretCommand(Character* ch){}
+void CommandInterpreter::interpretCommand(Character* ch){
+}

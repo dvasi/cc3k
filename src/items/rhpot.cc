@@ -3,16 +3,28 @@
 #include <string>
 using namespace std;
 
-RHPot::RHPot(int id): Potion(id, 10, '0'){}
+RHPot::RHPot(int id) :
+    Potion(id, 10, '0'){
+}
 
-bool RHPot::isRevealed(){ return RHPot::revealed; }
+bool RHPot::isRevealed(){
+    return RHPot::revealed;
+}
 
-void RHPot::revealPotion(){ RHPot::revealed = true; }
+void RHPot::revealPotion(){
+    RHPot::revealed = true;
+}
 
-void RHPot::concealPotion(){ RHPot::revealed = false; }
+void RHPot::concealPotion(){
+    RHPot::revealed = false;
+}
 
-string RHPot::getName(){ return "RH potion"; }
+string RHPot::getName(){
+    return "RH potion";
+}
 
-void RHPot::accept(Visitor &v){ v.visit(this); }
+void RHPot::accept(Visitor &v){
+    v.visit(this);
+}
 
 bool RHPot::revealed = false;

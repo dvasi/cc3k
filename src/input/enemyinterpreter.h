@@ -11,19 +11,19 @@ class TextDisplay;
 class MoveCommand;
 class AttackCommand;
 
-class EnemyInterpreter : public CommandInterpreter{
+class EnemyInterpreter: public CommandInterpreter{
 
-	Game* game;
-	std::string actionStr;
-	public:
-		EnemyInterpreter();
-		~EnemyInterpreter();
-		virtual void interpretCommand(Enemy* enemy);
-		virtual bool isMoveValid(MoveCommand &cmd);
-		virtual bool canMove(Enemy *enemy);
-		virtual void moveEnemy(MoveCommand &cmd);	
-		virtual bool playerInRange(Enemy* enemy);
-		virtual void enemyAttack(AttackCommand &cmd);
-		void notifyDisplay(TextDisplay &td, std::string action);
+    Game* game;
+    std::string actionStr;
+public:
+    EnemyInterpreter();
+    ~EnemyInterpreter();
+    virtual void interpretCommand(Enemy* enemy);
+    virtual bool isMoveValid(MoveCommand &cmd);
+    virtual bool canMove(Enemy *enemy);
+    virtual void moveEnemy(MoveCommand &cmd);
+    virtual bool playerInRange(Enemy* enemy);
+    virtual void enemyAttack(AttackCommand &cmd);
+    void notifyDisplay(TextDisplay &td, std::string action);
 };
 #endif

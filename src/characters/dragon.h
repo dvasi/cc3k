@@ -5,9 +5,8 @@
 class Gold;
 class Visitor;
 
-class Dragon : public Enemy
-{
-	Gold *guardedHoard;
+class Dragon: public Enemy{
+    Gold *guardedHoard;
 public:
     Dragon(int x, int y, int id);
     ~Dragon();

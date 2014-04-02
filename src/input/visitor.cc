@@ -12,28 +12,45 @@
 #include <iostream>
 using namespace std;
 
-Visitor::Visitor(){}
+Visitor::Visitor(){
+}
 
-Visitor::~Visitor(){}
+Visitor::~Visitor(){
+}
 
-int Visitor::visit(Character *ch){ return 0; }
+int Visitor::visit(Character *ch){
+    return 0;
+}
 
-int Visitor::visit(Enemy* enemy){ return 0; }
+int Visitor::visit(Enemy* enemy){
+    return 0;
+}
 
-int Visitor::visit(Merchant *merchant){ return 0; }
+int Visitor::visit(Merchant *merchant){
+    return 0;
+}
 
-int Visitor::visit(Dragon* dragon){ return 0; }
+int Visitor::visit(Dragon* dragon){
+    return 0;
+}
 
-void Visitor::visit(BAPot* potion){}
+void Visitor::visit(BAPot* potion){
+}
 
-void Visitor::visit(BDPot* potion){}
+void Visitor::visit(BDPot* potion){
+}
 
-void Visitor::visit(PHPot* potion){}
+void Visitor::visit(PHPot* potion){
+}
 
-void Visitor::visit(RHPot* potion){}
+void Visitor::visit(RHPot* potion){
+}
 
-void Visitor::visit(WAPot* potion){}
+void Visitor::visit(WAPot* potion){
+}
 
-void Visitor::visit(WDPot* potion){}
+void Visitor::visit(WDPot* potion){
+}
 
-void Visitor::visit(Gold *gold){}
+void Visitor::visit(Gold *gold){
+}

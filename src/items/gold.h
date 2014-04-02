@@ -4,14 +4,14 @@
 
 class Visitor;
 
-class Gold : public Item{
+class Gold: public Item{
 
-	friend class Dragon;
+    friend class Dragon;
 
 protected:
     double value;
 public:
-    Gold(int id, double value, char type, bool lootable=true);
+    Gold(int id, double value, char type, bool lootable = true);
     ~Gold();
     virtual double getValue();
     virtual void setValue(int value);

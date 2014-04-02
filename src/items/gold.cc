@@ -3,12 +3,21 @@
 #include "visitor.h"
 using namespace std;
 
-Gold::Gold(int id, double value, char type, bool lootable): Item(id,type,lootable,false), value(value){}
+Gold::Gold(int id, double value, char type, bool lootable) :
+    Item(id, type, lootable, false), value(value){
+}
 
-Gold::~Gold(){}
+Gold::~Gold(){
+}
 
-double Gold::getValue(){ return value; }
+double Gold::getValue(){
+    return value;
+}
 
-void Gold::setValue(int value) { this->value = value; }
+void Gold::setValue(int value){
+    this->value = value;
+}
 
-void Gold::accept(Visitor &v) { v.visit(this); }
+void Gold::accept(Visitor &v){
+    v.visit(this);
+}

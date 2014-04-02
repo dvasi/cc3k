@@ -12,21 +12,21 @@ class RHPot;
 class WAPot;
 class WDPot;
 
-class AttackVisitor : public Visitor{
+class AttackVisitor: public Visitor{
 
-	Character *attacker;
-	public:
-		AttackVisitor(Character* ch);
-		~AttackVisitor();
-		int visit(Character* defender);
-		int visit (Enemy* enemy);
-		int visit (Merchant* merchant);
-		int visit(Dragon* dragon);
-		void visit(BAPot* potion);
-		void visit(BDPot* potion);
-		void visit(PHPot* potion);
-		void visit(RHPot* potion);
-		void visit(WAPot* potion);
-		void visit(WDPot* potion);
+    Character *attacker;
+public:
+    AttackVisitor(Character* ch);
+    ~AttackVisitor();
+    int visit(Character* defender);
+    int visit(Enemy* enemy);
+    int visit(Merchant* merchant);
+    int visit(Dragon* dragon);
+    void visit(BAPot* potion);
+    void visit(BDPot* potion);
+    void visit(PHPot* potion);
+    void visit(RHPot* potion);
+    void visit(WAPot* potion);
+    void visit(WDPot* potion);
 };
 #endif

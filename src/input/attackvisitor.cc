@@ -21,45 +21,47 @@ class RHPot;
 class WAPot;
 class WDPot;
 
-AttackVisitor::AttackVisitor(Character* ch): attacker(ch){}
+AttackVisitor::AttackVisitor(Character* ch) :
+    attacker(ch){
+}
 
-AttackVisitor::~AttackVisitor(){}
+AttackVisitor::~AttackVisitor(){
+}
 
 int AttackVisitor::visit(Character *defender){
-	double atk = static_cast<double>(attacker->getAtk());
-	double def = static_cast<double>(defender->getDef());
-	
-	//50% chance to miss attacks on non-enemy defenders (in this case PC)
-	int random = (rand()%2);
+    double atk = static_cast<double>(attacker->getAtk());
+    double def = static_cast<double>(defender->getDef());
 
-	int damage;
-	if (random == 0)
-		damage = static_cast<int>(ceil((100.00 / (100.00 + def)) * atk));
-	else
-		damage = 0;
+    //50% chance to miss attacks on non-enemy defenders (in this case PC)
+    int random = (rand() % 2);
+
+    int damage;
+    if (random == 0) damage = static_cast<int>(ceil(
+        (100.00 / (100.00 + def)) * atk));
+    else damage = 0;
 
     defender->takeDmg(damage);
     return damage;
 }
 
 int AttackVisitor::visit(Enemy* defender){
-	double atk = static_cast<double>(attacker->getAtk());
-	double def = static_cast<double>(defender->getDef());
-	int damage = static_cast<int>(ceil((100.00 / (100.00 + def)) * atk));
+    double atk = static_cast<double>(attacker->getAtk());
+    double def = static_cast<double>(defender->getDef());
+    int damage = static_cast<int>(ceil((100.00 / (100.00 + def)) * atk));
 
-	defender->takeDmg(damage);
-	if (defender->getHp() <=0 ){
-		Gold loot = SmallGold(-1);
-		ItemUseVisitor lootVisitor = ItemUseVisitor();
-		loot.accept(lootVisitor);
-	}
-	return damage;
+    defender->takeDmg(damage);
+    if (defender->getHp() <= 0){
+        Gold loot = SmallGold(-1);
+        ItemUseVisitor lootVisitor = ItemUseVisitor();
+        loot.accept(lootVisitor);
+    }
+    return damage;
 }
 
 int AttackVisitor::visit(Merchant *defender){
-	double atk = static_cast<double>(attacker->getAtk());
-	double def = static_cast<double>(defender->getDef());
-	int damage = static_cast<int>(ceil((100.00 / (100.00 + def)) * atk));
+    double atk = static_cast<double>(attacker->getAtk());
+    double def = static_cast<double>(defender->getDef());
+    int damage = static_cast<int>(ceil((100.00 / (100.00 + def)) * atk));
 
     defender->takeDmg(damage);
     if (!defender->isHostile()) Merchant::setAngryMode();
@@ -68,23 +70,29 @@ int AttackVisitor::visit(Merchant *defender){
 }
 
 int AttackVisitor::visit(Dragon* defender){
-	double atk = static_cast<double>(attacker->getAtk());
-	double def = static_cast<double>(defender->getDef());
-	int damage = static_cast<int>(ceil((100.00 / (100.00 + def)) * atk));
+    double atk = static_cast<double>(attacker->getAtk());
+    double def = static_cast<double>(defender->getDef());
+    int damage = static_cast<int>(ceil((100.00 / (100.00 + def)) * atk));
 
-	defender->takeDmg(damage);
-	if (defender->getHp() <= 0) defender->freeHoard();
-	return damage;
+    defender->takeDmg(damage);
+    if (defender->getHp() <= 0) defender->freeHoard();
+    return damage;
 }
 
-void AttackVisitor::visit(BAPot* potion){}
+void AttackVisitor::visit(BAPot* potion){
+}
 
-void AttackVisitor::visit(BDPot* potion){}
+void AttackVisitor::visit(BDPot* potion){
+}
 
-void AttackVisitor::visit(PHPot* potion){}
+void AttackVisitor::visit(PHPot* potion){
+}
 
-void AttackVisitor::visit(RHPot* potion){}
+void AttackVisitor::visit(RHPot* potion){
+}
 
-void AttackVisitor::visit(WAPot* potion){}
+void AttackVisitor::visit(WAPot* potion){
+}
 
-void AttackVisitor::visit(WDPot* potion){}
+void AttackVisitor::visit(WDPot* potion){
+}

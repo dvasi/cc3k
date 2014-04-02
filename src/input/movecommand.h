@@ -4,15 +4,15 @@
 
 class Character;
 
-class MoveCommand : public Command{
-	
-	Character* character;
-	int xPos, yPos;
-	public:
-		MoveCommand(Character *character, int xPos, int yPos);
-		~MoveCommand();
-		Character* getCharacter();
-		int getXPos();
-		int getYPos();
+class MoveCommand: public Command{
+
+    Character* character;
+    int xPos, yPos;
+public:
+    MoveCommand(Character *character, int xPos, int yPos);
+    ~MoveCommand();
+    Character* getCharacter();
+    int getXPos();
+    int getYPos();
 };
 #endif

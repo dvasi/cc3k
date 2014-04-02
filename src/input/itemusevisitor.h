@@ -11,22 +11,22 @@ class WDPot;
 class Gold;
 class Player;
 
-class ItemUseVisitor : public Visitor{
+class ItemUseVisitor: public Visitor{
 
-	Player *player;
-	int tempAtkDelta;
-	int tempDefDelta;
-	public:
-		ItemUseVisitor();
-		~ItemUseVisitor();
-		void visit(BAPot *potion);
-		void visit(BDPot *potion);
-		void visit(PHPot *potion);
-		void visit(RHPot *potion);
-		void visit(WAPot *potion);
-		void visit(WDPot *potion);
-		void visit(Gold *gold);
-		int getTempAtkDelta();
-		int getTempDefDelta();
+    Player *player;
+    int tempAtkDelta;
+    int tempDefDelta;
+public:
+    ItemUseVisitor();
+    ~ItemUseVisitor();
+    void visit(BAPot *potion);
+    void visit(BDPot *potion);
+    void visit(PHPot *potion);
+    void visit(RHPot *potion);
+    void visit(WAPot *potion);
+    void visit(WDPot *potion);
+    void visit(Gold *gold);
+    int getTempAtkDelta();
+    int getTempDefDelta();
 };
 #endif

@@ -7,9 +7,7 @@
 #include "floor.h"
 using namespace std;
 
-int main(int argc, char *argv[])
-{
-
+int main(int argc, char *argv[]){
     initscr();
     clear();
     noecho();
@@ -24,7 +22,7 @@ int main(int argc, char *argv[])
     init_pair(5, COLOR_GREEN, COLOR_BLACK);
     init_pair(6, COLOR_MAGENTA, COLOR_BLACK);
     srand(time(0));
-	
+
     Game *cc3k = Game::getInstance();
     cc3k->displayWelcomeScreen();
     cc3k->displayInstructions();
@@ -32,32 +30,31 @@ int main(int argc, char *argv[])
     cc3k->selectRace();
 
     if (argc >= 2){
-    	string fileName = argv[1];
-    	cc3k->initializeWorld(fileName);
+        string fileName = argv[1];
+        cc3k->initializeWorld(fileName);
     }
     else cc3k->initializeWorld();
     cc3k->displayWorld();
-    
+
     while (true){
-		cc3k->getInput();
-		//Reached the final staircase
-		if (cc3k->gameFinished()){
-			cc3k->displayEndScreen();
-			cc3k->selectEndGameCommand();
-			cc3k->displayWorld();
-		}
-		else{
-			cc3k->updateState();
-			//Player died
-			if (cc3k->gameFinished()){
-				cc3k->displayEndScreen();
-				cc3k->selectEndGameCommand();
-				cc3k->displayWorld();
-			}
-			else cc3k->displayWorld();
-		}
-	}
-	
+        cc3k->getInput();
+        //Reached the final staircase
+        if (cc3k->gameFinished()){
+            cc3k->displayEndScreen();
+            cc3k->selectEndGameCommand();
+            cc3k->displayWorld();
+        }
+        else{
+            cc3k->updateState();
+            //Player died
+            if (cc3k->gameFinished()){
+                cc3k->displayEndScreen();
+                cc3k->selectEndGameCommand();
+                cc3k->displayWorld();
+            }
+            else cc3k->displayWorld();
+        }
+    }
     endwin();
     return 0;
 }

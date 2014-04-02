@@ -24,54 +24,55 @@ const int NUM_ENEMIES = 20;
 
 class Floor{
 
-	friend class Game;
-	TextDisplay *td;
-	ItemUseVisitor *itemStatMonitor;
-	
-	//Layout management
-	std::vector<Chamber*> chambers;
-	std::vector<std::vector<Cell*> > allCells;
-	int startXPos, startYPos;
-	
-	//Game object management
-	std::map<int,Item*> floorItems;
-	std::map<int,Enemy*> floorEnemies;
-	std::queue<Enemy*> enemyActionQueue;
-	std::vector<Dragon*> floorDragons;
-	std::vector<DragonGold*> floorDragonHoards;
+    friend class Game;
+    TextDisplay *td;
+    ItemUseVisitor *itemStatMonitor;
+
+    //Layout management
+    std::vector<Chamber*> chambers;
+    std::vector<std::vector<Cell*> > allCells;
+    int startXPos, startYPos;
+
+    //Game object management
+    std::map<int, Item*> floorItems;
+    std::map<int, Enemy*> floorEnemies;
+    std::queue<Enemy*> enemyActionQueue;
+    std::vector<Dragon*> floorDragons;
+    std::vector<DragonGold*> floorDragonHoards;
 
 protected:
     int dragons; //number of dragons on the floor
 
 public:
-	void generateEnemies(); 
-	void generateGoldPiles();
-	void floodFillChamber(int xStartPos, int yStartPos, char floodChar, std::vector<std::vector<char> > &floorLayout);
-	void createChamber(std::vector<std::vector<char> > floorLayout);
-	void initializeChambers(std::vector<std::vector<char> > floorLayout);
-	void initializeCells(std::vector<std::vector<char> > floorLayout);
-	void display();
-	void updateState();
-	void removeItem(int id);
-	void removeEnemy(int id);
-	Enemy* getEnemy(int id);
-	Item* getItem(int id);
-	Cell* generateCell(int xPos, int yPos, char symbol);
-	void spawnItem(int xPos, int yPos, char symbol);
-	Cell* getCellAt(int xPos, int yPos);
-	int getStartXPos();
-	int getStartYPos();
-	void negateTempStats();
-	void generateStairCase(Cell *currentCell);
-	void generatePlayer(Cell *currentCell);
-	void generateEnemy(Cell *currentCell);
-	void generatePotion(Cell *currentCell);
-	void generateGold(Cell *curentCell);
-	void matchDragonHoards();
-	void generateFloor();
-	TextDisplay* getTextDisplay();
-	ItemUseVisitor* getItemStatMonitor();
-	Floor();
-	~Floor();
+    void generateEnemies();
+    void generateGoldPiles();
+    void floodFillChamber(int xStartPos, int yStartPos, char floodChar,
+        std::vector<std::vector<char> > &floorLayout);
+    void createChamber(std::vector<std::vector<char> > floorLayout);
+    void initializeChambers(std::vector<std::vector<char> > floorLayout);
+    void initializeCells(std::vector<std::vector<char> > floorLayout);
+    void display();
+    void updateState();
+    void removeItem(int id);
+    void removeEnemy(int id);
+    Enemy* getEnemy(int id);
+    Item* getItem(int id);
+    Cell* generateCell(int xPos, int yPos, char symbol);
+    void spawnItem(int xPos, int yPos, char symbol);
+    Cell* getCellAt(int xPos, int yPos);
+    int getStartXPos();
+    int getStartYPos();
+    void negateTempStats();
+    void generateStairCase(Cell *currentCell);
+    void generatePlayer(Cell *currentCell);
+    void generateEnemy(Cell *currentCell);
+    void generatePotion(Cell *currentCell);
+    void generateGold(Cell *curentCell);
+    void matchDragonHoards();
+    void generateFloor();
+    TextDisplay* getTextDisplay();
+    ItemUseVisitor* getItemStatMonitor();
+    Floor();
+    ~Floor();
 };
 #endif

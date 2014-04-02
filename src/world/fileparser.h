@@ -4,11 +4,12 @@
 #include <vector>
 
 class FileParser{
-	
+
 public:
-	std::vector<std::vector<std::vector<char> > > parseFloorLayouts(std::string fileName);
-	FileParser();
-	int charToCellType(char c);
-    
+    std::vector<std::vector<std::vector<char> > > parseFloorLayouts(
+        std::string fileName);
+    FileParser();
+    int charToCellType(char c);
+
 };
 #endif

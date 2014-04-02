@@ -4,10 +4,10 @@
 class Enemy;
 
 class EnemyFactory{
-	
-	public:
-		EnemyFactory();
-		Enemy* getEnemy(char enemyChar);
-		Enemy* getEnemy();
+
+public:
+    EnemyFactory();
+    Enemy* getEnemy(char enemyChar);
+    Enemy* getEnemy();
 };
 #endif

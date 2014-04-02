@@ -5,6 +5,9 @@ using namespace std;
 
 class Cell;
 
-Chamber::Chamber(vector<Cell*> cells): cells(cells){}
+Chamber::Chamber(vector<Cell*> cells) :
+    cells(cells){
+}
 
-Chamber::~Chamber(){}
+Chamber::~Chamber(){
+}

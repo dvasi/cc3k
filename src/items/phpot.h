@@ -5,9 +5,8 @@
 
 class Visitor;
 
-class PHPot: public Potion
-{
-	static bool revealed;
+class PHPot: public Potion{
+    static bool revealed;
 public:
     PHPot(int id);
     bool isRevealed();

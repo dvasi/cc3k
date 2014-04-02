@@ -1,14 +1,22 @@
 #include "movecommand.h"
 #include "character.h"
 
-MoveCommand::MoveCommand(Character *character, int xPos, int yPos):
-	character(character),xPos(xPos),yPos(yPos){}
-	
-MoveCommand::~MoveCommand(){}
+MoveCommand::MoveCommand(Character *character, int xPos, int yPos) :
+    character(character), xPos(xPos), yPos(yPos){
+}
 
-Character* MoveCommand::getCharacter(){ return character; }
+MoveCommand::~MoveCommand(){
+}
 
-int MoveCommand::getXPos() { return xPos; }
-		
-int MoveCommand::getYPos() { return yPos; }
+Character* MoveCommand::getCharacter(){
+    return character;
+}
+
+int MoveCommand::getXPos(){
+    return xPos;
+}
+
+int MoveCommand::getYPos(){
+    return yPos;
+}
 

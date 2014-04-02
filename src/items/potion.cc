@@ -6,6 +6,10 @@ int Potion::getMagnitude(){
     return magnitude;
 }
 
-Potion::Potion(int id, int magnitude, char type): Item (id,type,false,true), magnitude(magnitude){}
+Potion::Potion(int id, int magnitude, char type) :
+    Item(id, type, false, true), magnitude(magnitude){
+}
 
-bool Potion::isRevealed(){ return false; }
+bool Potion::isRevealed(){
+    return false;
+}

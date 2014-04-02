@@ -2,7 +2,7 @@
 #define __DRAGONGOLD_H__
 #include "gold.h"
 
-class DragonGold : public Gold{
+class DragonGold: public Gold{
 public:
     DragonGold(int id);
     ~DragonGold();

@@ -5,13 +5,13 @@
 
 class PlayerInterpreter;
 
-class Player : public Character{
+class Player: public Character{
 
 protected:
-	double gold;
+    double gold;
     char race;
-	PlayerInterpreter* input;
-	static Player* playerInstance;
+    PlayerInterpreter* input;
+    static Player* playerInstance;
     static void cleanup();
     Player(int hp, int atk, int def, int x, int y, char race, int id);
 public:

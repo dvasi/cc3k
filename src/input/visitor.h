@@ -17,18 +17,18 @@ class Gold;
 class Visitor{
 
 public:
-	Visitor();
-	virtual ~Visitor() = 0;
-	virtual int visit(Character* ch);
-	virtual int visit(Enemy* enemy);
-	virtual int visit(Merchant* merchant);
-	virtual int visit(Dragon* dragon);
-	virtual void visit(BAPot* potion);
-	virtual void visit(BDPot* potion);
-	virtual void visit(PHPot* potion);
-	virtual void visit(RHPot* potion);
-	virtual void visit(WAPot* potion);
-	virtual void visit(WDPot* potion);
-	virtual void visit(Gold *gold);
+    Visitor();
+    virtual ~Visitor() = 0;
+    virtual int visit(Character* ch);
+    virtual int visit(Enemy* enemy);
+    virtual int visit(Merchant* merchant);
+    virtual int visit(Dragon* dragon);
+    virtual void visit(BAPot* potion);
+    virtual void visit(BDPot* potion);
+    virtual void visit(PHPot* potion);
+    virtual void visit(RHPot* potion);
+    virtual void visit(WAPot* potion);
+    virtual void visit(WDPot* potion);
+    virtual void visit(Gold *gold);
 };
 #endif

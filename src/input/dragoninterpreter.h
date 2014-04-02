@@ -8,12 +8,12 @@
 class Game;
 class Enemy;
 
-class DragonInterpreter: public EnemyInterpreter {
+class DragonInterpreter: public EnemyInterpreter{
 
 public:
-	DragonInterpreter();
-	~DragonInterpreter();
-	bool playerInRange(Enemy* enemy);
+    DragonInterpreter();
+    ~DragonInterpreter();
+    bool playerInRange(Enemy* enemy);
 };
 #endif
 

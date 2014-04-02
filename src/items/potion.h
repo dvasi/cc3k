@@ -4,12 +4,11 @@
 
 class Visitor;
 
-class Potion: public Item
-{
+class Potion: public Item{
 protected:
     int magnitude;
 public:
-	Potion(int id, int magnitude, char type);
+    Potion(int id, int magnitude, char type);
     int getMagnitude();
     virtual bool isRevealed();
 };

@@ -2,10 +2,9 @@
 #define __CHARACTER_H__
 class Visitor;
 
-class Character
-{
-	static int idCount;
-	
+class Character{
+    static int idCount;
+
 protected:
     int hp, atk, def;
     int x, y;
@@ -15,7 +14,7 @@ public:
     Character(int hp, int atk, int def, int x, int y, int id);
     virtual ~Character() = 0;
     static int generateId();
-	int getId();
+    int getId();
     int getHp();
     int getAtk();
     int getDef();
