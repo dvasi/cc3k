@@ -6,6 +6,7 @@
 class Visitor;
 
 class WDPot: public Potion{
+
     static bool revealed;
 public:
     WDPot(int id);
@@ -15,6 +16,5 @@ public:
     std::string getName();
     void accept(Visitor &v);
 };
-
 #endif
 

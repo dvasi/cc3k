@@ -3,8 +3,8 @@
 class Visitor;
 
 class Character{
-    static int idCount;
 
+    static int idCount;
 protected:
     int hp, atk, def;
     int x, y;

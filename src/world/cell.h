@@ -11,7 +11,6 @@ class Cell{
     char cellSymbol;
     bool enemy, item, player;
     int occupiedId;
-
 public:
     enum {		//Cell types
         Wall = 0, Floor, Doorway, Passage, Stairs, Empty
@@ -44,6 +43,5 @@ public:
     Cell(int xPos, int yPos, int type, char symbol, bool hasEnemy, bool hasItem,
         bool hasPlayer, int id);
     ~Cell();
-
 };
 #endif

@@ -5,6 +5,7 @@
 class Visitor;
 
 class Potion: public Item{
+
 protected:
     int magnitude;
 public:
@@ -12,5 +13,4 @@ public:
     int getMagnitude();
     virtual bool isRevealed();
 };
-
 #endif

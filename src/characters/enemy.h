@@ -6,6 +6,7 @@ class EnemyInterpreter;
 class Visitor;
 
 class Enemy: public Character{
+
 protected:
     EnemyInterpreter* input;
     char type;
@@ -22,5 +23,4 @@ public:
     int accept(Visitor &v);
     bool isMobile();
 };
-
 #endif

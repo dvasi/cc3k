@@ -10,6 +10,5 @@ public:
         std::string fileName);
     FileParser();
     int charToCellType(char c);
-
 };
 #endif

@@ -7,7 +7,6 @@ class Visitor;
 class Gold: public Item{
 
     friend class Dragon;
-
 protected:
     double value;
 public:

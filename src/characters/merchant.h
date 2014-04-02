@@ -5,6 +5,7 @@
 class Visitor;
 
 class Merchant: public Enemy{
+
     static bool hostile;
 public:
     Merchant(int x, int y, int id);

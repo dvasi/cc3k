@@ -6,6 +6,7 @@ class Gold;
 class Visitor;
 
 class Dragon: public Enemy{
+
     Gold *guardedHoard;
 public:
     Dragon(int x, int y, int id);
@@ -15,6 +16,5 @@ public:
     int accept(Visitor &v);
     int getHoardXPos();
     int getHoardYPos();
-
 };
 #endif

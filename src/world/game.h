@@ -48,6 +48,5 @@ public:
     void setGameOver(bool victorious = false);
     std::vector<Floor*>* getFloors();
     Player* getPlayer();
-
 };
 #endif

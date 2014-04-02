@@ -3,6 +3,7 @@
 #include "gold.h"
 
 class DragonGold: public Gold{
+
 public:
     DragonGold(int id);
     ~DragonGold();

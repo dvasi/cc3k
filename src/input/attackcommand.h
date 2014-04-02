@@ -1,6 +1,7 @@
 #ifndef __ATTACKCOMMAND_H__
 #define __ATTACKCOMMAND_H__
 #include "command.h"
+
 class Character;
 
 class AttackCommand: public Command{
