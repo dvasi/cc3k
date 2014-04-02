@@ -175,7 +175,7 @@ Cell* Floor::generateCell(int xPos, int yPos, char symbol){
 			hoard->setPos(xPos,yPos);
 			hasItem = true;
 			id = hoard->getId();
-			floorDragonHoards.push_back(hoard);
+			floorDragonHoards.push_back(static_cast<DragonGold*>(hoard));
 			floorItems[id] = hoard;
 		}
 
@@ -359,9 +359,14 @@ void Floor::generateFloor(){
 				for (int n = -1; n <=1; ++n){
 					for (int m = -1; m <=1; ++m){
 						currentCell = allCells.at(i+n).at(j+m);
-						if ((!currentCell->isOccupied())&&(!dragonMatched)){
+						if ((!currentCell->isOccupied())&&(!dragonMatched)&&(currentCell->getCellType() == Cell::Floor)){
 							Dragon *newDragon = new Dragon(i+n,j+m,Character::generateId());
+							int id = newDragon->getId();
+							floorEnemies[id] = newDragon;
 							floorDragons.push_back(newDragon);
+							currentCell->setOccupation(true,false,false,id);
+							currentCell->setCellSymbol('D');
+							currentCell->notifyDisplay(*td);
 							dragonMatched = true;
 						}
 					}
