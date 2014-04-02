@@ -50,7 +50,7 @@ void Game::cleanup(){
 void Game::initializeWorld(string layoutFileName){
 
 	FileParser parser = FileParser();
-	vector<vector<char> > layout = parser.parseFloorLayout("testLayout.txt");
+	vector<vector<vector<char> > > layout = parser.parseFloorLayouts(layoutFileName);
 	initializeFloors(layout);
 	layoutGiven = (layoutFileName == DEFAULT_LAYOUT_CONFIG_FILE) ?
 								 false :
@@ -379,13 +379,13 @@ void Game::clearGame(){
     return;
 }
 
-void Game::initializeFloors(vector<vector<char> > floorLayout){
+void Game::initializeFloors(vector<vector<vector<char> > > floorLayouts){
 
 	floors = new vector<Floor*>();
 	for (int i = 0; i < NUM_FLOORS; ++i){
 		Floor *floor = new Floor();
-		floor->initializeCells(floorLayout);
-		floor->initializeChambers(floorLayout);
+		floor->initializeCells(floorLayouts.at(i));
+		floor->initializeChambers(floorLayouts.at(i));
 		floors->push_back(floor);
 	}
 	int startXPos = floors->at(0)->getStartXPos();

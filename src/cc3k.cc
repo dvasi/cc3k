@@ -24,13 +24,17 @@ int main(int argc, char *argv[])
     init_pair(5, COLOR_GREEN, COLOR_BLACK);
     init_pair(6, COLOR_MAGENTA, COLOR_BLACK);
     srand(time(0));
-
 	
     Game *cc3k = Game::getInstance();
     cc3k->displayWelcomeScreen();
     cc3k->displayRaceSelectionScreen();
     cc3k->selectRace();
-    cc3k->initializeWorld();
+
+    if (argc >= 2){
+    	string fileName = argv[1];
+    	cc3k->initializeWorld(fileName);
+    }
+    else cc3k->initializeWorld();
     cc3k->displayWorld();
     
     while (true){

@@ -10,9 +10,10 @@ using namespace std;
 
 FileParser::FileParser() {}
 
-vector<vector<char> > FileParser::parseFloorLayout(string fileName){
+vector<vector<vector<char> > > FileParser::parseFloorLayouts(string fileName){
 
-	vector<vector<char> > cells;
+	//Vector of floor layouts, which are 2D vectors of characters
+	vector<vector<vector<char> > > floors;
 	
 	ifstream file(fileName.c_str());
 	
@@ -20,18 +21,22 @@ vector<vector<char> > FileParser::parseFloorLayout(string fileName){
 	file.unsetf(ios_base::skipws);
 	
 	char c;
-	for(int i = 0; i < BOARD_HEIGHT; ++i){	
-		vector<char> row;
-		for(int j = 0; j < BOARD_WIDTH; ++j){
-			file >> c;
-			row.push_back(c);
+	for(int i = 0; i < NUM_FLOORS; ++i){
+		vector<vector<char> > cells;
+		for(int j = 0; j < BOARD_HEIGHT; ++j){
+			vector<char> row;
+			for(int k = 0; k < BOARD_WIDTH; ++k){
+				file >> c;
+				row.push_back(c);
+			}
+			//Accounts for the newline after each board row
+			file.ignore();
+			cells.push_back(row);
 		}
-		//Accounts for the newline after each board row
-		file.ignore();
-		cells.push_back(row);
+		floors.push_back(cells);
 	}
 	file.close();
-	return cells;
+	return floors;
 }
 
 int FileParser::charToCellType(char c){

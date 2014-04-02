@@ -7,7 +7,6 @@
 #include "floor.h"
 
 const std::string DEFAULT_LAYOUT_CONFIG_FILE = "defaultLayout.txt";
-const int NUM_FLOORS = 5;
       
 class Game{
 
@@ -19,7 +18,7 @@ class Game{
     bool isOver;
     bool victorious;
 	std::vector <Floor*> *floors;
-	void initializeFloors(std::vector<std::vector<char> > floorLayout);
+	void initializeFloors(std::vector<std::vector<std::vector<char> > > floorLayouts);
 	void displayFloors();
     Game();
     ~Game();
