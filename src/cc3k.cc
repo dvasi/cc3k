@@ -27,6 +27,7 @@ int main(int argc, char *argv[])
 	
     Game *cc3k = Game::getInstance();
     cc3k->displayWelcomeScreen();
+    cc3k->displayInstructions();
     cc3k->displayRaceSelectionScreen();
     cc3k->selectRace();
 

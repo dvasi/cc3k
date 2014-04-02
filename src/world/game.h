@@ -31,6 +31,7 @@ public:
 	void displayRaceSelectionScreen();
 	void displayEndScreen();
 	void displayDefeatScreen();
+	void displayInstructions();
 	void selectRace();
 	void selectEndGameCommand();
 	void setPlayer(Player* player);

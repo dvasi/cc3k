@@ -105,6 +105,80 @@ void Game::displayWelcomeScreen(){
 	clear();
 }
 
+
+void Game::displayInstructions(){
+	
+string continueMsg = "Press any key to continue";
+
+vector<string> moveKeys;
+moveKeys.push_back("Movement Keys");
+moveKeys.push_back(" ");
+moveKeys.push_back("Move North: 8");
+moveKeys.push_back("Move South: 5");
+moveKeys.push_back("Move West: 4");
+moveKeys.push_back("Move East: 6");
+moveKeys.push_back("Move North-west: 7");
+moveKeys.push_back("Move North-east: 9");
+moveKeys.push_back("Move South-west: 1");
+moveKeys.push_back("Move South-east: 3");
+
+vector<string> interactKeys;
+interactKeys.push_back("Interaction Keys");
+interactKeys.push_back(" ");
+interactKeys.push_back("Use Item: u");
+interactKeys.push_back("Attack Enemy: a");
+
+vector<string> selectKeys;
+selectKeys.push_back("Selection Keys");
+selectKeys.push_back(" ");
+selectKeys.push_back("Choose Human: h");
+selectKeys.push_back("Choose Dwarf: d");
+selectKeys.push_back("Choose Elf: e");
+selectKeys.push_back("Choose Orc: o");
+
+vector<string> miscKeys;
+miscKeys.push_back("Other Keys");
+miscKeys.push_back(" ");
+miscKeys.push_back("Restart Game: r");
+miscKeys.push_back("Quit game: q");
+miscKeys.push_back(" ");
+
+vector<vector<string> > keys;
+keys.push_back(moveKeys);
+keys.push_back(interactKeys);
+keys.push_back(selectKeys);
+keys.push_back(miscKeys);
+
+vector<string> commands;
+commands.push_back("_________                                          .___      ");
+commands.push_back("\\_   ___ \\  ____   _____   _____ _____    ____    __| _/______");
+commands.push_back("/    \\  \\/ /  _ \\ /     \\ /     \\__  \\  /    \\  / __ |/  ___/");
+commands.push_back("\\     \\___(  <_> )  Y Y  \\  Y Y  \\/ __ \\|   |  \\/ /_/ |\\___ \\ ");
+commands.push_back(" \\______  /\\____/|__|_|  /__|_|  (____  /___|  /\\____ /____  >");
+commands.push_back("        \\/             \\/      \\/     \\/     \\/      \\/    \\/ ");
+
+	int row, col;
+	getmaxyx(stdscr,row,col);
+
+	for (unsigned int i = 0; i < commands.size(); ++i){
+		mvprintw(i+commands.size(),(col-strlen(commands.at(0).c_str()))/2-3,"%s",commands.at(i).c_str());	
+	}
+
+	for (unsigned int i = 0; i < keys.size(); ++i){
+		for (unsigned int j = 0; j < keys.at(i).size(); ++j){
+			
+			refresh();
+			mvprintw((row/2 + j)-3,(i+1)*((col-strlen(keys.at(i).at(0).c_str()))/5),"%s", keys.at(i).at(j).c_str());
+	
+		}
+	}
+	mvprintw(row-2,(col-continueMsg.length())/2,continueMsg.c_str());
+	getch();
+	clear();
+}
+
+
+
 void Game::displayRaceSelectionScreen(){
 	
 	string raceSelectMsg = "Press the appropriate key to select your race!";

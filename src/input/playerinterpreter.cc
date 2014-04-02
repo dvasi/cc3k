@@ -1,4 +1,4 @@
-#include <ncurses.h>
+//#include <ncurses.h>
 #include <map>
 #include <string>
 #include <sstream>
@@ -13,6 +13,7 @@
 #include "attackvisitor.h"
 #include "itemusevisitor.h"
 #include "cell.h"
+#include <iostream>
 using namespace std;
 
 const char UP = '8';
@@ -40,10 +41,10 @@ PlayerInterpreter::PlayerInterpreter(): actionStr(""){
 }
 	
 void PlayerInterpreter::interpretCommand(Player* player){
-	
+	 
 	char cmd;
 	cmd = getch();
-	actionStr = "PC";
+ 	actionStr = "PC";
 	
 	if (cmd == UP){
 		MoveCommand playerMove = MoveCommand(player, player->getXPos()-1, player->getYPos());	
