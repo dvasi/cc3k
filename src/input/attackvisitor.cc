@@ -5,6 +5,7 @@
 #include "attackvisitor.h"
 #include "itemusevisitor.h"
 #include "gold.h"
+#include "smallgold.h"
 #include <cmath>
 #include <cstdlib>
 #include <ncurses.h>
@@ -40,7 +41,7 @@ int AttackVisitor::visit(Enemy* defender){
 
 	defender->takeDmg(damage);
 	if (defender->getHp() <=0 ){
-		Gold loot = Gold(-1,1);
+		Gold loot = SmallGold(-1);
 		ItemUseVisitor lootVisitor = ItemUseVisitor();
 		loot.accept(lootVisitor);
 	}

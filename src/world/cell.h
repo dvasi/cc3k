@@ -36,6 +36,9 @@ public:
 	bool hasPotion();
 	bool hasPlayer();
 	void setOccupation(bool hasEnemy, bool hasItem, bool hasPlayer, int id=-1);
+	bool isOccupied();
+	int getXPos();
+	int getYPos();
 	
 	char symbolToDisplayChar(char cellSymbol);
 	char typeToDisplayChar(int cellType);

@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 
-BDPot::BDPot(int id): Potion(id,5){}
+BDPot::BDPot(int id): Potion(id, 5, '2'){}
 
 bool BDPot::isRevealed(){ return BDPot::revealed; }
 

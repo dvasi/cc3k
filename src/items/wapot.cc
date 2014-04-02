@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 
-WAPot::WAPot(int id): Potion(id,-5){}
+WAPot::WAPot(int id): Potion(id, -5, '4'){}
 
 bool WAPot::isRevealed(){ return WAPot::revealed; }
 

@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-WDPot::WDPot(int id): Potion(id,-5){}
+WDPot::WDPot(int id): Potion(id, -5, '5'){}
 
 bool WDPot::isRevealed(){ return WDPot::revealed; }
 

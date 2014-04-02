@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 
-BAPot::BAPot(int id): Potion(id, 5){}
+BAPot::BAPot(int id): Potion(id, 5, '1'){}
 
 bool BAPot::isRevealed(){ return BAPot::revealed; }
 

@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 
-RHPot::RHPot(int id): Potion(id,10){}
+RHPot::RHPot(int id): Potion(id, 10, '0'){}
 
 bool RHPot::isRevealed(){ return RHPot::revealed; }
 

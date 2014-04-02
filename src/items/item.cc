@@ -4,7 +4,7 @@
 #include "visitor.h"
 using namespace std;
 
-Item::Item(int id, bool lootable, bool useable, int x, int y): id(id), lootable(lootable), useable(useable), x(x),y (y) {}
+Item::Item(int id, char type, bool lootable, bool useable, int x, int y): id(id), type(type), lootable(lootable), useable(useable), x(x),y (y) {}
 
 Item::~Item() {}
 
@@ -30,6 +30,8 @@ int Item::getXPos(){ return x; }
 int Item::getYPos(){ return y; }
 
 string Item::getName(){ return "Item"; }
+
+char Item::getSymbol(){ return type; }
 
 bool Item::isRevealed(){ return true; }
 

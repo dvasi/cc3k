@@ -18,6 +18,9 @@ class ItemUseVisitor;
 const int BOARD_WIDTH = 79;
 const int BOARD_HEIGHT = 25;
 const int NUM_FLOORS = 5;
+const int NUM_POTIONS = 10;
+const int NUM_GOLD = 10;
+const int NUM_ENEMIES = 20;
 
 class Floor{
 
@@ -59,6 +62,13 @@ public:
 	int getStartXPos();
 	int getStartYPos();
 	void negateTempStats();
+	void generateStairCase(Cell *currentCell);
+	void generatePlayer(Cell *currentCell);
+	void generateEnemy(Cell *currentCell);
+	void generatePotion(Cell *currentCell);
+	void generateGold(Cell *curentCell);
+	void matchDragonHoards();
+	void generateFloor();
 	TextDisplay* getTextDisplay();
 	ItemUseVisitor* getItemStatMonitor();
 	Floor();

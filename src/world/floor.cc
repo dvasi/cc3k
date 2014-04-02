@@ -17,6 +17,7 @@
 #include "game.h"
 #include "dragon.h"
 #include "gold.h"
+#include "dragongold.h"
 using namespace std;
 
 Floor::Floor(): startXPos(3), startYPos(3), dragons(0)
@@ -131,23 +132,27 @@ void Floor::initializeCells(vector<vector<char> > floorLayout)
         allCells.push_back(row);
     }
 
-    //Match up Dragons and Dragon Hoards
-    Dragon *dragon;
-    Gold *hoard;
-    for (unsigned int i = 0; i < floorDragons.size(); ++i){
-    	dragon = floorDragons.at(i);
-    	for (unsigned int j = 0; j < floorDragonHoards.size(); ++j){
-    		hoard = floorDragonHoards.at(j);
-    		int dragonXPos = dragon->getXPos();
-    		int dragonYPos = dragon->getYPos();
-    		int hoardXPos = hoard->getXPos();
-    		int hoardYPos = hoard->getYPos();
-    		if ((abs(dragonXPos-hoardXPos) <= 1)&&(abs(dragonYPos-hoardYPos) <=1)){
-    			dragon->guard(hoard);
-    			break;
-    		}
-    	}
-    }
+    matchDragonHoards();
+
+}
+
+void Floor::matchDragonHoards(){
+	Dragon *dragon;
+	Gold *hoard;
+	for (unsigned int i = 0; i < floorDragons.size(); ++i){
+		dragon = floorDragons.at(i);
+		for (unsigned int j = 0; j < floorDragonHoards.size(); ++j){
+			hoard = floorDragonHoards.at(j);
+			int dragonXPos = dragon->getXPos();
+			int dragonYPos = dragon->getYPos();
+			int hoardXPos = hoard->getXPos();
+			int hoardYPos = hoard->getYPos();
+			if ((abs(dragonXPos-hoardXPos) <= 1)&&(abs(dragonYPos-hoardYPos) <=1)){
+				dragon->guard(hoard);
+				break;
+			}
+		}
+	}
 }
 
 Cell* Floor::generateCell(int xPos, int yPos, char symbol){
@@ -166,7 +171,7 @@ Cell* Floor::generateCell(int xPos, int yPos, char symbol){
 
 		//Special dragon hoard case, to match it with a Dragon after
 		if (symbol == '9'){
-			Gold* hoard = new Gold(Item::generateId(),6);
+			Gold* hoard = new DragonGold(Item::generateId());
 			hoard->setPos(xPos,yPos);
 			hasItem = true;
 			id = hoard->getId();
@@ -185,7 +190,6 @@ Cell* Floor::generateCell(int xPos, int yPos, char symbol){
 		}
 		
 		//Special Dragon case, to match it with a dragon hoard after.
-
 		else if (symbol == 'D'){
 			Dragon* dragon = new Dragon(0,0,Character::generateId());
 			dragon->setPos(xPos,yPos);
@@ -237,90 +241,6 @@ void Floor::display()
     td->resetGameActions();
 }
 
-//WE WILL USE THESE AFTER OUR SUBCLASSES GET REFINED
-/*
-void Floor::generateEnemies()
-{
-    int random;
-    for (int i = 0; i < dragons; ++i) //set number of dragons first, determined by number of dragon hoards
-    {
-        //enemy.assign(dragons, 'd');
-        enemy[i] = 'd';
-        //enemy.at(i)=dragons;
-    }
-    srand(time(0));
-
-    for (int i = dragons; i < numEnemies; ++i)
-    {
-        random = rand() % 18 + 1; //random number between 1 and 18
-        if (random >= 1 && random <= 4) // 2/9 chance of being werewolf
-        {
-            //enemy.assign(1, 'w');
-            enemy[i] = 'w';
-        }
-        else if (random >= 5 && random <= 7) // 3/18 chance of being vampire
-        {
-            //enemy.assign(1, 'v');
-            enemy[i] = 'v';
-        }
-        else if (random >= 8 && random <= 12) // 5/18 of being goblin
-        {
-            //enemy.assign(1, 'g');
-            enemy[i] = 'g';
-        }
-        else if (random >= 13 && random <= 14) // 1/18 troll
-        {
-            //enemy.assign(1, 't');
-            enemy[i] = 't';
-        }
-        else if (random >= 15 && random <= 16) // 1/18 phoenix
-        {
-            //enemy.assign(1, 'p');
-            enemy[i] = 'p';
-        }
-        else // 1/18 merchant
-        {
-            //enemy.assign(1, 'm');
-            enemy[i] = 'm';
-        }
-
-    }
-
-    for (int i = 0; i < numEnemies; ++i)
-    {
-
-        spawnedEnemies[i] = new Enemy(enemy[i]);
-    }
-
-}
-*/
-
-/*
-void Floor::generateGoldPiles() //randomly generate the 10 gold piles
-{
-    int random;
-    srand(time(0));
-    for (int i = 0; i < numGoldPiles; ++i)
-    {
-        random = rand() % 8 + 1; //random number between 1 and 8
-        if (random == 1) // 1/8 chance of dragon hoard
-        {
-            goldPiles[i] = 'd';
-            dragons++;
-        }
-        else if (random > 1 && random <= 6) // 5/8 chance of normal hoard
-        {
-            goldPiles[i] = 'n';
-        }
-        else // 2/8 chance of small hoard
-        {
-            goldPiles[i] = 's';
-        }
-    }
-
-}
-*/
-
 void Floor::removeItem(int id){	
 	delete floorItems[id];
 	floorItems.erase(id);
@@ -347,6 +267,182 @@ void Floor::spawnItem(int xPos, int yPos, char symbol){
 	currentCell->setCellSymbol(symbol);
 	item->setPos(xPos,yPos);
 	floorItems[item->getId()] = item;
+	currentCell->notifyDisplay(*td);
+}
+
+void Floor::generateFloor(){
+
+	int random;
+	int playerChamberNum;
+	Chamber *currentChamber;
+	Cell *currentCell;
+
+	//Randomly select a chamber
+	random = (rand()%5);
+	playerChamberNum = random;
+	currentChamber = chambers.at(random);
+
+	//Randomly select a cell from the chamber
+	random = (rand()%(currentChamber->cells.size()));
+	currentCell = currentChamber->cells.at(random);
+
+	generatePlayer(currentCell);
+
+	//Randomly select a chamber
+	random = (rand()%5);
+	currentChamber = chambers.at(random);
+
+	//Make sure player and staircase are in distinct chambers
+	while (playerChamberNum == random){
+		random = (rand()%5);
+		currentChamber = chambers.at(random);
+	}
+
+	//Randomly select a cell from the chamber
+	random = (rand()%(currentChamber->cells.size()));
+	currentCell = currentChamber->cells.at(random);
+
+	generateStairCase(currentCell);
+
+	for (int i = 0; i < NUM_POTIONS; ++i){
+
+		random = (rand()%5);
+		currentChamber = chambers.at(random);
+
+		//Randomly select an unoccupied cell from the chamber
+		random = (rand()%(currentChamber->cells.size()));
+		currentCell = currentChamber->cells.at(random);
+		while (currentCell->isOccupied()){
+			random = (rand()%(currentChamber->cells.size()));
+			currentCell = currentChamber->cells.at(random);
+		}
+		generatePotion(currentCell);
+	}
+
+	for (int i = 0; i < NUM_GOLD; ++i){
+
+		random = (rand()%5);
+		currentChamber = chambers.at(random);
+
+		random = (rand()%(currentChamber->cells.size()));
+		currentCell = currentChamber->cells.at(random);
+		while (currentCell->isOccupied()){
+			random = (rand()%(currentChamber->cells.size()));
+			currentCell = currentChamber->cells.at(random);
+		}
+		generateGold(currentCell);
+	}
+
+	for (int i = 0; i < NUM_ENEMIES; ++i){
+
+		random = (rand()%5);
+		currentChamber = chambers.at(random);
+
+		random = (rand()%(currentChamber->cells.size()));
+		currentCell = currentChamber->cells.at(random);
+		while (currentCell->isOccupied()){
+			random = (rand()%(currentChamber->cells.size()));
+			currentCell = currentChamber->cells.at(random);
+		}
+		generateEnemy(currentCell);
+	}
+
+	//Spawn a dragon for each corresponding dragon hoard
+	bool dragonMatched = false;
+	for (unsigned int i = 0; i < allCells.size(); ++i){
+		for (unsigned int j = 0; j < allCells.at(i).size(); ++j){
+			currentCell = allCells.at(i).at(j);
+			if (currentCell->getCellSymbol() == '9'){
+				dragonMatched = false;
+				//We guarantee this cell has a dragon hoard
+				floorDragonHoards.push_back(static_cast<DragonGold*>(floorItems[currentCell->getOccupiedId()]));
+				for (int n = -1; n <=1; ++n){
+					for (int m = -1; m <=1; ++m){
+						currentCell = allCells.at(i+n).at(j+m);
+						if ((!currentCell->isOccupied())&&(!dragonMatched)){
+							Dragon *newDragon = new Dragon(i+n,j+m,Character::generateId());
+							floorDragons.push_back(newDragon);
+							dragonMatched = true;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	matchDragonHoards();
+
+	//Create our initial action queue
+	for (unsigned int i = 0; i < allCells.size(); ++i){
+		for (unsigned int j = 0; j < allCells.at(i).size(); ++j){
+			currentCell = allCells.at(i).at(j);
+			if (currentCell->hasEnemy()){
+				Enemy *enemy = floorEnemies[currentCell->getOccupiedId()];
+				enemyActionQueue.push(enemy);
+			}
+		}
+	}
+}
+
+void Floor::generateStairCase(Cell *currentCell){
+	if (!currentCell->isOccupied()){
+		currentCell->setOccupation(false,false,false);
+		currentCell->setCellType(Cell::Stairs);
+		currentCell->setCellSymbol('/');
+		currentCell->notifyDisplay(*td);
+	}
+}
+
+void Floor::generatePlayer(Cell *currentCell){
+	Player *player = Player::getInstance();
+	if (!currentCell->isOccupied()){
+		currentCell->setOccupation(false,false,true,player->getId());
+		currentCell->setCellSymbol('@');
+		currentCell->notifyDisplay(*td);
+		player->setPos(currentCell->getXPos(),currentCell->getYPos());
+		startXPos = currentCell->getXPos();
+		startYPos = currentCell->getYPos();
+	}
+}
+
+
+void Floor::generateEnemy(Cell *currentCell){
+	if (!currentCell->isOccupied()){
+		EnemyFactory enFactory = EnemyFactory();
+		Enemy *newEnemy = enFactory.getEnemy();
+		int id = newEnemy->getId();
+		newEnemy->setPos(currentCell->getXPos(),currentCell->getYPos());
+		currentCell->setOccupation(true,false,false,id);
+		currentCell->setCellSymbol(newEnemy->getSymbol());
+		currentCell->notifyDisplay(*td);
+		floorEnemies[id] = newEnemy;
+	}
+}
+
+void Floor::generatePotion(Cell *currentCell){
+	if (!currentCell->isOccupied()){
+		ItemFactory itFactory = ItemFactory();
+		Item *newItem = itFactory.getPotion();
+		int id = newItem->getId();
+		newItem->setPos(currentCell->getXPos(),currentCell->getYPos());
+		currentCell->setOccupation(false,true,false,id);
+		currentCell->setCellSymbol(newItem->getSymbol());
+		currentCell->notifyDisplay(*td);
+		floorItems[id] = newItem;
+	}
+}
+
+void Floor::generateGold(Cell *currentCell){
+	if (!currentCell->isOccupied()){
+		ItemFactory itFactory = ItemFactory();
+		Item *newItem = itFactory.getGold();
+		int id = newItem->getId();
+		newItem->setPos(currentCell->getXPos(),currentCell->getYPos());
+		currentCell->setOccupation(false,true,false,id);
+		currentCell->setCellSymbol(newItem->getSymbol());
+		currentCell->notifyDisplay(*td);
+		floorItems[id] = newItem;
+	}
 }
 
 void Floor::updateState(){

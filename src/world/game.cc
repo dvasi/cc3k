@@ -51,10 +51,20 @@ void Game::initializeWorld(string layoutFileName){
 
 	FileParser parser = FileParser();
 	vector<vector<vector<char> > > layout = parser.parseFloorLayouts(layoutFileName);
-	initializeFloors(layout);
 	layoutGiven = (layoutFileName == DEFAULT_LAYOUT_CONFIG_FILE) ?
 								 false :
 								 true;
+
+	if (layoutGiven) initializeFloors(layout);
+
+	//Randomly generate floors otherwise
+	else{
+		initializeFloors(layout);
+		generateFloors();
+	}
+	int startXPos = floors->at(0)->getStartXPos();
+	int startYPos = floors->at(0)->getStartYPos();
+	player->setPos(startXPos,startYPos);
 
 }
 
@@ -388,10 +398,16 @@ void Game::initializeFloors(vector<vector<vector<char> > > floorLayouts){
 		floor->initializeChambers(floorLayouts.at(i));
 		floors->push_back(floor);
 	}
-	int startXPos = floors->at(0)->getStartXPos();
-	int startYPos = floors->at(0)->getStartYPos();
-	player->setPos(startXPos,startYPos);
 	return;
+}
+
+void Game::generateFloors(){
+	Floor *currentFloor;
+	for (int i = 0; i < NUM_FLOORS; ++i){
+		currentFloor = floors->at(i);
+		currentFloor->generateFloor();
+	}
+
 }
 
 void Game::displayFloors(){
