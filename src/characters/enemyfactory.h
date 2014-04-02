@@ -7,6 +7,7 @@ class EnemyFactory{
 	
 	public:
 		EnemyFactory();
-		Enemy* getEnemy(char enemyChar);		
+		Enemy* getEnemy(char enemyChar);
+		Enemy* getEnemy();
 };
 #endif

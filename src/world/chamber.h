@@ -13,6 +13,8 @@ class Chamber{
 	std::vector<Cell*> cells;
 	
 public:
+
+	friend class Floor;
 	Chamber(std::vector<Cell*> cells);
 	~Chamber();
 	

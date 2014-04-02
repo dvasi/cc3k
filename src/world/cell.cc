@@ -33,6 +33,8 @@ void Cell::setOccupation(bool hasEnemy, bool hasItem, bool hasPlayer, int id){
 	occupiedId = id;
 }
 
+bool Cell::isOccupied(){ return (enemy||item||player); }
+
 void Cell::setCellType(int type) { cellType = type; }
 
 int Cell::getCellType() { return cellType; }
@@ -40,6 +42,10 @@ int Cell::getCellType() { return cellType; }
 void Cell::setCellSymbol(char symbol) {	cellSymbol = symbol; }
 
 char Cell::getCellSymbol() { return cellSymbol; }
+
+int Cell::getXPos(){ return x; }
+
+int Cell::getYPos(){ return y; }
 
 char Cell::symbolToDisplayChar(char cellSymbol){
 

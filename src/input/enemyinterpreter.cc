@@ -28,7 +28,7 @@ void EnemyInterpreter::interpretCommand(Enemy* enemy){
 			enemyAttack(atkCmd);
 		}
 		
-		else if (enemy->isMobile()){
+		else if ((enemy->isMobile())&&(canMove(enemy))){
 			int random;
 			random = (rand()%8) + 1; //random number between 1 and 8 for direction
 			if (random == 1){
@@ -73,7 +73,7 @@ void EnemyInterpreter::interpretCommand(Enemy* enemy){
 			}
 		}
 	}
-	else if (enemy->isMobile()){
+	else if ((enemy->isMobile())&&(canMove(enemy))){
 		int random;
 		random = (rand()%8) + 1; //random number between 1 and 8 for direction
 		if (random == 1){
@@ -142,6 +142,22 @@ bool EnemyInterpreter::isMoveValid(MoveCommand &cmd){
 	return false;
 }
 
+bool EnemyInterpreter::canMove(Enemy *enemy){
+	Floor* currentFloor = game->getFloors()->at(game->getCurrentFloor());
+	Cell* newCell;
+	int enemyXPos = enemy->getXPos();
+	int enemyYPos = enemy->getYPos();
+	bool availableCell = false;
+	for (int i = -1; i <= 1; ++i){
+		for (int j = -1; j <= 1; ++j){
+			newCell = currentFloor->getCellAt(enemyXPos+i,enemyYPos+j);
+			if ((!newCell->isOccupied())&&(newCell->getCellType() == Cell::Floor))
+				availableCell = true;
+		}
+	}
+	return availableCell;
+}
+
 bool EnemyInterpreter::playerInRange(Enemy* enemy){
 
 	Player *player = Player::getInstance();
@@ -195,10 +211,15 @@ void EnemyInterpreter::enemyAttack(AttackCommand &cmd){
 	char enemyName = enemy->getSymbol();
 	ostringstream convert;
 	actionStr = enemyName;
-	actionStr += " deals ";
-	convert << damageDealt;
-	actionStr += convert.str();
-	actionStr += " damage to PC";
+	if (damageDealt > 0){
+		actionStr += " deals ";
+		convert << damageDealt;
+		actionStr += convert.str();
+		actionStr += " damage to PC";
+	}
+	else{
+		actionStr += " misses its attack on PC";
+	}
 	
 	//If player is dead restart game
 	if (ch->getHp() <= 0){

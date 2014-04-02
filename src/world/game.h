@@ -42,6 +42,7 @@ public:
 	void restartGame();
 	void clearGame();
 	bool gameFinished();
+	void generateFloors();
 	void setGameOver(bool victorious=false);
 	std::vector <Floor*>* getFloors();
 	Player* getPlayer();

@@ -5,6 +5,7 @@
 #include "attackvisitor.h"
 #include "itemusevisitor.h"
 #include "gold.h"
+#include "smallgold.h"
 #include <cmath>
 #include <cstdlib>
 #include <ncurses.h>
@@ -27,8 +28,16 @@ AttackVisitor::~AttackVisitor(){}
 int AttackVisitor::visit(Character *defender){
 	double atk = static_cast<double>(attacker->getAtk());
 	double def = static_cast<double>(defender->getDef());
-	int damage = static_cast<int>(ceil((100.00 / (100.00 + def)) * atk));
 	
+	//50% chance to miss attacks on non-enemy defenders (in this case PC)
+	int random = (rand()%2);
+
+	int damage;
+	if (random == 0)
+		damage = static_cast<int>(ceil((100.00 / (100.00 + def)) * atk));
+	else
+		damage = 0;
+
     defender->takeDmg(damage);
     return damage;
 }
@@ -40,7 +49,7 @@ int AttackVisitor::visit(Enemy* defender){
 
 	defender->takeDmg(damage);
 	if (defender->getHp() <=0 ){
-		Gold loot = Gold(-1,1);
+		Gold loot = SmallGold(-1);
 		ItemUseVisitor lootVisitor = ItemUseVisitor();
 		loot.accept(lootVisitor);
 	}

@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 
-PHPot::PHPot(int id): Potion(id,-10){}
+PHPot::PHPot(int id): Potion(id, -10, '3'){}
 
 bool PHPot::isRevealed(){ return PHPot::revealed; }
 

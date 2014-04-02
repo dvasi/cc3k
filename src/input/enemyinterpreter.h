@@ -20,6 +20,7 @@ class EnemyInterpreter : public CommandInterpreter{
 		~EnemyInterpreter();
 		virtual void interpretCommand(Enemy* enemy);
 		virtual bool isMoveValid(MoveCommand &cmd);
+		virtual bool canMove(Enemy *enemy);
 		virtual void moveEnemy(MoveCommand &cmd);	
 		virtual bool playerInRange(Enemy* enemy);
 		virtual void enemyAttack(AttackCommand &cmd);

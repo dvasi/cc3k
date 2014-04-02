@@ -5,6 +5,8 @@ class ItemFactory{
 	
 	public:
 		ItemFactory();
-		Item* getItem(char itemChar);		
+		Item* getItem(char itemChar);
+		Item* getPotion();
+		Item* getGold();
 };
 #endif
