@@ -440,13 +440,7 @@ void Game::restartGame(){
     clearGame();
     displayRaceSelectionScreen();
     selectRace();
-    if (layoutGiven){
-        initializeWorld();
-    }
-    else{
-        initializeWorld();
-
-    }
+    initializeWorld();
     return;
 }
 
