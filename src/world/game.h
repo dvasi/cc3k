@@ -14,6 +14,7 @@ class Game{
     static Game* gameInstance;
     static void cleanup();
     bool layoutGiven;
+    std::string layoutFileName;
     int currentFloor;
     bool isOver;
     bool victorious;
@@ -26,8 +27,7 @@ class Game{
 
 public:
     static Game* getInstance();
-    void initializeWorld(
-        std::string layoutFileName = DEFAULT_LAYOUT_CONFIG_FILE);
+    void initializeWorld();
     void displayWorld();
     void displayWelcomeScreen();
     void displayRaceSelectionScreen();
@@ -46,6 +46,7 @@ public:
     bool gameFinished();
     void generateFloors();
     void setGameOver(bool victorious = false);
+    void setLayout(std::string layoutFileName);
     std::vector<Floor*>* getFloors();
     Player* getPlayer();
 };

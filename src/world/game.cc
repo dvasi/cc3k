@@ -23,7 +23,7 @@
 using namespace std;
 
 Game::Game() :
-    player(0), layoutGiven(false), currentFloor(0), isOver(false),
+    player(0), layoutGiven(false), layoutFileName(DEFAULT_LAYOUT_CONFIG_FILE), currentFloor(0), isOver(false),
         victorious(false), floors(0){
 }
 
@@ -48,15 +48,12 @@ void Game::cleanup(){
     gameInstance = NULL;
 }
 
-void Game::initializeWorld(string layoutFileName){
+void Game::initializeWorld(){
     FileParser parser = FileParser();
     vector<vector<vector<char> > > layout = parser.parseFloorLayouts(
         layoutFileName);
-    layoutGiven = (layoutFileName == DEFAULT_LAYOUT_CONFIG_FILE) ? false : true;
 
     if (layoutGiven) initializeFloors(layout);
-
-    //Randomly generate floors otherwise
     else{
         initializeFloors(layout);
         generateFloors();
@@ -443,7 +440,13 @@ void Game::restartGame(){
     clearGame();
     displayRaceSelectionScreen();
     selectRace();
-    initializeWorld();
+    if (layoutGiven){
+        initializeWorld();
+    }
+    else{
+        initializeWorld();
+
+    }
     return;
 }
 
@@ -517,6 +520,11 @@ bool Game::gameFinished(){
 void Game::setGameOver(bool victorious){
     isOver = true;
     this->victorious = victorious;
+}
+
+void Game::setLayout(string layoutFileName){
+    this->layoutFileName = layoutFileName;
+    layoutGiven = true;
 }
 
 Player* Game::getPlayer(){

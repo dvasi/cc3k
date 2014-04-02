@@ -31,9 +31,9 @@ int main(int argc, char *argv[]){
 
     if (argc >= 2){
         string fileName = argv[1];
-        cc3k->initializeWorld(fileName);
+        cc3k->setLayout(fileName);
     }
-    else cc3k->initializeWorld();
+    cc3k->initializeWorld();
     cc3k->displayWorld();
 
     while (true){
