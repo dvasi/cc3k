@@ -47,7 +47,12 @@ class Floor{
     void generateGold(Cell *curentCell);
     void matchDragonHoards();
     void generateFloor();
-
+    void setPlayerStaircase();
+    void setPotions();
+    void setGold();
+    void setEnemies();
+    void spawnDragon();
+    void initialActionQueue();
     //Layout management
     std::vector<Chamber*> chambers;
     std::vector<std::vector<Cell*> > allCells;
