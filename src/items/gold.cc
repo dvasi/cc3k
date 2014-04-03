@@ -14,10 +14,6 @@ double Gold::getValue(){
     return value;
 }
 
-void Gold::setValue(int value){
-    this->value = value;
-}
-
 void Gold::accept(Visitor &v){
     v.visit(this);
 }

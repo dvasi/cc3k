@@ -11,8 +11,7 @@ protected:
 public:
     Gold(int id, double value, char type, bool lootable = true);
     ~Gold();
-    virtual double getValue();
-    virtual void setValue(int value);
+    double getValue();
     virtual void accept(Visitor &v);
 };
 #endif
