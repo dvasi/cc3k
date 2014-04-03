@@ -373,14 +373,7 @@ void Floor::spawnDragon(){ //Spawn a dragon for each corresponding dragon hoard
                         currentCell = allCells.at(i + n).at(j + m);
                         if ((!currentCell->isOccupied()) && (!dragonMatched) && (currentCell->getCellType() == Cell::Floor))
                         {
-                            Dragon *newDragon = new Dragon(i + n, j + m,
-                            Character::generateId());
-                            int id = newDragon->getId();
-                            floorEnemies[id] = newDragon;
-                            floorDragons.push_back(newDragon);
-                            currentCell->setOccupation(true, false, false, id);
-                            currentCell->setCellSymbol('D');
-                            currentCell->notifyDisplay(*td);
+                            spawnDragonAt(i+n,j+m);
                             dragonMatched = true;
                         }
                     }
@@ -391,6 +384,19 @@ void Floor::spawnDragon(){ //Spawn a dragon for each corresponding dragon hoard
 
     matchDragonHoards();
 }
+
+void Floor::spawnDragonAt(int xPos, int yPos){
+    Cell *currentCell=allCells.at(xPos).at(yPos);
+    Dragon *newDragon = new Dragon(xPos, yPos,
+    Character::generateId());
+    int id = newDragon->getId();
+    floorEnemies[id] = newDragon;
+    floorDragons.push_back(newDragon);
+    currentCell->setOccupation(true, false, false, id);
+    currentCell->setCellSymbol('D');
+    currentCell->notifyDisplay(*td);
+}
+
 void Floor::initialActionQueue(){ //Create our initial action queue
     Cell *currentCell;
     for (unsigned int i = 0; i < allCells.size(); ++i)

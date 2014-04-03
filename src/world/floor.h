@@ -52,6 +52,7 @@ class Floor{
     void setGold();
     void setEnemies();
     void spawnDragon();
+    void spawnDragonAt(int xPos, int yPos);
     void initialActionQueue();
     //Layout management
     std::vector<Chamber*> chambers;
