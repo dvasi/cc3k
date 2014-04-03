@@ -208,22 +208,32 @@ void PlayerInterpreter::movePlayer(MoveCommand &cmd){
 
     //Check for potions adjacent to our new position
     Cell* adjacentCell;
+    int unknownPotionCount = 0;
     for (int deltaX = -1; deltaX <= 1; ++deltaX){
         for (int deltaY = -1; deltaY <= 1; ++deltaY){
             adjacentCell = currentFloor->getCellAt(newX + deltaX, newY + deltaY);
             if (adjacentCell->hasPotion()){
                 Item *potion = currentFloor->getItem(adjacentCell->getOccupiedId());
-                actionStr += " and sees a";
                 if (potion->isRevealed()){
-                    actionStr += " ";
+                    actionStr += " and sees a ";
                     actionStr += potion->getName();
                 }
                 else{
-                    actionStr += "n unknown potion";
+                    unknownPotionCount++;
                 }
-                break;
             }
         }
+    }
+    if (unknownPotionCount > 0){
+        actionStr += " and sees ";
+        if (unknownPotionCount == 1) actionStr += "an";
+        else{
+            ostringstream convert;
+            convert << unknownPotionCount;
+            actionStr += convert.str();
+        }
+        actionStr += " unknown potion";
+        if (unknownPotionCount>1) actionStr += "s";
     }
 
     //Set up our new cell
