@@ -7,7 +7,7 @@
 #include "floor.h"
 using namespace std;
 
-int main(int argc, char *argv[]){
+void initializeDisplay(){
     initscr();
     clear();
     noecho();
@@ -21,8 +21,12 @@ int main(int argc, char *argv[]){
     init_pair(4, COLOR_RED, COLOR_BLACK);
     init_pair(5, COLOR_GREEN, COLOR_BLACK);
     init_pair(6, COLOR_MAGENTA, COLOR_BLACK);
-    srand(time(0));
+}
 
+int main(int argc, char *argv[]){
+
+    srand(time(0));
+    initializeDisplay();
     Game *cc3k = Game::getInstance();
     cc3k->displayWelcomeScreen();
     cc3k->displayInstructions();
