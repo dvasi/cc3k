@@ -11,7 +11,6 @@ class Dragon: public Enemy{
     DragonGold *guardedHoard;
 public:
     Dragon(int x, int y, int id);
-    ~Dragon();
     void guard(DragonGold *hoard);
     void freeHoard();
     int getHoardXPos();

@@ -6,6 +6,7 @@ class EnemyInterpreter;
 class Visitor;
 
 class Enemy: public Character{
+
     void takeDamage(int damage); 
 protected:
     EnemyInterpreter* input;

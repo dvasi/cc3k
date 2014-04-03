@@ -17,13 +17,13 @@ class EnemyInterpreter: public CommandInterpreter{
     std::string actionStr;
 
 protected:
-    virtual std::pair<int, int> getPositionFromNum(int cmd);
-    virtual void randomMoveEnemy(Enemy* enemy);
-    virtual bool isMoveValid(MoveCommand &cmd);
-    virtual bool canMove(Enemy *enemy);
-    virtual void moveEnemy(MoveCommand &cmd);
+    std::pair<int, int> getPositionFromNum(int cmd);
+    void randomMoveEnemy(Enemy* enemy);
+    bool isMoveValid(MoveCommand &cmd);
+    bool canMove(Enemy *enemy);
+    void moveEnemy(MoveCommand &cmd);
     virtual bool playerInRange(Enemy* enemy);
-    virtual void enemyAttack(AttackCommand &cmd);
+    void enemyAttack(AttackCommand &cmd);
     void notifyDisplay(TextDisplay &td, std::string action);
 public:
     EnemyInterpreter();
