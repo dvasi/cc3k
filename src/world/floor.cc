@@ -117,9 +117,7 @@ void Floor::initializeCells(vector<vector<char> > floorLayout){
         }
         allCells.push_back(row);
     }
-
     matchDragonHoards();
-
 }
 
 void Floor::matchDragonHoards(){
@@ -294,7 +292,7 @@ void Floor::setPotions(){ //generate the potions
         //Randomly select an unoccupied cell from the chamber
         random = (rand() % (currentChamber->cells.size()));
         currentCell = currentChamber->cells.at(random);
-        while (currentCell->isOccupied()){
+        while ((currentCell->isOccupied())||(currentCell->getCellType() == Cell::Stairs)){
             random = (rand() % (currentChamber->cells.size()));
             currentCell = currentChamber->cells.at(random);
         }
@@ -314,7 +312,7 @@ void Floor::setGold(){ //generate the gold
 
         random = (rand() % (currentChamber->cells.size()));
         currentCell = currentChamber->cells.at(random);
-        while (currentCell->isOccupied()){
+        while ((currentCell->isOccupied())||(currentCell->getCellType() == Cell::Stairs)){
             random = (rand() % (currentChamber->cells.size()));
             currentCell = currentChamber->cells.at(random);
         }
@@ -335,7 +333,7 @@ void Floor::setEnemies(){ //generate the enemies
 
         random = (rand() % (currentChamber->cells.size()));
         currentCell = currentChamber->cells.at(random);
-        while (currentCell->isOccupied()){
+        while ((currentCell->isOccupied())||(currentCell->getCellType() == Cell::Stairs)){
             random = (rand() % (currentChamber->cells.size()));
             currentCell = currentChamber->cells.at(random);
         }

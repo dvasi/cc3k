@@ -180,6 +180,7 @@ void PlayerInterpreter::movePlayer(MoveCommand &cmd){
 
     if (newCell->getCellType() == Cell::Stairs){
         int floorNum = game->getCurrentFloor();
+        
         //Handle victory
         if (floorNum == NUM_FLOORS - 1){
             game->setGameOver(true);
@@ -211,8 +212,7 @@ void PlayerInterpreter::movePlayer(MoveCommand &cmd){
     Cell* adjacentCell;
     for (int deltaX = -1; deltaX <= 1; ++deltaX){
         for (int deltaY = -1; deltaY <= 1; ++deltaY){
-            adjacentCell = currentFloor->getCellAt(newX + deltaX,
-                newY + deltaY);
+            adjacentCell = currentFloor->getCellAt(newX + deltaX, newY + deltaY);
             if (adjacentCell->hasPotion()){
                 Item *potion = currentFloor->getItem(
                     adjacentCell->getOccupiedId());
@@ -254,18 +254,16 @@ bool PlayerInterpreter::isMoveValid(MoveCommand &cmd){
     Cell* newCell = currentFloor->getCellAt(newX, newY);
 
     if (isCommandAdjacent(ch,cmd)){
-        if ((newCell->getCellType() != Cell::Wall) && (newCell->getCellType() != Cell::Empty)){
-            if (!newCell->hasEnemy()){
-                if (newCell->hasItem()){
-                    Item *item = currentFloor->getItem(
-                        newCell->getOccupiedId());
-                    if (item->canPickUp()) return true;
-                }
-                else return true;
+        if ((newCell->getCellType() != Cell::Wall)&&
+            (newCell->getCellType() != Cell::Empty)&&
+            (!newCell->hasEnemy())){
+            if (newCell->hasItem()){
+                Item *item = currentFloor->getItem(newCell->getOccupiedId());
+                if (item->canPickUp()) return true;
             }
+            else return true;
         }
     }
-
     return false;
 }
 
@@ -277,10 +275,8 @@ bool PlayerInterpreter::isAttackValid(AttackCommand &cmd){
     Cell* newCell = currentFloor->getCellAt(newX,newY);
 
     if (isCommandAdjacent(ch,cmd)){
-        if ((newCell->getCellType() != Cell::Wall) && (newCell->getCellType() != Cell::Empty)){
-            if (newCell->hasEnemy()){
-                return true;
-            }
+        if ((newCell->getCellType() == Cell::Floor)&&(newCell->hasEnemy())){
+            return true;
         }
     }
     return false;
