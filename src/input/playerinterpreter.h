@@ -18,7 +18,7 @@ class PlayerInterpreter: public CommandInterpreter{
     Game* game;
     std::string actionStr;
     bool isDirection(char cmd);
-    std::pair<int,int> getPositionFromChar(char cmd);
+    std::pair<int, int> getPositionFromChar(char cmd);
     std::string getActionFromChar(char cmd);
     bool isMoveValid(MoveCommand &cmd);
     void movePlayer(MoveCommand &cmd);

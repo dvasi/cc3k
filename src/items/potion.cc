@@ -14,4 +14,6 @@ bool Potion::isRevealed(){
     return false;
 }
 
-void Potion::accept(Visitor &v){ v.visit(this); }
+void Potion::accept(Visitor &v){
+    v.visit(this);
+}

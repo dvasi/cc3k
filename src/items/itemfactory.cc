@@ -63,8 +63,7 @@ Item* ItemFactory::getGold(){
 
     if (random == 1) newItem = new DragonGold(Item::generateId());
 
-    else if ((random >= 2) && (random <= 6)) newItem = new NormalGold(
-        Item::generateId());
+    else if ((random >= 2) && (random <= 6)) newItem = new NormalGold(Item::generateId());
 
     else newItem = new SmallGold(Item::generateId());
 

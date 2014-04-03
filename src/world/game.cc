@@ -23,8 +23,8 @@
 using namespace std;
 
 Game::Game() :
-    player(0), layoutGiven(false), layoutFileName(DEFAULT_LAYOUT_CONFIG_FILE), currentFloor(0), isOver(false),
-        victorious(false), floors(0){
+    player(0), layoutGiven(false), layoutFileName(DEFAULT_LAYOUT_CONFIG_FILE),
+        currentFloor(0), isOver(false), victorious(false), floors(0){
 }
 
 Game::~Game(){
@@ -50,8 +50,7 @@ void Game::cleanup(){
 
 void Game::initializeWorld(){
     FileParser parser = FileParser();
-    vector<vector<vector<char> > > layout = parser.parseFloorLayouts(
-        layoutFileName);
+    vector<vector<vector<char> > > layout = parser.parseFloorLayouts(layoutFileName);
 
     if (layoutGiven) initializeFloors(layout);
     else{
@@ -93,13 +92,10 @@ void Game::displayWelcomeScreen(){
 
     attron(COLOR_PAIR(1));
     for (unsigned int i = 0; i < titleArt.size(); ++i){
-        mvprintw(i, (col - strlen(titleArt.at(0).c_str())) / 2, "%s",
-            titleArt.at(i).c_str());
+        mvprintw(i, (col - strlen(titleArt.at(0).c_str())) / 2, "%s", titleArt.at(i).c_str());
     }
     for (unsigned int i = 0; i < titleArt2.size(); ++i){
-        mvprintw(i + titleArt.size(),
-            (col - strlen(titleArt2.at(0).c_str())) / 2, "%s",
-            titleArt2.at(i).c_str());
+        mvprintw(i + titleArt.size(), (col - strlen(titleArt2.at(0).c_str())) / 2, "%s", titleArt2.at(i).c_str());
     }
     attron(A_BOLD);
     mvprintw(row / 2, (col - continueMsg.length()) / 2, continueMsg.c_str());
@@ -151,23 +147,18 @@ void Game::displayInstructions(){
     commands.push_back(" | |    / _ \\| '_ ` _ \\| '_ ` _ \\ / _` | '_ \\ / _` / __| ");
     commands.push_back(" | |___| (_) | | | | | | | | | | | (_| | | | | (_| \\__ \\ ");
     commands.push_back("  \\_____\\___/|_| |_| |_|_| |_| |_|\\__,_|_| |_|\\__,_|___/");
-                                                        
-                                                        
+
     int row, col;
     getmaxyx(stdscr, row, col);
 
     for (unsigned int i = 0; i < commands.size(); ++i){
-        mvprintw(i + commands.size(),
-            (col - strlen(commands.at(0).c_str())) / 2 - 3, "%s",
-            commands.at(i).c_str());
+        mvprintw(i + commands.size(), (col - strlen(commands.at(0).c_str())) / 2 - 3, "%s", commands.at(i).c_str());
     }
 
     for (unsigned int i = 0; i < keys.size(); ++i){
         for (unsigned int j = 0; j < keys.at(i).size(); ++j){
             refresh();
-            mvprintw((row / 2 + j) - 3,
-                (i + 1) * ((col - strlen(keys.at(i).at(0).c_str())) / 4), "%s",
-                keys.at(i).at(j).c_str());
+            mvprintw((row / 2 + j) - 3, (i + 1) * ((col - strlen(keys.at(i).at(0).c_str())) / 4), "%s", keys.at(i).at(j).c_str());
         }
     }
     mvprintw(row - 2, (col - continueMsg.length()) / 2, continueMsg.c_str());
@@ -242,18 +233,14 @@ void Game::displayRaceSelectionScreen(){
 
     attron(COLOR_PAIR(1));
     for (unsigned int i = 0; i < titleArt.size(); ++i){
-        mvprintw(i, (col - strlen(titleArt.at(0).c_str())) / 2, "%s",
-            titleArt.at(i).c_str());
+        mvprintw(i, (col - strlen(titleArt.at(0).c_str())) / 2, "%s", titleArt.at(i).c_str());
     }
     for (unsigned int i = 0; i < titleArt2.size(); ++i){
-        mvprintw(i + titleArt.size(),
-            (col - strlen(titleArt2.at(0).c_str())) / 2, "%s",
-            titleArt2.at(i).c_str());
+        mvprintw(i + titleArt.size(), (col - strlen(titleArt2.at(0).c_str())) / 2, "%s", titleArt2.at(i).c_str());
     }
 
     attron(A_BOLD);
-    mvprintw(titleArt.size() + titleArt2.size() + 1,
-        (col - raceSelectMsg.length()) / 2, raceSelectMsg.c_str());
+    mvprintw(titleArt.size() + titleArt2.size() + 1, (col - raceSelectMsg.length()) / 2, raceSelectMsg.c_str());
     refresh();
     attroff(A_BOLD);
 
@@ -276,9 +263,7 @@ void Game::displayRaceSelectionScreen(){
             attron(A_BOLD);
 
             refresh();
-            mvprintw(row / 2 + j,
-                (i + 1) * ((col - strlen(races.at(i).at(0).c_str())) / 5), "%s",
-                races.at(i).at(j).c_str());
+            mvprintw(row / 2 + j, (i + 1) * ((col - strlen(races.at(i).at(0).c_str())) / 5), "%s", races.at(i).at(j).c_str());
 
             if (current == "Human")
             attroff(COLOR_PAIR(2));
@@ -332,9 +317,8 @@ void Game::displayEndScreen(){
         victoryArt.push_back(" | |  | |/ _ \\  _/ _ \\/ _` | __|");
         victoryArt.push_back(" | |__| |  __/ ||  __/ (_| | |_ ");
         victoryArt.push_back(" |_____/ \\___|_| \\___|\\__,_|\\__|");
-    }                                
+    }
 
-                                                                            
     vector<string> swordArt;
     swordArt.push_back("          /\\          ");
     swordArt.push_back("         /  \\         ");
@@ -361,25 +345,18 @@ void Game::displayEndScreen(){
 
     attron(COLOR_PAIR(1));
     for (unsigned int i = 0; i < victoryArt.size(); ++i){
-        mvprintw(i, (col - strlen(victoryArt.at(0).c_str())) / 2, "%s",
-            victoryArt.at(i).c_str());
+        mvprintw(i, (col - strlen(victoryArt.at(0).c_str())) / 2, "%s", victoryArt.at(i).c_str());
     }
     for (unsigned int i = 0; i < swordArt.size(); ++i){
-        mvprintw(victoryArt.size() + 1 + i,
-            (col - strlen(swordArt.at(0).c_str())) / 2, "%s",
-            swordArt.at(i).c_str());
+        mvprintw(victoryArt.size() + 1 + i, (col - strlen(swordArt.at(0).c_str())) / 2, "%s", swordArt.at(i).c_str());
     }
     attron(A_BOLD);
-    mvprintw(victoryArt.size() + swordArt.size() + 1,
-        col / 2 - strlen(scoreMsg.c_str()) / 2, "%s", scoreMsg.c_str());
-    mvprintw(victoryArt.size() + swordArt.size() + 2,
-        col / 2 - strlen(commandMsg.c_str()) / 2, "%s", commandMsg.c_str());
+    mvprintw(victoryArt.size() + swordArt.size() + 1, col / 2 - strlen(scoreMsg.c_str()) / 2, "%s", scoreMsg.c_str());
+    mvprintw(victoryArt.size() + swordArt.size() + 2, col / 2 - strlen(commandMsg.c_str()) / 2, "%s", commandMsg.c_str());
     attroff(A_BOLD);
     refresh();
     for (unsigned int i = 0; i < swordArt2.size(); ++i){
-        mvprintw(victoryArt.size() + swordArt.size() + 3 + i,
-            (col - strlen(swordArt2.at(0).c_str())) / 2, "%s",
-            swordArt2.at(i).c_str());
+        mvprintw(victoryArt.size() + swordArt.size() + 3 + i, (col - strlen(swordArt2.at(0).c_str())) / 2, "%s", swordArt2.at(i).c_str());
     }
     mvprintw(row - 2, (col - authorMsg.length()) / 2, authorMsg.c_str());
     attroff(COLOR_PAIR(1));

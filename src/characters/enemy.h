@@ -18,7 +18,7 @@ public:
     virtual ~Enemy();
     virtual bool isHostile();
     virtual void update();
-    void takeDamage(int damage); 
+    void takeDamage(int damage);
     char getSymbol();
     bool isMobile();
     int accept(Visitor &v);

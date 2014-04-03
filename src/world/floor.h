@@ -66,9 +66,6 @@ class Floor{
     std::vector<Dragon*> floorDragons;
     std::vector<DragonGold*> floorDragonHoards;
 
-protected:
-    int dragons; //number of dragons on the floor
-
 public:
     void removeItem(int id);
     void removeEnemy(int id);

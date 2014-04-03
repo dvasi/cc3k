@@ -20,8 +20,7 @@ bool CommandInterpreter::isCommandAdjacent(Character* ch, Command &cmd){
     int newX = cmd.getXPos();
     int newY = cmd.getYPos();
 
-    if ((abs(currentX - newX) <= 1)&&(abs(currentY - newY) <= 1))
-        return true;
+    if ((abs(currentX - newX) <= 1) && (abs(currentY - newY) <= 1)) return true;
     return false;
 }
 

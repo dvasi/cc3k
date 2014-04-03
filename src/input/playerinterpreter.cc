@@ -40,13 +40,11 @@ PlayerInterpreter::PlayerInterpreter() :
 }
 
 bool PlayerInterpreter::isDirection(char cmd){
-    if ((cmd == UP)||(cmd == DOWN)||(cmd == LEFT)||(cmd == RIGHT)||(cmd == UP_LEFT)||
-        (cmd == UP_RIGHT)||(cmd == DOWN_LEFT)||(cmd == DOWN_RIGHT))
-        return true;
+    if ((cmd == UP) || (cmd == DOWN) || (cmd == LEFT) || (cmd == RIGHT) || (cmd == UP_LEFT) || (cmd == UP_RIGHT) || (cmd == DOWN_LEFT) || (cmd == DOWN_RIGHT)) return true;
     return false;
 }
 
-std::pair<int,int> PlayerInterpreter::getPositionFromChar(char cmd){
+std::pair<int, int> PlayerInterpreter::getPositionFromChar(char cmd){
     int x, y;
     if (cmd == UP){
         x = -1;
@@ -80,7 +78,7 @@ std::pair<int,int> PlayerInterpreter::getPositionFromChar(char cmd){
         x = 1;
         y = 1;
     }
-    std::pair<int,int> position(x,y);
+    std::pair<int, int> position(x, y);
     return position;
 }
 
@@ -103,9 +101,9 @@ void PlayerInterpreter::interpretCommand(Player* player){
     int x = player->getXPos();
     int y = player->getYPos();
     int deltaX, deltaY, newX, newY;
-    
+
     if (isDirection(cmd)){
-        std::pair<int,int> deltaPos = getPositionFromChar(cmd);
+        std::pair<int, int> deltaPos = getPositionFromChar(cmd);
         deltaX = deltaPos.first;
         deltaY = deltaPos.second;
         newX = x + deltaX;
@@ -120,14 +118,14 @@ void PlayerInterpreter::interpretCommand(Player* player){
 
     else if (cmd == ATTACK){
         cmd = getch();
-        
+
         if (isDirection(cmd)){
-            std::pair<int,int> deltaPos = getPositionFromChar(cmd);
+            std::pair<int, int> deltaPos = getPositionFromChar(cmd);
             deltaX = deltaPos.first;
             deltaY = deltaPos.second;
             newX = x + deltaX;
             newY = y + deltaY;
-            AttackCommand atkCmd = AttackCommand(player,newX,newY);
+            AttackCommand atkCmd = AttackCommand(player, newX, newY);
             if (isAttackValid(atkCmd)) playerAttack(atkCmd);
             else interpretCommand(player);
         }
@@ -136,14 +134,14 @@ void PlayerInterpreter::interpretCommand(Player* player){
 
     else if (cmd == USE){
         cmd = getch();
-        
+
         if (isDirection(cmd)){
-            std::pair<int,int> deltaPos = getPositionFromChar(cmd);
+            std::pair<int, int> deltaPos = getPositionFromChar(cmd);
             deltaX = deltaPos.first;
             deltaY = deltaPos.second;
             newX = x + deltaX;
             newY = y + deltaY;
-            ItemUseCommand itemCmd = ItemUseCommand(player,newX,newY);
+            ItemUseCommand itemCmd = ItemUseCommand(player, newX, newY);
             if (isUseValid(itemCmd)) playerUseItem(itemCmd);
             else interpretCommand(player);
         }
@@ -180,7 +178,7 @@ void PlayerInterpreter::movePlayer(MoveCommand &cmd){
 
     if (newCell->getCellType() == Cell::Stairs){
         int floorNum = game->getCurrentFloor();
-        
+
         //Handle victory
         if (floorNum == NUM_FLOORS - 1){
             game->setGameOver(true);
@@ -214,8 +212,7 @@ void PlayerInterpreter::movePlayer(MoveCommand &cmd){
         for (int deltaY = -1; deltaY <= 1; ++deltaY){
             adjacentCell = currentFloor->getCellAt(newX + deltaX, newY + deltaY);
             if (adjacentCell->hasPotion()){
-                Item *potion = currentFloor->getItem(
-                    adjacentCell->getOccupiedId());
+                Item *potion = currentFloor->getItem(adjacentCell->getOccupiedId());
                 actionStr += " and sees a";
                 if (potion->isRevealed()){
                     actionStr += " ";
@@ -235,8 +232,7 @@ void PlayerInterpreter::movePlayer(MoveCommand &cmd){
 
     //Change our old one
     currentCell->setOccupation(false, false, false);
-    currentCell->setCellSymbol(
-    currentCell->typeToDisplayChar(currentCell->getCellType()));
+    currentCell->setCellSymbol(currentCell->typeToDisplayChar(currentCell->getCellType()));
 
     //Notify our display
     currentCell->notifyDisplay(*td);
@@ -253,10 +249,8 @@ bool PlayerInterpreter::isMoveValid(MoveCommand &cmd){
     Floor* currentFloor = game->getFloors()->at(game->getCurrentFloor());
     Cell* newCell = currentFloor->getCellAt(newX, newY);
 
-    if (isCommandAdjacent(ch,cmd)){
-        if ((newCell->getCellType() != Cell::Wall)&&
-            (newCell->getCellType() != Cell::Empty)&&
-            (!newCell->hasEnemy())){
+    if (isCommandAdjacent(ch, cmd)){
+        if ((newCell->getCellType() != Cell::Wall) && (newCell->getCellType() != Cell::Empty) && (!newCell->hasEnemy())){
             if (newCell->hasItem()){
                 Item *item = currentFloor->getItem(newCell->getOccupiedId());
                 if (item->canPickUp()) return true;
@@ -272,10 +266,10 @@ bool PlayerInterpreter::isAttackValid(AttackCommand &cmd){
     int newY = cmd.getYPos();
     Player *ch = Player::getInstance();
     Floor* currentFloor = game->getFloors()->at(game->getCurrentFloor());
-    Cell* newCell = currentFloor->getCellAt(newX,newY);
+    Cell* newCell = currentFloor->getCellAt(newX, newY);
 
-    if (isCommandAdjacent(ch,cmd)){
-        if ((newCell->getCellType() == Cell::Floor)&&(newCell->hasEnemy())){
+    if (isCommandAdjacent(ch, cmd)){
+        if ((newCell->getCellType() == Cell::Floor) && (newCell->hasEnemy())){
             return true;
         }
     }
@@ -339,10 +333,10 @@ bool PlayerInterpreter::isUseValid(ItemUseCommand &cmd){
     Floor* currentFloor = game->getFloors()->at(game->getCurrentFloor());
     Cell* newCell = currentFloor->getCellAt(newX, newY);
 
-    if (isCommandAdjacent(ch,cmd)){
-        if ((newCell->getCellType() == Cell::Floor)&&(newCell->hasItem())){
-                Item *item = currentFloor->getItem(newCell->getOccupiedId());
-                if (item->canUse()) return true;
+    if (isCommandAdjacent(ch, cmd)){
+        if ((newCell->getCellType() == Cell::Floor) && (newCell->hasItem())){
+            Item *item = currentFloor->getItem(newCell->getOccupiedId());
+            if (item->canUse()) return true;
         }
     }
     return false;

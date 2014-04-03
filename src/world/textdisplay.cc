@@ -140,8 +140,7 @@ ostream &operator<<(ostream &out, const TextDisplay &td){
     mvprintw(BOARD_HEIGHT, 0, "%s", raceStr.c_str());
 
     mvprintw(BOARD_HEIGHT, raceStr.length() + 1, "%s", goldStr.c_str());
-    mvprintw(BOARD_HEIGHT, BOARD_WIDTH - floorStr.length() - 1, "%s",
-        floorStr.c_str());
+    mvprintw(BOARD_HEIGHT, BOARD_WIDTH - floorStr.length() - 1, "%s", floorStr.c_str());
 
     move(BOARD_HEIGHT + 1, 0);
     clrtoeol();

@@ -26,7 +26,6 @@ bool DragonInterpreter::playerInRange(Enemy* enemy){
     int hoardYPos = dragon->getHoardYPos();
 
     //Player is within attacking vicinity and adjacent to the gold hoard
-    if (((abs(playerXPos - enemyXPos) <= 1) && (abs(playerYPos - enemyYPos) <= 1)) && ((abs(
-        playerXPos - hoardXPos) <= 1) && (abs(playerYPos - hoardYPos) <= 1))) return true;
+    if (((abs(playerXPos - enemyXPos) <= 1) && (abs(playerYPos - enemyYPos) <= 1)) && ((abs(playerXPos - hoardXPos) <= 1) && (abs(playerYPos - hoardYPos) <= 1))) return true;
     return false;
 }

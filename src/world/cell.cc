@@ -5,14 +5,14 @@
 using namespace std;
 
 Cell::Cell(int xPos, int yPos, int type, char symbol) :
-    x(xPos), y(yPos), cellType(type), cellSymbol(symbol), enemy(false),
-        item(false), player(false), occupiedId(-1){
+    x(xPos), y(yPos), cellType(type), cellSymbol(symbol), enemy(false), item(false),
+        player(false), occupiedId(-1){
 }
 
-Cell::Cell(int xPos, int yPos, int type, char symbol, bool hasEnemy,
-    bool hasItem, bool hasPlayer, int id) :
-    x(xPos), y(yPos), cellType(type), cellSymbol(symbol), enemy(hasEnemy),
-        item(hasItem), player(hasPlayer), occupiedId(id){
+Cell::Cell(int xPos, int yPos, int type, char symbol, bool hasEnemy, bool hasItem,
+    bool hasPlayer, int id) :
+    x(xPos), y(yPos), cellType(type), cellSymbol(symbol), enemy(hasEnemy), item(hasItem),
+        player(hasPlayer), occupiedId(id){
 }
 
 Cell::~Cell(){
