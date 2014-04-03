@@ -120,18 +120,18 @@ void Game::displayInstructions(){
     moveKeys.push_back("Move South: 5");
     moveKeys.push_back("Move West: 4");
     moveKeys.push_back("Move East: 6");
-    moveKeys.push_back("Move North-west: 7");
-    moveKeys.push_back("Move North-east: 9");
-    moveKeys.push_back("Move South-west: 1");
-    moveKeys.push_back("Move South-east: 3");
+    moveKeys.push_back("Move North West: 7");
+    moveKeys.push_back("Move North East: 9");
+    moveKeys.push_back("Move South West: 1");
+    moveKeys.push_back("Move South East: 3");
 
     vector<string> interactKeys;
-    interactKeys.push_back("Use Item: u");
-    interactKeys.push_back("Attack Enemy: a");
+    interactKeys.push_back("Use Item: u <direction>");
+    interactKeys.push_back("Attack Enemy: a <direction>");
 
     vector<string> miscKeys;
     miscKeys.push_back("Restart Game: r");
-    miscKeys.push_back("Quit game: q");
+    miscKeys.push_back("Quit Game: q");
     miscKeys.push_back(" ");
 
     vector<vector<string> > keys;
