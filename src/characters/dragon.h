@@ -14,8 +14,10 @@ public:
     ~Dragon();
     void guard(DragonGold *hoard);
     void freeHoard();
-    int accept(Visitor &v);
     int getHoardXPos();
     int getHoardYPos();
+    int accept(Visitor &v);
+    ~Dragon();
+
 };
 #endif
