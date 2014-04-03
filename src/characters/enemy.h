@@ -21,6 +21,5 @@ public:
     virtual ~Enemy();
     virtual bool isHostile();
     virtual void update();
-
 };
 #endif

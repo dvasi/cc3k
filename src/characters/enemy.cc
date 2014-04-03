@@ -7,8 +7,8 @@ using namespace std;
 
 Enemy::Enemy(int hp, int atk, int def, int x, int y, char type, int id,
     EnemyInterpreter* input, bool hostile, bool mobile) :
-    Character(hp, atk, def, x, y, id), input(input), type(type),
-        hostile(hostile), mobile(mobile){
+    Character(hp, atk, def, x, y, id), input(input), type(type), hostile(hostile),
+        mobile(mobile){
 }
 
 Enemy::~Enemy(){

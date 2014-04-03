@@ -36,8 +36,7 @@ int AttackVisitor::visit(Character *defender){
     int random = (rand() % 2);
 
     int damage;
-    if (random == 0) damage = static_cast<int>(ceil(
-        (100.00 / (100.00 + def)) * atk));
+    if (random == 0) damage = static_cast<int>(ceil((100.00 / (100.00 + def)) * atk));
     else damage = 0;
 
     defender->takeDmg(damage);

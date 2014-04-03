@@ -19,8 +19,7 @@ class Game{
     bool isOver;
     bool victorious;
     std::vector<Floor*> *floors;
-    void initializeFloors(
-        std::vector<std::vector<std::vector<char> > > floorLayouts);
+    void initializeFloors(std::vector<std::vector<std::vector<char> > > floorLayouts);
     void displayFloors();
     Game();
     ~Game();

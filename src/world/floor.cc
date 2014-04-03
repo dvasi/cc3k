@@ -21,7 +21,7 @@
 using namespace std;
 
 Floor::Floor() :
-    startXPos(3), startYPos(3), dragons(0){
+    startXPos(3), startYPos(3){
     td = new TextDisplay(BOARD_WIDTH, BOARD_HEIGHT);
     itemStatMonitor = new ItemUseVisitor();
 }
@@ -41,14 +41,13 @@ Floor::~Floor(){
         chambers.pop_back();
     }
 
-    for (map<int, Item*>::iterator i = floorItems.begin();
-        i != floorItems.end(); ++i){
+    for (map<int, Item*>::iterator i = floorItems.begin(); i != floorItems.end(); ++i){
         delete i->second;
         floorItems.erase(i);
     }
 
-    for (map<int, Enemy*>::iterator i = floorEnemies.begin();
-        i != floorEnemies.end(); ++i){
+    for (map<int, Enemy*>::iterator i = floorEnemies.begin(); i != floorEnemies.end();
+        ++i){
         delete i->second;
         floorEnemies.erase(i);
     }
@@ -131,8 +130,7 @@ void Floor::matchDragonHoards(){
             int dragonYPos = dragon->getYPos();
             int hoardXPos = hoard->getXPos();
             int hoardYPos = hoard->getYPos();
-            if ((abs(dragonXPos - hoardXPos) <= 1) && (abs(
-                dragonYPos - hoardYPos) <= 1)){
+            if ((abs(dragonXPos - hoardXPos) <= 1) && (abs(dragonYPos - hoardYPos) <= 1)){
                 dragon->guard(hoard);
                 break;
             }
@@ -202,8 +200,7 @@ Cell* Floor::generateCell(int xPos, int yPos, char symbol){
             startXPos = xPos;
             startYPos = yPos;
         }
-        parsedCell = new Cell(xPos, yPos, cellType, symbol, hasEnemy, hasItem,
-            hasPlayer, id);
+        parsedCell = new Cell(xPos, yPos, cellType, symbol, hasEnemy, hasItem, hasPlayer, id);
     }
     else{
         parsedCell = new Cell(xPos, yPos, cellType, symbol);
@@ -292,7 +289,7 @@ void Floor::setPotions(){ //generate the potions
         //Randomly select an unoccupied cell from the chamber
         random = (rand() % (currentChamber->cells.size()));
         currentCell = currentChamber->cells.at(random);
-        while ((currentCell->isOccupied())||(currentCell->getCellType() == Cell::Stairs)){
+        while ((currentCell->isOccupied()) || (currentCell->getCellType() == Cell::Stairs)){
             random = (rand() % (currentChamber->cells.size()));
             currentCell = currentChamber->cells.at(random);
         }
@@ -312,7 +309,7 @@ void Floor::setGold(){ //generate the gold
 
         random = (rand() % (currentChamber->cells.size()));
         currentCell = currentChamber->cells.at(random);
-        while ((currentCell->isOccupied())||(currentCell->getCellType() == Cell::Stairs)){
+        while ((currentCell->isOccupied()) || (currentCell->getCellType() == Cell::Stairs)){
             random = (rand() % (currentChamber->cells.size()));
             currentCell = currentChamber->cells.at(random);
         }
@@ -327,13 +324,13 @@ void Floor::setEnemies(){ //generate the enemies
     Cell *currentCell;
 
     random = (rand() % 5);
-     for (int i = 0; i < NUM_ENEMIES; ++i){
+    for (int i = 0; i < NUM_ENEMIES; ++i){
         random = (rand() % 5);
         currentChamber = chambers.at(random);
 
         random = (rand() % (currentChamber->cells.size()));
         currentCell = currentChamber->cells.at(random);
-        while ((currentCell->isOccupied())||(currentCell->getCellType() == Cell::Stairs)){
+        while ((currentCell->isOccupied()) || (currentCell->getCellType() == Cell::Stairs)){
             random = (rand() % (currentChamber->cells.size()));
             currentCell = currentChamber->cells.at(random);
         }
@@ -353,25 +350,18 @@ void Floor::generateFloor(){
 void Floor::spawnDragon(){ //Spawn a dragon for each corresponding dragon hoard
     Cell *currentCell;
     bool dragonMatched = false;
-    for (unsigned int i = 0; i < allCells.size(); ++i)
-    {
-        for (unsigned int j = 0; j < allCells.at(i).size(); ++j)
-        {
+    for (unsigned int i = 0; i < allCells.size(); ++i){
+        for (unsigned int j = 0; j < allCells.at(i).size(); ++j){
             currentCell = allCells.at(i).at(j);
-            if (currentCell->getCellSymbol() == '9')
-            {
+            if (currentCell->getCellSymbol() == '9'){
                 dragonMatched = false;
                 //We guarantee this cell has a dragon hoard
-                floorDragonHoards.push_back(
-                    static_cast<DragonGold *>(floorItems[currentCell->getOccupiedId()]));
-                for (int n = -1; n <= 1; ++n)
-                {
-                    for (int m = -1; m <= 1; ++m)
-                    {
+                floorDragonHoards.push_back(static_cast<DragonGold *>(floorItems[currentCell->getOccupiedId()]));
+                for (int n = -1; n <= 1; ++n){
+                    for (int m = -1; m <= 1; ++m){
                         currentCell = allCells.at(i + n).at(j + m);
-                        if ((!currentCell->isOccupied()) && (!dragonMatched) && (currentCell->getCellType() == Cell::Floor))
-                        {
-                            spawnDragonAt(i+n,j+m);
+                        if ((!currentCell->isOccupied()) && (!dragonMatched) && (currentCell->getCellType() == Cell::Floor)){
+                            spawnDragonAt(i + n, j + m);
                             dragonMatched = true;
                         }
                     }
@@ -384,9 +374,8 @@ void Floor::spawnDragon(){ //Spawn a dragon for each corresponding dragon hoard
 }
 
 void Floor::spawnDragonAt(int xPos, int yPos){
-    Cell *currentCell=allCells.at(xPos).at(yPos);
-    Dragon *newDragon = new Dragon(xPos, yPos,
-    Character::generateId());
+    Cell *currentCell = allCells.at(xPos).at(yPos);
+    Dragon *newDragon = new Dragon(xPos, yPos, Character::generateId());
     int id = newDragon->getId();
     floorEnemies[id] = newDragon;
     floorDragons.push_back(newDragon);
@@ -397,13 +386,10 @@ void Floor::spawnDragonAt(int xPos, int yPos){
 
 void Floor::initialActionQueue(){ //Create our initial action queue
     Cell *currentCell;
-    for (unsigned int i = 0; i < allCells.size(); ++i)
-    {
-        for (unsigned int j = 0; j < allCells.at(i).size(); ++j)
-        {
+    for (unsigned int i = 0; i < allCells.size(); ++i){
+        for (unsigned int j = 0; j < allCells.at(i).size(); ++j){
             currentCell = allCells.at(i).at(j);
-            if (currentCell->hasEnemy())
-            {
+            if (currentCell->hasEnemy()){
                 Enemy *enemy = floorEnemies[currentCell->getOccupiedId()];
                 enemyActionQueue.push(enemy);
             }

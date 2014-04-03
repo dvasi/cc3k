@@ -17,7 +17,7 @@ class EnemyInterpreter: public CommandInterpreter{
     std::string actionStr;
 
 protected:
-    virtual std::pair<int,int> getPositionFromNum(int cmd);
+    virtual std::pair<int, int> getPositionFromNum(int cmd);
     virtual void randomMoveEnemy(Enemy* enemy);
     virtual bool isMoveValid(MoveCommand &cmd);
     virtual bool canMove(Enemy *enemy);

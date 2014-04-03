@@ -20,7 +20,7 @@ EnemyInterpreter::EnemyInterpreter() :
     game = Game::getInstance();
 }
 
-std::pair<int,int> EnemyInterpreter::getPositionFromNum(int cmd){
+std::pair<int, int> EnemyInterpreter::getPositionFromNum(int cmd){
     int x, y;
     if (cmd == 1){
         x = -1;
@@ -54,7 +54,7 @@ std::pair<int,int> EnemyInterpreter::getPositionFromNum(int cmd){
         x = 1;
         y = 1;
     }
-    std::pair<int,int> position(x,y);
+    std::pair<int, int> position(x, y);
     return position;
 }
 
@@ -64,7 +64,7 @@ void EnemyInterpreter::randomMoveEnemy(Enemy* enemy){
     int x = enemy->getXPos();
     int y = enemy->getYPos();
     int newX, newY, deltaX, deltaY;
-    std::pair<int,int> deltaPos = getPositionFromNum(random);
+    std::pair<int, int> deltaPos = getPositionFromNum(random);
     deltaX = deltaPos.first;
     deltaY = deltaPos.second;
     newX = x + deltaX;
@@ -73,7 +73,6 @@ void EnemyInterpreter::randomMoveEnemy(Enemy* enemy){
     if (isMoveValid(enemyMove)) moveEnemy(enemyMove);
     else interpretCommand(enemy);
 }
-
 
 void EnemyInterpreter::interpretCommand(Enemy* enemy){
     //Prioritize Attacking for enemy AI
@@ -100,8 +99,8 @@ bool EnemyInterpreter::isMoveValid(MoveCommand &cmd){
     Floor* currentFloor = game->getFloors()->at(game->getCurrentFloor());
     Cell* newCell = currentFloor->getCellAt(newX, newY);
 
-    if (isCommandAdjacent(enemy,cmd)){
-        if ((newCell->getCellType() == Cell::Floor)&&(!newCell->isOccupied())){
+    if (isCommandAdjacent(enemy, cmd)){
+        if ((newCell->getCellType() == Cell::Floor) && (!newCell->isOccupied())){
             return true;
         }
     }
