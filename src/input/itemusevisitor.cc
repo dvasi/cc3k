@@ -7,7 +7,7 @@
 #include "wdpot.h"
 #include "gold.h"
 #include "player.h"
-#include "stdlib.h"
+#include <cstdlib>
 
 ItemUseVisitor::ItemUseVisitor() :
     tempAtkDelta(0), tempDefDelta(0){

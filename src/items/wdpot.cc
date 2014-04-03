@@ -1,7 +1,6 @@
 #include "wdpot.h"
 #include "visitor.h"
 #include <string>
-#include <iostream>
 using namespace std;
 
 WDPot::WDPot(int id) :

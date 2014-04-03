@@ -16,8 +16,7 @@ protected:
 
 public:
     Item();
-    Item(int id, char type, bool lootable = false, bool useable = true, int x = 0,
-        int y = 0);
+    Item(int id, char type, bool lootable = false, bool useable = true, int x = 0, int y = 0);
     static int generateId();
     int getId();
     bool canPickUp();

@@ -9,7 +9,6 @@
 #include "wapot.h"
 #include "wdpot.h"
 #include "gold.h"
-#include <iostream>
 using namespace std;
 
 Visitor::Visitor(){

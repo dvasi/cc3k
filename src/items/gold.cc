@@ -1,4 +1,3 @@
-#include <iostream>
 #include "gold.h"
 #include "visitor.h"
 using namespace std;

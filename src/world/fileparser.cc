@@ -1,6 +1,5 @@
 #include <fstream>
 #include <string>
-#include <iostream>
 #include <vector>
 #include "fileparser.h"
 #include "floor.h"

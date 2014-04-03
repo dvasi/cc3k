@@ -1,6 +1,5 @@
 #include "character.h"
 #include "visitor.h"
-#include <iostream>
 using namespace std;
 
 Character::Character(int hp, int atk, int def, int x, int y, int id) :

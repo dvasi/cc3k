@@ -1,7 +1,5 @@
-#ifndef __TILE_H__
-#define __TILE_H__
-#include <iostream>
-#include <vector>
+#ifndef __CELL_H__
+#define __CELL_H__
 #include "textdisplay.h"
 
 class Cell{

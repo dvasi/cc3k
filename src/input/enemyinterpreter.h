@@ -1,7 +1,5 @@
 #ifndef __ENEMYINTERPRETER_H__
 #define __ENEMYINTERPRETER_H__
-#include <ncurses.h>
-#include <map>
 #include <string>
 #include "commandinterpreter.h"
 

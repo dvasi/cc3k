@@ -1,7 +1,6 @@
 #ifndef __PLAYERINTERPRETER_H__
 #define __PLAYERINTERPRETER_H__
 //#include <ncurses.h>
-#include <map>
 #include <string>
 #include <utility>
 #include "commandinterpreter.h"

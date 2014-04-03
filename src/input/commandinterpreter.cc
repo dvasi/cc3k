@@ -1,7 +1,5 @@
-#include <ncurses.h>
-#include <map>
 #include <string>
-#include <cstdlib>
+#include <cmath>
 #include "commandinterpreter.h"
 #include "command.h"
 #include "character.h"

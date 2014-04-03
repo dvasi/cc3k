@@ -1,7 +1,5 @@
 #ifndef __COMMANDINTERPRETER_H__
 #define __COMMANDINTERPRETER_H__
-#include <ncurses.h>
-#include <map>
 #include <string>
 
 class Character;

@@ -1,7 +1,8 @@
-#include <map>
 #include <string>
 #include <sstream>
 #include <cstdlib>
+#include <utility>
+#include <ncurses.h>
 #include "playerinterpreter.h"
 #include "game.h"
 #include "movecommand.h"
@@ -11,7 +12,6 @@
 #include "attackvisitor.h"
 #include "itemusevisitor.h"
 #include "cell.h"
-#include <utility>
 using namespace std;
 
 const char UP = '8';

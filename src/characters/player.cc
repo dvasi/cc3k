@@ -1,5 +1,4 @@
 #include <cstdlib>
-#include <iostream>
 #include <string>
 #include "player.h"
 #include "playerinterpreter.h"

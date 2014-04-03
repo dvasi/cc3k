@@ -8,9 +8,6 @@
 #include "normalgold.h"
 #include <cmath>
 #include <cstdlib>
-#include <ncurses.h>
-#include <sstream>
-#include <string>
 
 using namespace std;
 

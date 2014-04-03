@@ -1,11 +1,9 @@
-#include <iostream>
 #include <vector>
 #include <queue>
 #include <map>
 #include <cstdlib>
 #include <string>
-#include <ncurses.h>
-#include <sstream>
+#include <iostream>
 #include "floor.h"
 #include "cell.h"
 #include "chamber.h"

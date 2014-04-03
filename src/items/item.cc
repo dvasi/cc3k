@@ -1,4 +1,3 @@
-#include <iostream>
 #include <string>
 #include "item.h"
 #include "visitor.h"

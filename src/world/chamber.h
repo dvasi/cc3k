@@ -1,6 +1,5 @@
 #ifndef __CHAMBER_H__
 #define __CHAMBER_H__
-#include <iostream>
 #include <vector>
 
 class Cell;

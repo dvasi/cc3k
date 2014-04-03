@@ -1,8 +1,6 @@
 #include "enemy.h"
 #include "enemyinterpreter.h"
 #include "visitor.h"
-#include <math.h>
-#include <iostream>
 using namespace std;
 
 Enemy::Enemy(int hp, int atk, int def, int x, int y, char type, int id,

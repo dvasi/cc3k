@@ -1,6 +1,4 @@
 #include <cstdlib>
-#include <fstream>
-#include <iostream>
 #include <ncurses.h>
 #include <string>
 #include <sstream>

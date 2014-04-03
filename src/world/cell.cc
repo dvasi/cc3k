@@ -1,5 +1,3 @@
-#include <iostream>
-#include <vector>
 #include <cstdlib>
 #include "cell.h"
 using namespace std;
