@@ -68,7 +68,7 @@ void Game::displayWorld(){
 }
 
 void Game::displayWelcomeScreen(){
-    string continueMsg = "Press any key to continue";
+    string continueMsg = "Press 'h' for help, or any other key to begin!";
     string authorMsg = "Made by Tyler Sanderson and Steve Weng";
 
     vector<string> titleArt;
@@ -103,16 +103,19 @@ void Game::displayWelcomeScreen(){
     attroff(A_BOLD);
     mvprintw(row - 2, (col - authorMsg.length()) / 2, authorMsg.c_str());
     attroff(COLOR_PAIR(1));
-    getch();
+    char cmd = getch();
+    if (cmd=='h') displayInstructions();
     clear();
 }
 
 void Game::displayInstructions(){
+    clear();
     string continueMsg = "Press any key to continue";
+    string moveKey = "Movement Keys";
+    string interactKey = "Interaction Keys";
+    string miscKey = "Other Keys";
 
     vector<string> moveKeys;
-    moveKeys.push_back("Movement Keys");
-    moveKeys.push_back(" ");
     moveKeys.push_back("Move North: 8");
     moveKeys.push_back("Move South: 5");
     moveKeys.push_back("Move West: 4");
@@ -123,14 +126,10 @@ void Game::displayInstructions(){
     moveKeys.push_back("Move South-east: 3");
 
     vector<string> interactKeys;
-    interactKeys.push_back("Interaction Keys");
-    interactKeys.push_back(" ");
     interactKeys.push_back("Use Item: u");
     interactKeys.push_back("Attack Enemy: a");
 
     vector<string> miscKeys;
-    miscKeys.push_back("Other Keys");
-    miscKeys.push_back(" ");
     miscKeys.push_back("Restart Game: r");
     miscKeys.push_back("Quit game: q");
     miscKeys.push_back(" ");
@@ -158,10 +157,18 @@ void Game::displayInstructions(){
     for (unsigned int i = 0; i < keys.size(); ++i){
         for (unsigned int j = 0; j < keys.at(i).size(); ++j){
             refresh();
-            mvprintw((row / 2 + j) - 3, (i + 1) * ((col - strlen(keys.at(i).at(0).c_str())) / 4), "%s", keys.at(i).at(j).c_str());
+            mvprintw((row / 2 + j) - 2,
+                (i + 1) * ((col - strlen(keys.at(i).at(0).c_str())) / 4), "%s",
+                keys.at(i).at(j).c_str());
         }
     }
     mvprintw(row - 2, (col - continueMsg.length()) / 2, continueMsg.c_str());
+    attron(A_BOLD);
+    mvprintw(row/2 - 4, (col - moveKey.length()) /4, moveKey.c_str());
+    mvprintw(row/2 - 4, (col - interactKey.length()) / 2 + 2, interactKey.c_str());
+    mvprintw(row/2 - 4, (col - miscKey.length())/1.35 - 3, miscKey.c_str());
+    attroff(A_BOLD);
+
     getch();
     clear();
 }
