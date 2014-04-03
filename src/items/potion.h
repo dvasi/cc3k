@@ -12,5 +12,6 @@ public:
     Potion(int id, int magnitude, char type);
     int getMagnitude();
     virtual bool isRevealed();
+    virtual void accept(Visitor &v);
 };
 #endif

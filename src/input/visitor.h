@@ -23,6 +23,7 @@ public:
     virtual int visit(Enemy* enemy);
     virtual int visit(Merchant* merchant);
     virtual int visit(Dragon* dragon);
+    virtual void visit(Potion* potion);
     virtual void visit(BAPot* potion);
     virtual void visit(BDPot* potion);
     virtual void visit(PHPot* potion);

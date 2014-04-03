@@ -15,12 +15,12 @@ protected:
     Enemy(int hp, int atk, int def, int x, int y, char type, int id,
         EnemyInterpreter* input, bool hostile = true, bool mobile = true);
 public:
-    double takeDamage(int);
-    virtual void update();
     virtual ~Enemy();
-    char getSymbol();
     virtual bool isHostile();
-    int accept(Visitor &v);
+    virtual void update();
+    void takeDamage(int damage); 
+    char getSymbol();
     bool isMobile();
+    int accept(Visitor &v);
 };
 #endif

@@ -15,10 +15,8 @@ Enemy::~Enemy(){
     delete input;
 }
 
-double Enemy::takeDamage(int playerAtk){
-    double damage = ceil((100.00 / (100.00 + def)) * playerAtk);
+void Enemy::takeDamage(int damage){
     hp -= damage;
-    return damage;
 }
 
 void Enemy::update(){

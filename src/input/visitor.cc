@@ -34,6 +34,9 @@ int Visitor::visit(Dragon* dragon){
     return 0;
 }
 
+void Visitor::visit(Potion* potion){
+}
+
 void Visitor::visit(BAPot* potion){
 }
 

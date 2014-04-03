@@ -5,7 +5,7 @@
 #include "attackvisitor.h"
 #include "itemusevisitor.h"
 #include "gold.h"
-#include "smallgold.h"
+#include "normalgold.h"
 #include <cmath>
 #include <cstdlib>
 #include <ncurses.h>
@@ -51,7 +51,7 @@ int AttackVisitor::visit(Enemy* defender){
 
     defender->takeDmg(damage);
     if (defender->getHp() <= 0){
-        Gold loot = SmallGold(-1);
+        Gold loot = NormalGold(-1);
         ItemUseVisitor lootVisitor = ItemUseVisitor();
         loot.accept(lootVisitor);
     }
@@ -77,22 +77,4 @@ int AttackVisitor::visit(Dragon* defender){
     defender->takeDmg(damage);
     if (defender->getHp() <= 0) defender->freeHoard();
     return damage;
-}
-
-void AttackVisitor::visit(BAPot* potion){
-}
-
-void AttackVisitor::visit(BDPot* potion){
-}
-
-void AttackVisitor::visit(PHPot* potion){
-}
-
-void AttackVisitor::visit(RHPot* potion){
-}
-
-void AttackVisitor::visit(WAPot* potion){
-}
-
-void AttackVisitor::visit(WDPot* potion){
 }

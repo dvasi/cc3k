@@ -3,6 +3,7 @@
 //#include <ncurses.h>
 #include <map>
 #include <string>
+#include <utility>
 #include "commandinterpreter.h"
 
 class Game;
@@ -16,10 +17,9 @@ class PlayerInterpreter: public CommandInterpreter{
 
     Game* game;
     std::string actionStr;
-public:
-    PlayerInterpreter();
-    ~PlayerInterpreter();
-    void interpretCommand(Player* player);
+    bool isDirection(char cmd);
+    std::pair<int,int> getPositionFromChar(char cmd);
+    std::string getActionFromChar(char cmd);
     bool isMoveValid(MoveCommand &cmd);
     void movePlayer(MoveCommand &cmd);
     bool isAttackValid(AttackCommand &cmd);
@@ -27,6 +27,10 @@ public:
     bool isUseValid(ItemUseCommand &cmd);
     void playerUseItem(ItemUseCommand &cmd);
     void notifyDisplay(TextDisplay &td, std::string action);
+public:
+    PlayerInterpreter();
+    ~PlayerInterpreter();
+    void interpretCommand(Player* player);
     Player* getPlayer();
 };
 #endif

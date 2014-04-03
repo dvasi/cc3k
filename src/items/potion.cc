@@ -13,3 +13,5 @@ Potion::Potion(int id, int magnitude, char type) :
 bool Potion::isRevealed(){
     return false;
 }
+
+void Potion::accept(Visitor &v){ v.visit(this); }

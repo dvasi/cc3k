@@ -1,8 +1,6 @@
-//#include <ncurses.h>
 #include <map>
 #include <string>
 #include <sstream>
-#include <cmath>
 #include <cstdlib>
 #include "playerinterpreter.h"
 #include "game.h"
@@ -13,7 +11,7 @@
 #include "attackvisitor.h"
 #include "itemusevisitor.h"
 #include "cell.h"
-#include <iostream>
+#include <utility>
 using namespace std;
 
 const char UP = '8';
@@ -41,79 +39,80 @@ PlayerInterpreter::PlayerInterpreter() :
     game = Game::getInstance();
 }
 
+bool PlayerInterpreter::isDirection(char cmd){
+    if ((cmd == UP)||(cmd == DOWN)||(cmd == LEFT)||(cmd == RIGHT)||(cmd == UP_LEFT)||
+        (cmd == UP_RIGHT)||(cmd == DOWN_LEFT)||(cmd == DOWN_RIGHT))
+        return true;
+    return false;
+}
+
+std::pair<int,int> PlayerInterpreter::getPositionFromChar(char cmd){
+    int x, y;
+    if (cmd == UP){
+        x = -1;
+        y = 0;
+    }
+    if (cmd == DOWN){
+        x = 1;
+        y = 0;
+    }
+    if (cmd == LEFT){
+        x = 0;
+        y = -1;
+    }
+    if (cmd == RIGHT){
+        x = 0;
+        y = 1;
+    }
+    if (cmd == UP_LEFT){
+        x = -1;
+        y = -1;
+    }
+    if (cmd == UP_RIGHT){
+        x = -1;
+        y = 1;
+    }
+    if (cmd == DOWN_LEFT){
+        x = 1;
+        y = -1;
+    }
+    if (cmd == DOWN_RIGHT){
+        x = 1;
+        y = 1;
+    }
+    std::pair<int,int> position(x,y);
+    return position;
+}
+
+string PlayerInterpreter::getActionFromChar(char cmd){
+    if (cmd == UP) return "North";
+    if (cmd == DOWN) return "South";
+    if (cmd == LEFT) return "Left";
+    if (cmd == RIGHT) return "Right";
+    if (cmd == UP_LEFT) return "North West";
+    if (cmd == UP_RIGHT) return "North East";
+    if (cmd == DOWN_LEFT) return "South West";
+    if (cmd == DOWN_RIGHT) return "South East";
+    return "North";
+}
+
 void PlayerInterpreter::interpretCommand(Player* player){
     char cmd;
     cmd = getch();
     actionStr = "PC";
-
-    if (cmd == UP){
-        MoveCommand playerMove = MoveCommand(player, player->getXPos() - 1,
-            player->getYPos());
+    int x = player->getXPos();
+    int y = player->getYPos();
+    int deltaX, deltaY, newX, newY;
+    
+    if (isDirection(cmd)){
+        std::pair<int,int> deltaPos = getPositionFromChar(cmd);
+        deltaX = deltaPos.first;
+        deltaY = deltaPos.second;
+        newX = x + deltaX;
+        newY = y + deltaY;
+        MoveCommand playerMove = MoveCommand(player, newX, newY);
         if (isMoveValid(playerMove)){
-            actionStr += " moves North";
-            movePlayer(playerMove);
-        }
-        else interpretCommand(player);
-    }
-    else if (cmd == DOWN){
-        MoveCommand playerMove = MoveCommand(player, player->getXPos() + 1,
-            player->getYPos());
-        if (isMoveValid(playerMove)){
-            actionStr += " moves South";
-            movePlayer(playerMove);
-        }
-        else interpretCommand(player);
-    }
-    else if (cmd == LEFT){
-        MoveCommand playerMove = MoveCommand(player, player->getXPos(),
-            player->getYPos() - 1);
-        if (isMoveValid(playerMove)){
-            actionStr += " moves West";
-            movePlayer(playerMove);
-        }
-        else interpretCommand(player);
-    }
-    else if (cmd == RIGHT){
-        MoveCommand playerMove = MoveCommand(player, player->getXPos(),
-            player->getYPos() + 1);
-        if (isMoveValid(playerMove)){
-            actionStr += " moves East";
-            movePlayer(playerMove);
-        }
-        else interpretCommand(player);
-    }
-    else if (cmd == UP_LEFT){
-        MoveCommand playerMove = MoveCommand(player, player->getXPos() - 1,
-            player->getYPos() - 1);
-        if (isMoveValid(playerMove)){
-            actionStr += " moves North West";
-            movePlayer(playerMove);
-        }
-        else interpretCommand(player);
-    }
-    else if (cmd == UP_RIGHT){
-        MoveCommand playerMove = MoveCommand(player, player->getXPos() - 1,
-            player->getYPos() + 1);
-        if (isMoveValid(playerMove)){
-            actionStr += " moves North East";
-            movePlayer(playerMove);
-        }
-        else interpretCommand(player);
-    }
-    else if (cmd == DOWN_LEFT){
-        MoveCommand playerMove = MoveCommand(player, player->getXPos() + 1,
-            player->getYPos() - 1);
-        if (isMoveValid(playerMove)){
-            actionStr += " moves South West";
-            movePlayer(playerMove);
-        }
-        else interpretCommand(player);
-    }
-    else if (cmd == DOWN_RIGHT){
-        MoveCommand playerMove = MoveCommand(player, player->getXPos() + 1,
-            player->getYPos() + 1);
-        if (isMoveValid(playerMove)){
-            actionStr += " moves South East";
+            actionStr += " moves " + getActionFromChar(cmd);
             movePlayer(playerMove);
         }
         else interpretCommand(player);
@@ -313,7 +312,7 @@ void PlayerInterpreter::movePlayer(MoveCommand &cmd){
     //Change our old one
     currentCell->setOccupation(false, false, false);
     currentCell->setCellSymbol(
-        currentCell->typeToDisplayChar(currentCell->getCellType()));
+    currentCell->typeToDisplayChar(currentCell->getCellType()));
 
     //Notify our display
     currentCell->notifyDisplay(*td);
