@@ -87,8 +87,8 @@ std::pair<int,int> PlayerInterpreter::getPositionFromChar(char cmd){
 string PlayerInterpreter::getActionFromChar(char cmd){
     if (cmd == UP) return "North";
     if (cmd == DOWN) return "South";
-    if (cmd == LEFT) return "Left";
-    if (cmd == RIGHT) return "Right";
+    if (cmd == LEFT) return "West";
+    if (cmd == RIGHT) return "East";
     if (cmd == UP_LEFT) return "North West";
     if (cmd == UP_RIGHT) return "North East";
     if (cmd == DOWN_LEFT) return "South West";
@@ -120,52 +120,14 @@ void PlayerInterpreter::interpretCommand(Player* player){
 
     else if (cmd == ATTACK){
         cmd = getch();
-
-        if (cmd == UP){
-            AttackCommand atkCmd = AttackCommand(player, player->getXPos() - 1,
-                player->getYPos());
-            if (isAttackValid(atkCmd)) playerAttack(atkCmd);
-            else interpretCommand(player);
-        }
-        else if (cmd == DOWN){
-            AttackCommand atkCmd = AttackCommand(player, player->getXPos() + 1,
-                player->getYPos());
-            if (isAttackValid(atkCmd)) playerAttack(atkCmd);
-            else interpretCommand(player);
-        }
-        else if (cmd == LEFT){
-            AttackCommand atkCmd = AttackCommand(player, player->getXPos(),
-                player->getYPos() - 1);
-            if (isAttackValid(atkCmd)) playerAttack(atkCmd);
-            else interpretCommand(player);
-        }
-        else if (cmd == RIGHT){
-            AttackCommand atkCmd = AttackCommand(player, player->getXPos(),
-                player->getYPos() + 1);
-            if (isAttackValid(atkCmd)) playerAttack(atkCmd);
-            else interpretCommand(player);
-        }
-        else if (cmd == UP_LEFT){
-            AttackCommand atkCmd = AttackCommand(player, player->getXPos() - 1,
-                player->getYPos() - 1);
-            if (isAttackValid(atkCmd)) playerAttack(atkCmd);
-            else interpretCommand(player);
-        }
-        else if (cmd == UP_RIGHT){
-            AttackCommand atkCmd = AttackCommand(player, player->getXPos() - 1,
-                player->getYPos() + 1);
-            if (isAttackValid(atkCmd)) playerAttack(atkCmd);
-            else interpretCommand(player);
-        }
-        else if (cmd == DOWN_LEFT){
-            AttackCommand atkCmd = AttackCommand(player, player->getXPos() + 1,
-                player->getYPos() - 1);
-            if (isAttackValid(atkCmd)) playerAttack(atkCmd);
-            else interpretCommand(player);
-        }
-        else if (cmd == DOWN_RIGHT){
-            AttackCommand atkCmd = AttackCommand(player, player->getXPos() + 1,
-                player->getYPos() + 1);
+        
+        if (isDirection(cmd)){
+            std::pair<int,int> deltaPos = getPositionFromChar(cmd);
+            deltaX = deltaPos.first;
+            deltaY = deltaPos.second;
+            newX = x + deltaX;
+            newY = y + deltaY;
+            AttackCommand atkCmd = AttackCommand(player,newX,newY);
             if (isAttackValid(atkCmd)) playerAttack(atkCmd);
             else interpretCommand(player);
         }
@@ -174,52 +136,14 @@ void PlayerInterpreter::interpretCommand(Player* player){
 
     else if (cmd == USE){
         cmd = getch();
-
-        if (cmd == UP){
-            ItemUseCommand itemCmd = ItemUseCommand(player,
-                player->getXPos() - 1, player->getYPos());
-            if (isUseValid(itemCmd)) playerUseItem(itemCmd);
-            else interpretCommand(player);
-        }
-        else if (cmd == DOWN){
-            ItemUseCommand itemCmd = ItemUseCommand(player,
-                player->getXPos() + 1, player->getYPos());
-            if (isUseValid(itemCmd)) playerUseItem(itemCmd);
-            else interpretCommand(player);
-        }
-        else if (cmd == LEFT){
-            ItemUseCommand itemCmd = ItemUseCommand(player, player->getXPos(),
-                player->getYPos() - 1);
-            if (isUseValid(itemCmd)) playerUseItem(itemCmd);
-            else interpretCommand(player);
-        }
-        else if (cmd == RIGHT){
-            ItemUseCommand itemCmd = ItemUseCommand(player, player->getXPos(),
-                player->getYPos() + 1);
-            if (isUseValid(itemCmd)) playerUseItem(itemCmd);
-            else interpretCommand(player);
-        }
-        else if (cmd == UP_LEFT){
-            ItemUseCommand itemCmd = ItemUseCommand(player,
-                player->getXPos() - 1, player->getYPos() - 1);
-            if (isUseValid(itemCmd)) playerUseItem(itemCmd);
-            else interpretCommand(player);
-        }
-        else if (cmd == UP_RIGHT){
-            ItemUseCommand itemCmd = ItemUseCommand(player,
-                player->getXPos() - 1, player->getYPos() + 1);
-            if (isUseValid(itemCmd)) playerUseItem(itemCmd);
-            else interpretCommand(player);
-        }
-        else if (cmd == DOWN_LEFT){
-            ItemUseCommand itemCmd = ItemUseCommand(player,
-                player->getXPos() + 1, player->getYPos() - 1);
-            if (isUseValid(itemCmd)) playerUseItem(itemCmd);
-            else interpretCommand(player);
-        }
-        else if (cmd == DOWN_RIGHT){
-            ItemUseCommand itemCmd = ItemUseCommand(player,
-                player->getXPos() + 1, player->getYPos() + 1);
+        
+        if (isDirection(cmd)){
+            std::pair<int,int> deltaPos = getPositionFromChar(cmd);
+            deltaX = deltaPos.first;
+            deltaY = deltaPos.second;
+            newX = x + deltaX;
+            newY = y + deltaY;
+            ItemUseCommand itemCmd = ItemUseCommand(player,newX,newY);
             if (isUseValid(itemCmd)) playerUseItem(itemCmd);
             else interpretCommand(player);
         }
@@ -323,15 +247,13 @@ void PlayerInterpreter::movePlayer(MoveCommand &cmd){
 }
 
 bool PlayerInterpreter::isMoveValid(MoveCommand &cmd){
-    Character *ch = Player::getInstance();
-    int currentX = ch->getXPos();
-    int currentY = ch->getYPos();
     int newX = cmd.getXPos();
     int newY = cmd.getYPos();
+    Character *ch = Player::getInstance();
     Floor* currentFloor = game->getFloors()->at(game->getCurrentFloor());
     Cell* newCell = currentFloor->getCellAt(newX, newY);
 
-    if ((abs(currentX - newX) <= 1) && (abs(currentY - newY) <= 1)){
+    if (isCommandAdjacent(ch,cmd)){
         if ((newCell->getCellType() != Cell::Wall) && (newCell->getCellType() != Cell::Empty)){
             if (!newCell->hasEnemy()){
                 if (newCell->hasItem()){
@@ -348,15 +270,13 @@ bool PlayerInterpreter::isMoveValid(MoveCommand &cmd){
 }
 
 bool PlayerInterpreter::isAttackValid(AttackCommand &cmd){
-    Player *ch = Player::getInstance();
-    int currentX = ch->getXPos();
-    int currentY = ch->getYPos();
     int newX = cmd.getXPos();
     int newY = cmd.getYPos();
+    Player *ch = Player::getInstance();
     Floor* currentFloor = game->getFloors()->at(game->getCurrentFloor());
-    Cell* newCell = currentFloor->getCellAt(newX, newY);
+    Cell* newCell = currentFloor->getCellAt(newX,newY);
 
-    if ((abs(currentX - newX) <= 1) && (abs(currentY - newY) <= 1)){
+    if (isCommandAdjacent(ch,cmd)){
         if ((newCell->getCellType() != Cell::Wall) && (newCell->getCellType() != Cell::Empty)){
             if (newCell->hasEnemy()){
                 return true;
@@ -417,20 +337,16 @@ void PlayerInterpreter::notifyDisplay(TextDisplay &td, string action){
 }
 
 bool PlayerInterpreter::isUseValid(ItemUseCommand &cmd){
-    Player *ch = Player::getInstance();
-    int currentX = ch->getXPos();
-    int currentY = ch->getYPos();
     int newX = cmd.getXPos();
     int newY = cmd.getYPos();
+    Player *ch = Player::getInstance();
     Floor* currentFloor = game->getFloors()->at(game->getCurrentFloor());
     Cell* newCell = currentFloor->getCellAt(newX, newY);
 
-    if ((abs(currentX - newX) <= 1) && (abs(currentY - newY) <= 1)){
-        if ((newCell->getCellType() != Cell::Wall) && (newCell->getCellType() != Cell::Empty)){
-            if (newCell->hasItem()){
+    if (isCommandAdjacent(ch,cmd)){
+        if ((newCell->getCellType() == Cell::Floor)&&(newCell->hasItem())){
                 Item *item = currentFloor->getItem(newCell->getOccupiedId());
                 if (item->canUse()) return true;
-            }
         }
     }
     return false;

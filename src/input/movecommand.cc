@@ -2,7 +2,7 @@
 #include "character.h"
 
 MoveCommand::MoveCommand(Character *character, int xPos, int yPos) :
-    character(character), xPos(xPos), yPos(yPos){
+    Command(xPos,yPos), character(character){
 }
 
 MoveCommand::~MoveCommand(){
@@ -10,13 +10,5 @@ MoveCommand::~MoveCommand(){
 
 Character* MoveCommand::getCharacter(){
     return character;
-}
-
-int MoveCommand::getXPos(){
-    return xPos;
-}
-
-int MoveCommand::getYPos(){
-    return yPos;
 }
 
