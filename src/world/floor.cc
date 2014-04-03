@@ -247,7 +247,7 @@ void Floor::setPlayerStaircase(){ //generate player and staircase in different c
     Cell *currentCell;
 
     //Randomly select a chamber
-    random = (rand() % 5);
+    random = (rand() % NUM_CHAMBERS);
     playerChamberNum = random;
     currentChamber = chambers.at(random);
 
@@ -258,12 +258,12 @@ void Floor::setPlayerStaircase(){ //generate player and staircase in different c
     generatePlayer(currentCell);
 
     //Randomly select a chamber
-    random = (rand() % 5);
+    random = (rand() % NUM_CHAMBERS);
     currentChamber = chambers.at(random);
 
     //Make sure player and staircase are in distinct chambers
     while (playerChamberNum == random){
-        random = (rand() % 5);
+        random = (rand() % NUM_CHAMBERS);
         currentChamber = chambers.at(random);
     }
 
@@ -279,9 +279,9 @@ void Floor::setPotions(){ //generate the potions
     Chamber *currentChamber;
     Cell *currentCell;
 
-    random = (rand() % 5);
+    random = (rand() % NUM_CHAMBERS);
     for (int i = 0; i < NUM_POTIONS; ++i){
-        random = (rand() % 5);
+        random = (rand() % NUM_CHAMBERS);
         currentChamber = chambers.at(random);
 
         //Randomly select an unoccupied cell from the chamber
@@ -300,9 +300,9 @@ void Floor::setGold(){ //generate the gold
     Chamber *currentChamber;
     Cell *currentCell;
 
-    random = (rand() % 5);
+    random = (rand() % NUM_CHAMBERS);
     for (int i = 0; i < NUM_GOLD; ++i){
-        random = (rand() % 5);
+        random = (rand() % NUM_CHAMBERS);
         currentChamber = chambers.at(random);
 
         random = (rand() % (currentChamber->cells.size()));
@@ -321,9 +321,9 @@ void Floor::setEnemies(){ //generate the enemies
     Chamber *currentChamber;
     Cell *currentCell;
 
-    random = (rand() % 5);
+    random = (rand() % NUM_CHAMBERS);
     for (int i = 0; i < NUM_ENEMIES; ++i){
-        random = (rand() % 5);
+        random = (rand() % NUM_CHAMBERS);
         currentChamber = chambers.at(random);
 
         random = (rand() % (currentChamber->cells.size()));

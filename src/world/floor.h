@@ -17,6 +17,7 @@ class ItemUseVisitor;
 const int BOARD_WIDTH = 79;
 const int BOARD_HEIGHT = 25;
 const int NUM_FLOORS = 5;
+const int NUM_CHAMBERS = 5;
 const int NUM_POTIONS = 10;
 const int NUM_GOLD = 10;
 const int NUM_ENEMIES = 20;
