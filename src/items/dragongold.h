@@ -4,6 +4,8 @@
 
 class DragonGold: public Gold{
 
+friend class Dragon;
+
 public:
     DragonGold(int id);
     ~DragonGold();

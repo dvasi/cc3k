@@ -121,7 +121,7 @@ void Floor::initializeCells(vector<vector<char> > floorLayout){
 
 void Floor::matchDragonHoards(){
     Dragon *dragon;
-    Gold *hoard;
+    DragonGold *hoard;
     for (unsigned int i = 0; i < floorDragons.size(); ++i){
         dragon = floorDragons.at(i);
         for (unsigned int j = 0; j < floorDragonHoards.size(); ++j){

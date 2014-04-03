@@ -1,6 +1,6 @@
 #include "dragon.h"
 #include "dragoninterpreter.h"
-#include "gold.h"
+#include "dragongold.h"
 #include "visitor.h"
 using namespace std;
 
@@ -12,7 +12,7 @@ Dragon::Dragon(int x, int y, int id) :
 Dragon::~Dragon(){
 }
 
-void Dragon::guard(Gold *hoard){
+void Dragon::guard(DragonGold *hoard){
     guardedHoard = hoard;
     guardedHoard->lootable = false;
 }
