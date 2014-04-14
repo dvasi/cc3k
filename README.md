@@ -1,1 +1,3 @@
-CS246 Desin Project - Chamber Crawler 3000
+Chamber Crawler 3000 by Tyler Sanderson and Steve Weng
+
+This is a two week design project for one of my CS courses (CS246 - Object Oriented Software Development). It is a rogue-like game built using core OO principles and the NCurses library. The goal is to try to reach the end of Floor 5 while navigating through chambers filled with hostile enemies and treasures. Movement is based on traditional WASD movement in games, but using 8542 on the numpad instead (also supporting diagonal movement with 7913 on the numpad). Also, the game takes an optional command line argument that is the name of a file containing the game layout, in the format of the provided map, Dragon's Den. However, the map layout must be 5 floors and must be 20x79, according to our project specifications. 
